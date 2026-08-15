@@ -1,0 +1,29 @@
+@props([
+    'resource' => null,
+    'any' => null,
+    'all' => null,
+])
+
+{{--
+    Menyembunyikan sepotong UI kalau pengguna tidak punya resource key-nya.
+
+        <x-can resource="posts.delete"> ... </x-can>
+        <x-can :any="['posts.update', 'posts.publish']"> ... </x-can>
+        <x-can :all="['posts.view', 'posts.export']"> ... </x-can>
+
+    Ini murni soal tampilan. Route dan controller tetap harus dijaga sendiri —
+    menyembunyikan tombol bukan pengamanan.
+--}}
+
+@php
+    $gate = resource_gate();
+
+    $visible = match (true) {
+        $resource !== null => $gate->allows($resource),
+        $any !== null => $gate->any($any),
+        $all !== null => $gate->all($all),
+        default => false,
+    };
+@endphp
+
+@if ($visible){{ $slot }}@endif

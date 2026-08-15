@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+
+@plugin '@tailwindcss/forms';
+@plugin 'flowbite/plugin';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../../node_modules/flowbite';
+
+/* Dark mode dikendalikan lewat class `dark` di <html>, bukan preferensi OS,
+   supaya toggle manual di topbar bisa menimpanya. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+/* Menghindari "flash" tema terang sebelum skrip tema jalan. */
+@layer base {
+    html {
+        background-color: var(--color-gray-50);
+    }
+
+    html.dark {
+        background-color: var(--color-gray-900);
+    }
+
+    /* Menyembunyikan elemen Alpine sampai komponennya siap. */
+    [x-cloak] {
+        display: none !important;
+    }
+}
