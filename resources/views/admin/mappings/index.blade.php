@@ -24,19 +24,19 @@
         </x-ui.alert>
     @endif
 
-    <div class="mb-4">
-        <x-ui.table.toolbar :table="$table" placeholder="Cari key atau permission…">
-            <x-slot:filters>
-                <select name="status" class="rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                    <option value="">Semua</option>
-                    <option value="mapped" @selected(request('status') === 'mapped')>Sudah dipetakan</option>
-                    <option value="unmapped" @selected(request('status') === 'unmapped')>Belum dipetakan</option>
-                </select>
-            </x-slot:filters>
-        </x-ui.table.toolbar>
-    </div>
-
     <x-ui.table :table="$table" :headers="[0 => 'Resource key', 'action' => 'Aksi', 1 => 'Permission', 2 => '']">
+        <x-slot:toolbar>
+            <x-ui.table.toolbar :table="$table" placeholder="Cari key atau permission…">
+                <x-slot:filters>
+                    <select name="status" class="form-select">
+                        <option value="">Semua</option>
+                        <option value="mapped" @selected(request('status') === 'mapped')>Sudah dipetakan</option>
+                        <option value="unmapped" @selected(request('status') === 'unmapped')>Belum dipetakan</option>
+                    </select>
+                </x-slot:filters>
+            </x-ui.table.toolbar>
+        </x-slot:toolbar>
+
         @forelse ($mappings as $mapping)
             <x-ui.table.row>
                 <x-ui.table.cell header>
@@ -52,7 +52,7 @@
                             @method('PUT')
 
                             <select name="permission_id"
-                                    class="w-full max-w-xs rounded-lg border border-gray-300 bg-gray-50 p-2 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                                    class="form-select w-full max-w-xs">
                                 <option value="">— tidak dipetakan (akses tertutup) —</option>
                                 @foreach ($permissions as $id => $name)
                                     <option value="{{ $id }}" @selected($mapping->permission_id === $id)>{{ $name }}</option>
@@ -79,7 +79,7 @@
                             <form method="POST" action="{{ route('admin.mappings.destroy', $mapping) }}">
                                 @csrf
                                 @method('DELETE')
-                                <x-ui.button type="submit" variant="ghost" size="xs" title="Lepas pemetaan">
+                                <x-ui.button type="submit" variant="secondary" size="xs" title="Lepas pemetaan">
                                     Lepas
                                 </x-ui.button>
                             </form>
@@ -95,7 +95,6 @@
                 </td>
             </tr>
         @endforelse
+        <x-slot:footer>{{ $mappings->links() }}</x-slot:footer>
     </x-ui.table>
-
-    <div class="mt-4">{{ $mappings->links() }}</div>
 </x-layouts.admin>

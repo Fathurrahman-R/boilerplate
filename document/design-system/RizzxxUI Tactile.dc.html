@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RizzxxUI — Lapisan Tactile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.min.js"></script>
+<style>
+:root{
+  --surface:#F1F1F4; --surface-raised:#FFFFFF; --surface-sunken:#E7E7EC; --surface-inset:#DEDEE4;
+  --border-subtle:#DDDDE3; --border-strong:#C2C2CC;
+  --text-primary:#15171C; --text-secondary:#494E58; --text-muted:#6C717C; --text-inverse:#FFFFFF;
+  --accent:#3D5FE0; --accent-hover:#3450C4; --accent-soft:#E5EAFC; --accent-on:#FFFFFF;
+  --accent-lit:#5B79EA;
+  --link:#2F4DC7; --link-hover:#1F3AA8;
+  --success:#0E7A55; --success-soft:#DFF4EC;
+  --warning:#8F5300; --warning-soft:#FBEEDA;
+  --danger:#C0342E;  --danger-soft:#FBE6E5;
+  --glass-bg:rgba(255,255,255,0.6); --glass-border:rgba(255,255,255,0.92);
+  --glass-shadow:0 10px 34px rgba(20,24,40,0.13);
+  --grid-line:rgba(21,23,28,0.045);
+  --c1:#4F7CFF; --c2:#00A98F; --c3:#E0761F; --c4:#8B5CF6;
+  --mat-raised:linear-gradient(180deg,#FFFFFF 0%,#EFEFF3 100%);
+  --mat-base:linear-gradient(180deg,#F4F4F7 0%,#E6E6EC 100%);
+  --mat-accent:linear-gradient(180deg,var(--accent-lit) 0%,var(--accent) 100%);
+  --bevel:inset 0 1px 0 rgba(255,255,255,.95), inset 0 -1px 0 rgba(15,18,28,.07);
+  --lift:0 1px 1px rgba(15,18,28,.05), 0 3px 7px rgba(15,18,28,.08);
+  --lift-lg:0 2px 3px rgba(15,18,28,.06), 0 10px 22px rgba(15,18,28,.10);
+  --press:inset 0 2px 5px rgba(15,18,28,.16), inset 0 -1px 0 rgba(255,255,255,.55);
+  --well:inset 0 2px 5px rgba(15,18,28,.13), inset 0 -1px 0 rgba(255,255,255,.7);
+  --control-h:40px; --glass-blur:16px;
+  --r-sm:6px; --r-md:8px; --r-lg:10px; --r-xl:14px;
+}
+html[data-theme="dark"]{
+  --surface:#0C1117; --surface-raised:#141A24; --surface-sunken:#090D13; --surface-inset:#1B222D;
+  --border-subtle:#212936; --border-strong:#36404F;
+  --text-primary:#E9ECF2; --text-secondary:#A8B0BE; --text-muted:#7D8797; --text-inverse:#0B0F14;
+  --accent:#4F7CFF; --accent-hover:#6B90FF; --accent-soft:rgba(79,124,255,0.16); --accent-on:#07101F;
+  --accent-lit:#7396FF;
+  --link:#8FAAFF; --link-hover:#B4C6FF;
+  --success:#3DD69C; --success-soft:rgba(61,214,156,0.15);
+  --warning:#F0B23C; --warning-soft:rgba(240,178,60,0.15);
+  --danger:#FF6B63;  --danger-soft:rgba(255,107,99,0.15);
+  --glass-bg:rgba(20,26,36,0.56); --glass-border:rgba(255,255,255,0.10);
+  --glass-shadow:0 10px 34px rgba(0,0,0,0.55);
+  --grid-line:rgba(255,255,255,0.04);
+  --c1:#6B90FF; --c2:#2FD1B4; --c3:#F0913C; --c4:#A78BFA;
+  --mat-raised:linear-gradient(180deg,#1C2431 0%,#121822 100%);
+  --mat-base:linear-gradient(180deg,#111823 0%,#0A0F16 100%);
+  --mat-accent:linear-gradient(180deg,var(--accent-lit) 0%,var(--accent) 100%);
+  --bevel:inset 0 1px 0 rgba(255,255,255,.09), inset 0 -1px 0 rgba(0,0,0,.55);
+  --lift:0 1px 1px rgba(0,0,0,.5), 0 4px 10px rgba(0,0,0,.5);
+  --lift-lg:0 2px 4px rgba(0,0,0,.5), 0 12px 26px rgba(0,0,0,.55);
+  --press:inset 0 2px 6px rgba(0,0,0,.65), inset 0 -1px 0 rgba(255,255,255,.06);
+  --well:inset 0 2px 6px rgba(0,0,0,.6), inset 0 -1px 0 rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface);color:var(--text-primary);font-family:'Space Grotesk',system-ui,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+a{color:var(--link);text-decoration:none}
+a:hover{color:var(--link-hover)}
+h1,h2,h3,h4{font-family:'Sora',system-ui,sans-serif;margin:0;letter-spacing:-0.02em;line-height:1.15}
+p{margin:0}
+svg[class*="lucide"]{width:1em;height:1em;stroke-width:1.5px;flex:none}
+input,textarea,select,button{font-family:inherit;font-size:inherit;color:inherit}
+::selection{background:var(--accent);color:var(--accent-on)}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background-image:radial-gradient(70% 90% at 15% 0%,var(--accent-soft) 0%,transparent 55%);background-color:var(--surface)">
+  <div style="position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);background-size:28px 28px"></div>
+
+  <div style="position:relative;max-width:1080px;margin:0 auto;padding:44px 32px 120px">
+
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:38px">
+      <div style="width:34px;height:34px;border-radius:var(--r-md);background:var(--mat-accent);box-shadow:var(--bevel),var(--lift);display:flex;align-items:center;justify-content:center;color:var(--accent-on);font-family:'Sora';font-weight:700;font-size:16px">R</div>
+      <div style="flex:1;min-width:200px">
+        <h1 style="font-size:20px;font-weight:600">RizzxxUI · lapisan tactile</h1>
+        <p style="font-size:13.5px;color:var(--text-muted)">Skeuomorphism sebagai lapisan material di bawah kaca — bukan pengganti sistem</p>
+      </div>
+      <a href="RizzxxUI.dc.html" style="font-size:13.5px;color:var(--text-muted)" style-hover="color:var(--text-primary)">Dokumentasi</a>
+      <a href="RizzxxUI Screens.dc.html" style="font-size:13.5px;color:var(--text-muted)" style-hover="color:var(--text-primary)">Layar bukti</a>
+      <button onClick="{{ toggleTheme }}" style="height:36px;padding:0 14px;display:flex;align-items:center;gap:8px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);cursor:pointer;font-size:13px;font-weight:500;transition:box-shadow .12s,transform .12s" style-active="box-shadow:var(--press);transform:translateY(1px)">
+        <i data-lucide="sun-moon" style="font-size:15px"></i><span>{{ themeLabel }}</span>
+      </button>
+    </div>
+
+    <section style="margin-bottom:56px">
+      <h2 style="font-family:'IBM Plex Mono';font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">Aturan campuran</h2>
+      <h3 style="font-size:30px;font-weight:600;margin:12px 0 12px;max-width:22ch">Material di bawah, kaca di atas, teks selalu rata.</h3>
+      <p style="font-size:15px;color:var(--text-secondary);max-width:64ch">Tiga lapisan tetap: permukaan <strong style="font-weight:600">material</strong> yang punya bevel dan cahaya dari atas; panel <strong style="font-weight:600">kaca</strong> yang mengambang di atasnya; dan <strong style="font-weight:600">konten</strong> — teks, angka, tabel — yang selalu datar tanpa emboss. Bayangan dalam hanya dipakai untuk hal yang secara fisik masuk ke dalam: input, track, dan tombol yang sedang ditekan.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:26px">
+        <div style="border-radius:var(--r-lg);padding:20px;background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);border:1px solid var(--border-subtle)">
+          <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);letter-spacing:0.08em">RAISED</div>
+          <div style="font-family:'Sora';font-weight:600;margin-top:6px;font-size:15px">Bisa ditekan</div>
+          <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Tombol, kartu kontrol, chip</p>
+        </div>
+        <div style="border-radius:var(--r-lg);padding:20px;background:var(--surface-sunken);box-shadow:var(--well);border:1px solid var(--border-subtle)">
+          <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);letter-spacing:0.08em">WELL</div>
+          <div style="font-family:'Sora';font-weight:600;margin-top:6px;font-size:15px">Bisa diisi</div>
+          <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Input, track slider, segmented</p>
+        </div>
+        <div style="border-radius:var(--r-lg);padding:20px;background:var(--mat-raised);box-shadow:var(--press);border:1px solid var(--border-subtle)">
+          <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);letter-spacing:0.08em">PRESSED</div>
+          <div style="font-family:'Sora';font-weight:600;margin-top:6px;font-size:15px">Sedang ditekan</div>
+          <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Hanya saat jari menempel</p>
+        </div>
+        <div style="border-radius:var(--r-lg);padding:20px;backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);background:var(--glass-bg);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow)">
+          <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);letter-spacing:0.08em">GLASS</div>
+          <div style="font-family:'Sora';font-weight:600;margin-top:6px;font-size:15px">Mengambang</div>
+          <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Sidebar, hero, kartu metrik</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="margin-bottom:56px">
+      <h2 style="font-family:'IBM Plex Mono';font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:18px">Tombol — tekan dan rasakan</h2>
+      <div style="border-radius:var(--r-xl);padding:28px;background:var(--mat-base);box-shadow:var(--bevel),var(--lift-lg);border:1px solid var(--border-subtle);display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+        <button style="height:var(--control-h);padding:0 20px;border-radius:var(--r-md);border:1px solid var(--accent-hover);background:var(--mat-accent);color:var(--accent-on);font-weight:600;font-size:14px;cursor:pointer;box-shadow:var(--bevel),var(--lift);transition:box-shadow .1s,transform .1s" style-active="box-shadow:var(--press);transform:translateY(1px)">Simpan perubahan</button>
+        <button style="height:var(--control-h);padding:0 20px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--mat-raised);font-weight:500;font-size:14px;cursor:pointer;box-shadow:var(--bevel),var(--lift);transition:box-shadow .1s,transform .1s" style-active="box-shadow:var(--press);transform:translateY(1px)">Sekunder</button>
+        <button style="height:var(--control-h);padding:0 20px;border-radius:var(--r-md);border:1px solid rgba(0,0,0,.08);background:linear-gradient(180deg,#E4655F 0%,var(--danger) 100%);color:#fff;font-weight:600;font-size:14px;cursor:pointer;box-shadow:var(--bevel),var(--lift);display:flex;align-items:center;gap:8px;transition:box-shadow .1s,transform .1s" style-active="box-shadow:var(--press);transform:translateY(1px)"><i data-lucide="trash-2" style="font-size:15px"></i>Hapus</button>
+        <button style="width:var(--control-h);height:var(--control-h);border-radius:99px;border:1px solid var(--border-strong);background:var(--mat-raised);cursor:pointer;box-shadow:var(--bevel),var(--lift);display:flex;align-items:center;justify-content:center;transition:box-shadow .1s,transform .1s" style-active="box-shadow:var(--press);transform:translateY(1px)"><i data-lucide="settings" style="font-size:17px"></i></button>
+        <button disabled="disabled" style="height:var(--control-h);padding:0 20px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);color:var(--text-muted);font-weight:500;font-size:14px;cursor:not-allowed;box-shadow:none">Nonaktif</button>
+        <div style="width:100%;height:1px;background:var(--border-subtle);margin:4px 0"></div>
+        <div style="display:flex;gap:2px;padding:3px;border-radius:var(--r-md);background:var(--surface-sunken);box-shadow:var(--well)">
+          <sc-for list="{{ segments }}" as="sg" hint-placeholder-count="3">
+            <div onClick="{{ sg.pick }}" style="padding:7px 16px;border-radius:var(--r-sm);font-size:13.5px;cursor:pointer;background:{{ sg.bg }};box-shadow:{{ sg.shadow }};color:{{ sg.color }};font-weight:{{ sg.weight }};transition:all .16s">{{ sg.label }}</div>
+          </sc-for>
+        </div>
+        <span style="font-size:13px;color:var(--text-muted)">Segmented control duduk di dalam well; tuas yang aktif menonjol keluar.</span>
+      </div>
+    </section>
+
+    <section style="margin-bottom:56px">
+      <h2 style="font-family:'IBM Plex Mono';font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:18px">Kontrol fisik</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px">
+        <div style="border-radius:var(--r-xl);padding:26px;background:var(--mat-base);box-shadow:var(--bevel),var(--lift-lg);border:1px solid var(--border-subtle);display:flex;flex-direction:column;gap:22px">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">
+              <span style="font-size:14px;font-weight:500">Ambang peringatan</span>
+              <span style="font-family:'IBM Plex Mono';font-size:13px;padding:2px 9px;border-radius:var(--r-sm);background:var(--surface-sunken);box-shadow:var(--well)">{{ sliderLabel }}</span>
+            </div>
+            <div onClick="{{ setSlider }}" style="height:16px;border-radius:99px;background:var(--surface-sunken);box-shadow:var(--well);padding:3px;cursor:pointer;position:relative">
+              <div style="height:10px;border-radius:99px;background:var(--mat-accent);width:{{ sliderPct }};box-shadow:inset 0 1px 0 rgba(255,255,255,.4)"></div>
+              <div style="position:absolute;top:-4px;left:{{ sliderPct }};width:24px;height:24px;margin-left:-12px;border-radius:99px;background:var(--mat-raised);border:1px solid var(--border-strong);box-shadow:var(--bevel),var(--lift);pointer-events:none"></div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <sc-for list="{{ switches }}" as="sw" hint-placeholder-count="3">
+              <div onClick="{{ sw.toggle }}" style="display:flex;align-items:center;gap:14px;cursor:pointer">
+                <span style="flex:1;font-size:14px">{{ sw.label }}</span>
+                <span style="width:46px;height:26px;border-radius:99px;background:{{ sw.trackBg }};box-shadow:var(--well);padding:3px;display:flex;justify-content:{{ sw.justify }};transition:background .22s">
+                  <span style="width:20px;height:20px;border-radius:99px;background:var(--mat-raised);border:1px solid var(--border-strong);box-shadow:var(--bevel),var(--lift)"></span>
+                </span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="border-radius:var(--r-xl);padding:26px;background:var(--mat-base);box-shadow:var(--bevel),var(--lift-lg);border:1px solid var(--border-subtle);display:flex;flex-direction:column;gap:18px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:13px;font-weight:600">Nama badan usaha</label>
+            <input value="{{ nameVal }}" onChange="{{ onName }}" placeholder="PT Contoh Sejahtera" style="height:var(--control-h);padding:0 13px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none;transition:box-shadow .14s" style-focus="box-shadow:var(--well),0 0 0 3px var(--accent-soft)" />
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:13px;font-weight:600">Termin</label>
+            <select style="height:var(--control-h);padding:0 11px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none;cursor:pointer"><option>Net 14</option><option>Net 30</option><option>Net 45</option></select>
+          </div>
+          <div style="display:flex;gap:22px;flex-wrap:wrap">
+            <label onClick="{{ toggleCheck }}" style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px">
+              <span style="width:20px;height:20px;border-radius:var(--r-sm);background:{{ checkBg }};border:1px solid {{ checkBorder }};box-shadow:{{ checkShadow }};display:flex;align-items:center;justify-content:center;color:var(--accent-on);transition:background .16s">{{ checkMark }}</span>
+              Kirim otomatis
+            </label>
+            <label onClick="{{ pickA }}" style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px">
+              <span style="width:20px;height:20px;border-radius:99px;background:var(--surface-sunken);box-shadow:var(--well);border:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:center">{{ radioADot }}</span>
+              Bulanan
+            </label>
+            <label onClick="{{ pickB }}" style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px">
+              <span style="width:20px;height:20px;border-radius:99px;background:var(--surface-sunken);box-shadow:var(--well);border:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:center">{{ radioBDot }}</span>
+              Tahunan
+            </label>
+          </div>
+          <p style="font-size:12.5px;color:var(--text-muted)">Input adalah lubang: latar lebih gelap dari permukaan, bayangan masuk ke dalam. Tidak ada input yang menonjol keluar.</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="margin-bottom:56px">
+      <h2 style="font-family:'IBM Plex Mono';font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:18px">Contoh gabungan — panel kontrol</h2>
+      <div style="border-radius:var(--r-xl);padding:20px;background:var(--mat-base);box-shadow:var(--bevel),var(--lift-lg);border:1px solid var(--border-subtle)">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px">
+          <sc-for list="{{ metrics }}" as="m" hint-placeholder-count="3">
+            <div style="border-radius:var(--r-lg);padding:18px;backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);background:var(--glass-bg);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow)">
+              <div style="font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:0.09em;color:var(--text-muted)">{{ m.label }}</div>
+              <div style="font-family:'Sora';font-size:26px;font-weight:600;margin-top:7px;font-variant-numeric:tabular-nums">{{ m.value }}</div>
+              <div style="display:flex;align-items:center;gap:5px;font-size:12.5px;margin-top:3px;color:{{ m.color }}"><i data-lucide="{{ m.icon }}" style="font-size:14px"></i>{{ m.delta }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="margin-top:16px;border-radius:var(--r-lg);background:var(--surface-raised);border:1px solid var(--border-subtle);box-shadow:var(--lift);overflow:hidden">
+          <div style="padding:14px 18px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;gap:12px;background:var(--mat-raised);box-shadow:var(--bevel)">
+            <h3 style="font-size:15px;font-weight:600;flex:1">Faktur terbaru</h3>
+            <span style="font-family:'IBM Plex Mono';font-size:11.5px;color:var(--text-muted)">Agustus 2026</span>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:13.5px;background:var(--surface-raised)">
+            <tbody>
+              <sc-for list="{{ rows }}" as="r" hint-placeholder-count="4">
+                <tr style="border-top:1px solid var(--border-subtle)">
+                  <td style="padding:11px 18px;font-family:'IBM Plex Mono';font-size:12.5px">{{ r.id }}</td>
+                  <td style="padding:11px 18px;color:var(--text-secondary)">{{ r.client }}</td>
+                  <td style="padding:11px 18px"><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:{{ r.softBg }};color:{{ r.statusColor }}"><span style="width:5px;height:5px;border-radius:99px;background:{{ r.statusColor }}"></span>{{ r.status }}</span></td>
+                  <td style="padding:11px 18px;text-align:right;font-family:'IBM Plex Mono';font-size:12.5px;font-variant-numeric:tabular-nums">{{ r.amount }}</td>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:12.5px;color:var(--text-muted);margin-top:12px">Tabel tetap datar di atas permukaan solid — baris data tidak pernah diberi bevel, emboss, atau blur.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 style="font-family:'IBM Plex Mono';font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:18px">Batasnya</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px">
+        <div style="border-radius:var(--r-lg);padding:18px;background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);border:1px solid var(--border-subtle)">
+          <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--success);margin-bottom:10px"><i data-lucide="check" style="font-size:14px"></i>LAKUKAN</div>
+          <p style="font-size:14px;color:var(--text-secondary)">Pakai kedalaman untuk menandai apa yang bisa disentuh: tonjol berarti bisa ditekan, cekung berarti bisa diisi.</p>
+        </div>
+        <div style="border-radius:var(--r-lg);padding:18px;background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);border:1px solid var(--border-subtle)">
+          <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--danger);margin-bottom:10px"><i data-lucide="x" style="font-size:14px"></i>HINDARI</div>
+          <p style="font-size:14px;color:var(--text-secondary)">Tekstur kulit, jahitan, kayu, atau logam bergaris. Materialnya abstrak — hanya cahaya dan kedalaman.</p>
+        </div>
+        <div style="border-radius:var(--r-lg);padding:18px;background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);border:1px solid var(--border-subtle)">
+          <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--danger);margin-bottom:10px"><i data-lucide="x" style="font-size:14px"></i>HINDARI</div>
+          <p style="font-size:14px;color:var(--text-secondary)">Emboss pada teks. Bayangan pada huruf menurunkan kontras dan langsung menggagalkan AA.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#3D5FE0&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Tema&quot;,&quot;options&quot;:[[&quot;#3D5FE0&quot;,&quot;#4F7CFF&quot;],[&quot;#0E7A55&quot;,&quot;#3DD69C&quot;],[&quot;#7A4FE0&quot;,&quot;#A78BFA&quot;],[&quot;#C4611F&quot;,&quot;#F0913C&quot;]]},&quot;depth&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:100,&quot;min&quot;:0,&quot;max&quot;:200,&quot;step&quot;:10,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Material&quot;},&quot;glassBlur&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:16,&quot;min&quot;:0,&quot;max&quot;:32,&quot;step&quot;:2,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Kaca&quot;}}">
+class Component extends DCLogic {
+  state = {
+    theme: 'light', seg: 'bulan', slider: 62,
+    sw: { push: true, email: false, ringkas: true },
+    checked: true, radio: 'a', name: ''
+  };
+
+  componentDidMount() {
+    const saved = localStorage.getItem('rizzxx-theme');
+    if (saved) this.setState({ theme: saved });
+    document.documentElement.setAttribute('data-theme', saved || 'light');
+    this.applyProps();
+    this.drawIcons();
+  }
+  componentDidUpdate() { this.applyProps(); this.drawIcons(); }
+
+  applyProps() {
+    const r = document.documentElement.style;
+    if (this.props.accentColor) r.setProperty('--accent', this.props.accentColor);
+    if (this.props.glassBlur != null) r.setProperty('--glass-blur', this.props.glassBlur + 'px');
+    if (this.props.depth != null) {
+      const d = this.props.depth / 100;
+      r.setProperty('--lift', '0 1px 1px rgba(15,18,28,' + (0.05 * d).toFixed(3) + '), 0 3px 7px rgba(15,18,28,' + (0.08 * d).toFixed(3) + ')');
+    }
+  }
+
+  drawIcons() {
+    clearTimeout(this._ic);
+    this._ic = setTimeout(() => { try { window.lucide && window.lucide.createIcons(); } catch (e) {} }, 0);
+  }
+
+  toggleTheme = () => {
+    const next = this.state.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('rizzxx-theme', next);
+    this.setState({ theme: next });
+  };
+
+  renderVals() {
+    const s = this.state;
+    const acc = 'var(--accent)';
+
+    const segDefs = [
+      { key: 'minggu', label: 'Minggu' },
+      { key: 'bulan', label: 'Bulan' },
+      { key: 'kuartal', label: 'Kuartal' }
+    ];
+    const segments = segDefs.map(g => {
+      const on = s.seg === g.key;
+      return {
+        label: g.label,
+        bg: on ? 'var(--mat-raised)' : 'transparent',
+        shadow: on ? 'var(--bevel), var(--lift)' : 'none',
+        color: on ? 'var(--text-primary)' : 'var(--text-muted)',
+        weight: on ? '600' : '400',
+        pick: () => this.setState({ seg: g.key })
+      };
+    });
+
+    const swDefs = [
+      { key: 'push', label: 'Notifikasi push' },
+      { key: 'email', label: 'Ringkasan email harian' },
+      { key: 'ringkas', label: 'Mode ringkas' }
+    ];
+    const switches = swDefs.map(w => {
+      const on = s.sw[w.key];
+      return {
+        label: w.label,
+        trackBg: on ? acc : 'var(--surface-sunken)',
+        justify: on ? 'flex-end' : 'flex-start',
+        toggle: () => this.setState(st => ({ sw: { ...st.sw, [w.key]: !st.sw[w.key] } }))
+      };
+    });
+
+    const metrics = [
+      { label: 'MRR', value: 'Rp 412jt', delta: '+12,4%', icon: 'trending-up', color: 'var(--success)' },
+      { label: 'RETENSI', value: '94,2%', delta: 'Stabil', icon: 'minus', color: 'var(--text-muted)' },
+      { label: 'CHURN', value: '1,8%', delta: '+0,3%', icon: 'trending-down', color: 'var(--danger)' }
+    ];
+
+    const rows = [
+      { id: 'INV-2048', client: 'Nusantara Logistik', status: 'Lunas', amount: 'Rp 24.850.000', tone: 'success' },
+      { id: 'INV-2047', client: 'Sinar Abadi Group', status: 'Menunggu', amount: 'Rp 8.400.000', tone: 'warning' },
+      { id: 'INV-2045', client: 'Delta Manufaktur', status: 'Terlambat', amount: 'Rp 61.900.000', tone: 'danger' },
+      { id: 'INV-2044', client: 'Aksara Studio', status: 'Lunas', amount: 'Rp 12.000.000', tone: 'success' }
+    ].map(r => ({ ...r, statusColor: 'var(--' + r.tone + ')', softBg: 'var(--' + r.tone + '-soft)' }));
+
+    const tick = React.createElement('svg', { width: 12, height: 12, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 3.2, strokeLinecap: 'round', strokeLinejoin: 'round' }, React.createElement('path', { d: 'M20 6 9 17l-5-5' }));
+    const dot = React.createElement('span', { style: { width: '9px', height: '9px', borderRadius: '99px', background: acc, boxShadow: '0 1px 1px rgba(0,0,0,.25)' } });
+
+    return {
+      themeLabel: s.theme === 'dark' ? 'Terang' : 'Gelap',
+      toggleTheme: this.toggleTheme,
+      segments, switches, metrics, rows,
+
+      sliderPct: s.slider + '%',
+      sliderLabel: s.slider + '%',
+      setSlider: e => {
+        const r = e.currentTarget.getBoundingClientRect();
+        const p = Math.round(Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100)));
+        this.setState({ slider: p });
+      },
+
+      nameVal: s.name,
+      onName: e => this.setState({ name: e.target.value }),
+
+      checkBg: s.checked ? 'var(--mat-accent)' : 'var(--surface-sunken)',
+      checkBorder: s.checked ? 'var(--accent-hover)' : 'var(--border-subtle)',
+      checkShadow: s.checked ? 'var(--bevel), var(--lift)' : 'var(--well)',
+      checkMark: s.checked ? tick : null,
+      toggleCheck: () => this.setState(p => ({ checked: !p.checked })),
+
+      radioADot: s.radio === 'a' ? dot : null,
+      radioBDot: s.radio === 'b' ? dot : null,
+      pickA: () => this.setState({ radio: 'a' }),
+      pickB: () => this.setState({ radio: 'b' })
+    };
+  }
+}
+
+</script>
+</body>
+</html>

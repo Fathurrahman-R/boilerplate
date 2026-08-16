@@ -62,7 +62,7 @@ class FortifyServiceProvider extends ServiceProvider
 
     /**
      * Fortify hanya mengurus logikanya; seluruh tampilan dibuat sendiri dengan
-     * komponen Flowbite agar bisa diubah bebas.
+     * komponen RizzxxUI agar bisa diubah bebas.
      */
     private function registerViews(): void
     {

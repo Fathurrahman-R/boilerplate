@@ -10,6 +10,7 @@
 /.idea
 /.nova
 /.phpunit.cache
+/.playwright-mcp
 /.remember
 /.vscode
 /.zed
@@ -26,3 +27,4 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+/design-auth-demo.png

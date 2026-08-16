@@ -5,28 +5,29 @@
     'breadcrumb' => [],
 ])
 
-<x-layouts.base :title="$title ?? $heading">
-    @include('layouts.partials.sidebar')
+{{--
+    Shell aplikasi: satu bidang berpadding dengan dua panel kaca yang mengambang
+    di atasnya. Sidebar dan topbar tidak pernah menempel ke tepi viewport —
+    jarak 16px di semua sisi dan 16px antar panel yang membuat kacanya terbaca
+    sebagai lapisan, bukan sebagai bagian dari halaman.
+--}}
 
-    <div class="sm:ml-64">
-        @include('layouts.partials.topbar')
+<x-layouts.base :title="$title ?? $heading" backdrop="shell">
+    <div class="relative flex min-h-screen items-start gap-[var(--shell-gap)] p-[var(--shell-pad)]">
+        @include('layouts.partials.sidebar')
 
-        <main class="p-4 sm:p-6">
-            @if ($breadcrumb !== [])
-                <div class="mb-4">
-                    <x-ui.breadcrumb :items="$breadcrumb" />
-                </div>
-            @endif
+        <main class="flex min-w-0 flex-1 flex-col gap-[var(--shell-gap)]">
+            @include('layouts.partials.topbar', ['breadcrumb' => $breadcrumb, 'heading' => $heading])
 
             @if ($heading || isset($actions))
-                <div class="mb-6 flex flex-wrap items-start justify-between gap-3">
-                    <div>
+                <div class="flex flex-wrap items-end gap-3">
+                    <div class="min-w-[200px] flex-1">
                         @if ($heading)
-                            <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">{{ $heading }}</h1>
+                            <h1 class="font-display text-[27px] font-semibold text-ink">{{ $heading }}</h1>
                         @endif
 
                         @if ($description)
-                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ $description }}</p>
+                            <p class="mt-0.5 max-w-[64ch] text-base2 text-ink-muted">{{ $description }}</p>
                         @endif
                     </div>
 
@@ -39,4 +40,6 @@
             {{ $slot }}
         </main>
     </div>
+
+    <x-ui.command-palette />
 </x-layouts.base>

@@ -19,26 +19,40 @@
         @endcan
     </x-slot:actions>
 
-    <div class="mb-4">
-        <x-ui.table.toolbar :table="$table" placeholder="Cari judul…">
-            <x-slot:filters>
-                <select name="status" class="rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                    <option value="">Semua status</option>
-                    @foreach ($statuses as $value => $label)
-                        <option value="{{ $value }}" @selected(request('status') === $value)>{{ $label }}</option>
-                    @endforeach
-                </select>
-            </x-slot:filters>
-        </x-ui.table.toolbar>
-    </div>
+    <x-ui.table :table="$table"
+                :selectable="$posts->pluck('id')->all()"
+                openable
+                :headers="['title' => 'Judul', 0 => 'Penulis', 'status' => 'Status', 'published_at' => 'Terbit', 1 => '']">
+        <x-slot:toolbar>
+            <x-ui.table.toolbar :table="$table" placeholder="Cari judul…">
+                <x-slot:chips>
+                    <x-ui.filter-chips param="status" all="Semua status" :options="$statuses" />
+                </x-slot:chips>
 
-    <x-ui.table :table="$table" :headers="['title' => 'Judul', 0 => 'Penulis', 'status' => 'Status', 'published_at' => 'Terbit', 1 => '']">
+                @can('delete', Post::class)
+                    <x-slot:bulk>
+                        <form method="POST" action="{{ route('admin.posts.bulk-destroy') }}">
+                            @csrf
+                            <template x-for="id in selected" :key="id">
+                                <input type="hidden" name="ids[]" :value="id">
+                            </template>
+
+                            <x-ui.button type="submit" variant="secondary" size="sm" class="border-danger text-danger">
+                                <x-ui.icon name="trash-2" class="size-4" />
+                                Hapus terpilih
+                            </x-ui.button>
+                        </form>
+                    </x-slot:bulk>
+                @endcan
+            </x-ui.table.toolbar>
+        </x-slot:toolbar>
+
         @forelse ($posts as $post)
-            <x-ui.table.row>
+            <x-ui.table.row :id="$post->id" :panel="route('admin.posts.panel', $post)">
                 <x-ui.table.cell header>
                     {{ $post->title }}
                     @if ($post->excerpt)
-                        <span class="block max-w-md truncate text-xs font-normal text-gray-500 dark:text-gray-400">{{ $post->excerpt }}</span>
+                        <span class="block max-w-md truncate text-xs font-normal text-ink-muted">{{ $post->excerpt }}</span>
                     @endif
                 </x-ui.table.cell>
 
@@ -51,25 +65,24 @@
                 <x-ui.table.cell>{{ $post->published_at?->translatedFormat('d M Y') ?? '—' }}</x-ui.table.cell>
 
                 <x-ui.table.cell align="right">
-                    <div class="flex justify-end gap-1">
+                    <div class="flex justify-end gap-1" data-row-action>
                         @can('update', $post)
-                            <x-ui.button :href="route('admin.posts.edit', $post)" variant="ghost" size="xs" title="Ubah">
+                            <x-ui.button :href="route('admin.posts.edit', $post)" variant="secondary" size="xs" title="Ubah">
                                 <x-ui.icon name="pencil" class="h-4 w-4" />
                             </x-ui.button>
                         @endcan
 
                         @can('delete', $post)
-                            <x-ui.button variant="ghost" size="xs" title="Hapus"
-                                         data-modal-target="hapus-post-{{ $post->id }}"
-                                         data-modal-toggle="hapus-post-{{ $post->id }}">
-                                <x-ui.icon name="trash" class="h-4 w-4 text-red-600" />
+                            <x-ui.button type="button" variant="secondary" size="xs" title="Hapus"
+                                         x-on:click="$dispatch('modal-open', 'hapus-post-{{ $post->id }}')">
+                                <x-ui.icon name="trash-2" class="h-4 w-4 text-danger" />
                             </x-ui.button>
 
                             <x-ui.modal :id="'hapus-post-'.$post->id" title="Hapus artikel" size="sm">
                                 Yakin menghapus <strong>{{ $post->title }}</strong>?
 
                                 <x-slot:footer>
-                                    <x-ui.button variant="secondary" type="button" data-modal-hide="hapus-post-{{ $post->id }}">Batal</x-ui.button>
+                                    <x-ui.button variant="secondary" type="button" x-on:click="$dispatch('modal-close', 'hapus-post-{{ $post->id }}')">Batal</x-ui.button>
 
                                     <form method="POST" action="{{ route('admin.posts.destroy', $post) }}">
                                         @csrf
@@ -84,12 +97,13 @@
             </x-ui.table.row>
         @empty
             <tr>
-                <td colspan="5">
+                <td colspan="7">
                     <x-ui.empty-state title="Belum ada artikel" />
                 </td>
             </tr>
         @endforelse
+        <x-slot:footer>{{ $posts->links() }}</x-slot:footer>
     </x-ui.table>
 
-    <div class="mt-4">{{ $posts->links() }}</div>
+    <x-ui.drawer-remote title="Detail artikel" />
 </x-layouts.admin>

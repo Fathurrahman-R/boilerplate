@@ -22,7 +22,7 @@
         <ul class="space-y-2 text-sm">
             @foreach ($permission->mappings as $mapping)
                 <li class="flex items-center gap-2">
-                    <x-ui.icon name="link" class="h-4 w-4 text-gray-400" />
+                    <x-ui.icon name="link" class="h-4 w-4 text-ink-muted" />
                     <code>{{ $mapping->key() }}</code>
                 </li>
             @endforeach

@@ -40,13 +40,13 @@
                     <div class="space-y-4">
                         <x-ui.badge variant="success" dot>Aktif</x-ui.badge>
 
-                        <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+                        <div class="rounded-lg border border-line p-4">
                             {!! $user->twoFactorQrCodeSvg() !!}
                         </div>
 
                         <details class="text-sm">
-                            <summary class="cursor-pointer font-medium text-gray-900 dark:text-white">Lihat kode pemulihan</summary>
-                            <ul class="mt-2 space-y-1 font-mono text-xs text-gray-600 dark:text-gray-300">
+                            <summary class="cursor-pointer font-medium text-ink">Lihat kode pemulihan</summary>
+                            <ul class="mt-2 space-y-1 font-mono text-xs text-ink-secondary">
                                 @foreach (json_decode(decrypt($user->two_factor_recovery_codes), true) as $code)
                                     <li>{{ $code }}</li>
                                 @endforeach
@@ -94,13 +94,13 @@
                     @forelse ($user->roles as $role)
                         <x-ui.badge :variant="$role->isSuperAdmin() ? 'purple' : 'primary'">{{ $role->displayName() }}</x-ui.badge>
                     @empty
-                        <span class="text-sm text-gray-500 dark:text-gray-400">Belum punya role.</span>
+                        <span class="text-sm text-ink-muted">Belum punya role.</span>
                     @endforelse
                 </div>
             </x-ui.card>
 
             <x-ui.card title="Hapus akun" subtitle="Tindakan ini permanen dan tidak bisa dibatalkan.">
-                <x-ui.button variant="danger" size="sm" data-modal-target="hapus-akun" data-modal-toggle="hapus-akun">
+                <x-ui.button type="button" variant="danger" size="sm" x-on:click="$dispatch('modal-open', 'hapus-akun')">
                     Hapus akun saya
                 </x-ui.button>
 
@@ -114,7 +114,7 @@
                     </form>
 
                     <x-slot:footer>
-                        <x-ui.button variant="secondary" type="button" data-modal-hide="hapus-akun">Batal</x-ui.button>
+                        <x-ui.button variant="secondary" type="button" x-on:click="$dispatch('modal-close', 'hapus-akun')">Batal</x-ui.button>
                         <x-ui.button variant="danger" type="submit" form="form-hapus-akun">Hapus akun</x-ui.button>
                     </x-slot:footer>
                 </x-ui.modal>

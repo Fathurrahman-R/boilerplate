@@ -1,21 +1,33 @@
 @props([
     'href' => null,
     'danger' => false,
+    'shortcut' => null,
 ])
 
 @php
     $classes = implode(' ', [
-        'flex w-full items-center gap-2 px-4 py-2 text-left',
+        'flex w-full items-center gap-2.5 rounded-sm px-2.5 py-2 text-left text-sm transition',
+        '[&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-ink-muted',
         $danger
-            ? 'text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-gray-600'
-            : 'hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white',
+            ? 'text-danger hover:bg-danger-soft [&>svg]:text-danger'
+            : 'text-ink hover:bg-surface-inset',
     ]);
 @endphp
 
-<li>
+<li role="none">
     @if ($href)
-        <a href="{{ $href }}" {{ $attributes->class($classes) }}>{{ $slot }}</a>
+        <a href="{{ $href }}" role="menuitem" {{ $attributes->class($classes) }}>
+            {{ $slot }}
+            @if ($shortcut)
+                <span class="ms-auto font-mono text-[11px] text-ink-muted">{{ $shortcut }}</span>
+            @endif
+        </a>
     @else
-        <button type="button" {{ $attributes->class($classes) }}>{{ $slot }}</button>
+        <button type="button" role="menuitem" {{ $attributes->class($classes) }}>
+            {{ $slot }}
+            @if ($shortcut)
+                <span class="ms-auto font-mono text-[11px] text-ink-muted">{{ $shortcut }}</span>
+            @endif
+        </button>
     @endif
 </li>

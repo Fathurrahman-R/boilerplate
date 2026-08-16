@@ -13,8 +13,8 @@
 
         <x-ui.button type="submit" block>Kirim tautan reset</x-ui.button>
 
-        <p class="text-sm text-gray-500 dark:text-gray-400">
-            <a href="{{ route('login') }}" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Kembali ke halaman masuk</a>
+        <p class="text-sm text-ink-muted">
+            <a href="{{ route('login') }}" class="font-medium text-link hover:underline">Kembali ke halaman masuk</a>
         </p>
     </form>
 </x-layouts.guest>

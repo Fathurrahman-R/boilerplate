@@ -19,7 +19,7 @@
             <x-ui.select name="status" label="Status" :options="$statuses" :selected="$post?->status->value ?? 'draft'" required />
 
             @if ($post?->published_at)
-                <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">
+                <p class="mt-3 text-sm text-ink-muted">
                     Terbit sejak {{ $post->published_at->translatedFormat('d F Y, H:i') }}.
                 </p>
             @endif

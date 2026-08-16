@@ -1,10 +1,10 @@
-# Laravel Boilerplate — Auth + RBAC Resource Key + Flowbite
+# Laravel Boilerplate — Auth + RBAC Resource Key + RizzxxUI
 
-Titik awal untuk project Laravel baru: autentikasi lengkap, kontrol akses berbasis peran yang bisa diatur dari UI, dan pustaka komponen Flowbite siap pakai.
+Titik awal untuk project Laravel baru: autentikasi lengkap, kontrol akses berbasis peran yang bisa diatur dari UI, dan design system sendiri yang dokumentasinya hidup di dalam aplikasi.
 
 Yang membedakannya dari boilerplate RBAC biasa: kode tidak pernah menyebut nama permission. Kode memakai **resource key**, dan permission di baliknya ditentukan lewat tabel pemetaan di database yang bisa diubah dari panel admin.
 
-**Stack:** Laravel 13 · PHP 8.3+ · MySQL 8 · Fortify · spatie/laravel-permission 8 · Tailwind CSS 4 · Flowbite 4 · Alpine 3 · Pest 5
+**Stack:** Laravel 13 · PHP 8.3+ · MySQL 8 · Fortify · spatie/laravel-permission 8 · Tailwind CSS 4 · Alpine 3 · ApexCharts · Lucide · Pest 5
 
 ---
 
@@ -180,11 +180,79 @@ return $table->download(fn (Laporan $item): array => [
 
 ---
 
-## Komponen UI
+## Design system
 
-Semua di `resources/views/components/ui/`, memakai kelas Flowbite dan mendukung mode gelap.
+Lapisan visualnya bernama **RizzxxUI**. Dokumentasinya bukan berkas terpisah yang bisa basi — ia halaman di dalam aplikasi ini, dirender dari komponen yang sama dengan yang dipakai panel admin:
 
-`button` `input` `textarea` `select` `checkbox` `radio` `toggle` `file-upload` `datepicker` `alert` `badge` `card` `modal` `dropdown` `dropdown-item` `tabs` `toast` `breadcrumb` `avatar` `empty-state` `spinner` `icon` `table` `table.row` `table.cell` `table.toolbar`
+| URL | Isi |
+|---|---|
+| `/design-system` | Prinsip, warna, tipografi, spacing, permukaan & kaca, material, motion, ikon |
+| `/design-system/komponen` | Seluruh komponen beserta varian dan potongan kode pemakaiannya |
+| `/design-system/pola` | Pola layout, voice & tone, dan panduan token untuk developer |
+| `/design-system/layar/…` | Lima layar bukti: dashboard, landing, internal tool, settings, auth |
+
+Aktif di semua environment kecuali produksi. Kalau dimatikan, route-nya tidak didaftarkan sama sekali:
+
+```
+DESIGN_SYSTEM_ENABLED=false
+```
+
+Prototipe asalnya ada di `document/design-system/` sebagai rujukan; yang berlaku adalah halaman di atas.
+
+### Token
+
+Semua warna hidup sebagai CSS variable di `resources/css/app.css`, lalu dipetakan ke nama Tailwind di blok `@theme`. Tema berganti lewat atribut `data-theme` di `<html>` — **tidak ada satu pun kelas `dark:`** di seluruh view.
+
+```css
+:root            { --surface-raised: #FFFFFF; --accent: #3D5FE0; }
+:root[data-theme='dark'] { --surface-raised: #131923; --accent: #4F7CFF; }
+
+@theme inline {
+    --color-surface-raised: var(--surface-raised);
+    --color-accent: var(--accent);
+}
+```
+
+Menyesuaikan tema untuk satu klien biasanya cukup mengganti `--accent`, `--accent-hover`, `--accent-soft`, `--accent-on`, dan `--mat-accent` di kedua blok.
+
+Utility yang perlu diingat: `glass` · `mat-raised` `mat-base` `mat-panel` `mat-well` `mat-press` · `bg-shell` `bg-grid` `bg-grid-tight` `bg-noise` `bg-glow` · `num` · `eyebrow` · `form-check` `form-select` · `skeleton-line`.
+
+**Aturan kaca.** Blur hanya untuk lapisan yang mengambang di atas latar bertekstur — sidebar, topbar, hero, kartu metrik. Tabel, form, dan teks panjang selalu di permukaan solid. Kaca di atas warna rata cuma jadi kotak abu-abu, jadi latar bertekstur di `layouts/base` bukan hiasan melainkan syarat.
+
+Latarnya dipilih lewat prop `backdrop` di `<x-layouts.base>`:
+
+| Nilai | Dipakai | Isi |
+|---|---|---|
+| `page` (bawaan) | landing, auth, dokumentasi | `bg-surface` + grid 32px + noise |
+| `shell` | seluruh halaman aplikasi | `bg-shell` (bidang `mat-base` + semburat aksen) + grid 24px + noise |
+
+**Aturan material.** Yang menonjol bisa ditekan (`mat-raised`, bayangan `bevel` + `lift`), yang cekung bisa diisi (`mat-well`), dan konten selalu datar. Satu sumber cahaya, selalu dari atas. Bidang yang menaungi sekelompok kontrol memakai `mat-panel` — bayangannya `lift-lg`, satu tingkat di atas tombol yang ada di dalamnya. Tidak ada kedalaman di baris tabel dan tidak ada emboss di teks; keduanya menggagalkan kontras AA.
+
+**Sidebar yang diciutkan.** Lebarnya dipegang `--shell-sidebar` di `<html>`, bukan Alpine, supaya sudah benar sebelum halaman digambar. Nilainya adalah ruang yang dipesan di tepi kiri: panel kaca mengambang dengan jarak 12px di kiri dan kanan, jadi rail 68px yang diminta design system tercatat sebagai `calc(var(--rail-w) + 1.5rem)`. Ubah `--rail-w` kalau ikonnya perlu ruang lebih.
+
+### Komponen
+
+Semua di `resources/views/components/ui/`, semuanya bekerja di terang maupun gelap tanpa varian tambahan.
+
+`button` `input` `textarea` `select` `datepicker` `file-upload` `dropzone` `checkbox` `radio` `toggle` `slider` `label` `field-note` · `card` `badge` `alert` `stat` `skeleton` `empty-state` `spinner` `avatar` `avatar-stack` `presence-dot` `breadcrumb` `icon` `kbd` `code-block` · `table` `table.row` `table.cell` `table.toolbar` · `modal` `drawer` `drawer-remote` `dropdown` `dropdown-item` `tooltip` `tabs` `toast` `command-palette` `notification-menu` · `combobox` `tag-input` `stepper` `segmented` `filter-chips` · `progress` `ratio-bar` `legend` `bar-chart` · `accordion` `accordion-item` `timeline` `wizard`
+
+`bar-chart` dirender [ApexCharts](https://apexcharts.com), diimpor dinamis lewat `Alpine.data('apexBarChart', …)` di `resources/js/app.js` — halaman yang tidak menampilkan grafik tidak ikut menanggung beratnya di bundle.
+
+Pencarian, filter, dan pagination tinggal di dalam kartu tabel yang sama lewat slot `toolbar` dan `footer`, bukan sebagai tiga potong yang kebetulan bertumpuk:
+
+```blade
+<x-ui.table :table="$table" :headers="['name' => 'Nama']">
+    <x-slot:toolbar>
+        <x-ui.table.toolbar :table="$table" placeholder="Cari nama…" />
+    </x-slot:toolbar>
+
+    {{-- baris --}}
+
+    <x-slot:footer>{{ $users->links() }}</x-slot:footer>
+</x-ui.table>
+```
+
+View pagination-nya ada di `resources/views/vendor/pagination/`. Bawaan Laravel sengaja diganti: kelas `gray-*` dan `dark:*` di dalamnya tidak ikut berganti saat `data-theme` berubah.
 
 Komponen form membaca `$errors` sendiri — cukup sebut `name`, pesan validasinya muncul otomatis:
 
@@ -192,13 +260,23 @@ Komponen form membaca `$errors` sendiri — cukup sebut `name`, pesan validasiny
 <x-ui.input name="judul" label="Judul" required />
 ```
 
-Layout: `<x-layouts.admin>` (sidebar + topbar + breadcrumb) dan `<x-layouts.guest>` (kartu terpusat untuk halaman auth).
+Layout: `<x-layouts.admin>` (sidebar kaca + topbar + breadcrumb), `<x-layouts.guest>` (kartu terpusat untuk flow auth pendek/sensitif — 2FA, reset kata sandi), `<x-layouts.guest-split>` (form + panel kepercayaan kaca, dipakai Masuk/Daftar), `<x-layouts.docs>` (halaman dokumentasi).
 
-**Satu hal soal Flowbite JS.** Flowbite memasang listener-nya sekali saat halaman dimuat. Markup yang baru masuk ke DOM belakangan tidak akan hidup sampai `initFlowbite()` dipanggil lagi. Pancarkan event ini setelah menyisipkan markup baru:
+**Perilaku dinamis memakai Alpine, bukan pustaka UI.** Tidak ada langkah re-init setelah DOM berubah. Modal dan drawer dibuka dengan event:
 
-```js
-document.dispatchEvent(new CustomEvent('content:updated'));
+```blade
+<x-ui.button type="button" x-on:click="$dispatch('modal-open', 'hapus-user')">Hapus</x-ui.button>
+
+<x-ui.modal id="hapus-user" title="Hapus pengguna?" size="sm">…</x-ui.modal>
 ```
+
+Ikon memakai Lucide lewat `mallardduck/blade-lucide-icons` — SVG inline, tanpa JavaScript. Nama ikonnya apa adanya dari [lucide.dev/icons](https://lucide.dev/icons):
+
+```blade
+<x-ui.icon name="trash-2" class="size-4" />
+```
+
+Font Sora, Space Grotesk, dan IBM Plex Mono di-bundle Vite lewat paket `@fontsource`, bukan diambil dari CDN — aplikasi tetap tampil benar di jaringan tertutup.
 
 ---
 
@@ -250,7 +328,9 @@ config/
   resources.php                         ← role super admin, cache, log
   navigation.php                        ← menu sidebar
 resources/views/
-  components/ui/                        ← pustaka Flowbite
+  components/ui/                        ← pustaka komponen RizzxxUI
+  components/docs/                      ← komponen halaman dokumentasi
+  design-system/                        ← dokumentasi + lima layar contoh
   components/layouts/                   ← layout admin & tamu
   admin/                                ← modul panel
 ```

@@ -12,22 +12,40 @@
         </x-can>
     </x-slot:actions>
 
-    <div class="mb-4">
-        <x-ui.table.toolbar :table="$table" placeholder="Cari resource…">
-            <x-slot:filters>
-                <select name="group" class="rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                    <option value="">Semua grup</option>
-                    @foreach ($groups as $value => $label)
-                        <option value="{{ $value }}" @selected(request('group') === $value)>{{ $label }}</option>
-                    @endforeach
-                </select>
-            </x-slot:filters>
-        </x-ui.table.toolbar>
-    </div>
+    <x-ui.table :table="$table"
+                :selectable="$resources->reject(fn ($resource) => $resource->is_locked)->pluck('id')->all()"
+                :headers="['key' => 'Key', 'label' => 'Label', 'group' => 'Grup', 0 => 'Aksi', 1 => '']">
+        <x-slot:toolbar>
+            <x-ui.table.toolbar :table="$table" placeholder="Cari resource…">
+                <x-slot:filters>
+                    <select name="group" class="form-select">
+                        <option value="">Semua grup</option>
+                        @foreach ($groups as $value => $label)
+                            <option value="{{ $value }}" @selected(request('group') === $value)>{{ $label }}</option>
+                        @endforeach
+                    </select>
+                </x-slot:filters>
 
-    <x-ui.table :table="$table" :headers="['key' => 'Key', 'label' => 'Label', 'group' => 'Grup', 0 => 'Aksi', 1 => '']">
+                <x-slot:bulk>
+                    <x-can :resource="rk('resources', ResourceAction::Delete)">
+                        <form method="POST" action="{{ route('admin.resources.bulk-destroy') }}">
+                            @csrf
+                            <template x-for="id in selected" :key="id">
+                                <input type="hidden" name="ids[]" :value="id">
+                            </template>
+
+                            <x-ui.button type="submit" variant="secondary" size="sm" class="border-danger text-danger">
+                                <x-ui.icon name="trash-2" class="size-4" />
+                                Hapus terpilih
+                            </x-ui.button>
+                        </form>
+                    </x-can>
+                </x-slot:bulk>
+            </x-ui.table.toolbar>
+        </x-slot:toolbar>
+
         @forelse ($resources as $resource)
-            <x-ui.table.row>
+            <x-ui.table.row :id="$resource->is_locked ? null : $resource->id" selectable>
                 <x-ui.table.cell header>
                     <div class="flex items-center gap-2">
                         <a href="{{ route('admin.resources.show', $resource) }}" class="hover:underline">
@@ -57,22 +75,21 @@
 
                 <x-ui.table.cell align="right">
                     <div class="flex justify-end gap-1">
-                        <x-ui.button :href="route('admin.resources.show', $resource)" variant="ghost" size="xs" title="Detail">
+                        <x-ui.button :href="route('admin.resources.show', $resource)" variant="secondary" size="xs" title="Detail">
                             <x-ui.icon name="eye" class="h-4 w-4" />
                         </x-ui.button>
 
                         <x-can :resource="rk('resources', ResourceAction::Update)">
-                            <x-ui.button :href="route('admin.resources.edit', $resource)" variant="ghost" size="xs" title="Ubah">
+                            <x-ui.button :href="route('admin.resources.edit', $resource)" variant="secondary" size="xs" title="Ubah">
                                 <x-ui.icon name="pencil" class="h-4 w-4" />
                             </x-ui.button>
                         </x-can>
 
                         @unless ($resource->is_locked)
                             <x-can :resource="rk('resources', ResourceAction::Delete)">
-                                <x-ui.button variant="ghost" size="xs" title="Hapus"
-                                             data-modal-target="hapus-resource-{{ $resource->id }}"
-                                             data-modal-toggle="hapus-resource-{{ $resource->id }}">
-                                    <x-ui.icon name="trash" class="h-4 w-4 text-red-600" />
+                                <x-ui.button type="button" variant="secondary" size="xs" title="Hapus"
+                                             x-on:click="$dispatch('modal-open', 'hapus-resource-{{ $resource->id }}')">
+                                    <x-ui.icon name="trash-2" class="h-4 w-4 text-danger" />
                                 </x-ui.button>
 
                                 <x-ui.modal :id="'hapus-resource-'.$resource->id" title="Hapus resource">
@@ -84,7 +101,7 @@
                                     </x-ui.alert>
 
                                     <x-slot:footer>
-                                        <x-ui.button variant="secondary" type="button" data-modal-hide="hapus-resource-{{ $resource->id }}">Batal</x-ui.button>
+                                        <x-ui.button variant="secondary" type="button" x-on:click="$dispatch('modal-close', 'hapus-resource-{{ $resource->id }}')">Batal</x-ui.button>
 
                                         <form method="POST" action="{{ route('admin.resources.destroy', $resource) }}">
                                             @csrf
@@ -100,13 +117,12 @@
             </x-ui.table.row>
         @empty
             <tr>
-                <td colspan="5">
+                <td colspan="6">
                     <x-ui.empty-state title="Belum ada resource"
                                       description="Buat resource pertama untuk mulai memakai resource key." />
                 </td>
             </tr>
         @endforelse
+        <x-slot:footer>{{ $resources->links() }}</x-slot:footer>
     </x-ui.table>
-
-    <div class="mt-4">{{ $resources->links() }}</div>
 </x-layouts.admin>

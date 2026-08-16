@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Concerns\HandlesBulkDestroy;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreRoleRequest;
 use App\Http\Requests\Admin\UpdateRoleRequest;
@@ -13,9 +14,12 @@ use App\Support\Resources\ResourceManager;
 use App\Support\Table\TableBuilder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    use HandlesBulkDestroy;
+
     public function __construct(private readonly ResourceManager $manager) {}
 
     public function index(): View
@@ -61,6 +65,12 @@ class RoleController extends Controller
         return redirect()->route('admin.roles.index')->with('success', "Role {$role->name} diperbarui.");
     }
 
+    /** Fragmen panel detail yang diambil drawer saat baris tabel diklik. */
+    public function panel(Role $role): View
+    {
+        return view('admin.roles.panel', ['role' => $role->load('permissions')]);
+    }
+
     public function destroy(Role $role): RedirectResponse
     {
         try {
@@ -70,6 +80,19 @@ class RoleController extends Controller
         }
 
         return redirect()->route('admin.roles.index')->with('success', 'Role dihapus.');
+    }
+
+    public function bulkDestroy(Request $request): RedirectResponse
+    {
+        return $this->destroyMany($request, Role::class, 'admin.roles.index', function (Role $role): ?string {
+            try {
+                $this->manager->deleteRole($role);
+            } catch (LockedRecord $exception) {
+                return $exception->getMessage();
+            }
+
+            return null;
+        });
     }
 
     /**

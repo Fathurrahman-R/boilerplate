@@ -4,14 +4,14 @@
 
 <x-layouts.base :title="$title">
     <div class="flex min-h-screen flex-col items-center justify-center gap-4 px-4 text-center">
-        <p class="text-6xl font-bold text-gray-300 dark:text-gray-700">{{ $code }}</p>
+        <p class="text-6xl font-bold text-line-strong">{{ $code }}</p>
 
-        <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">{{ $title }}</h1>
+        <h1 class="text-2xl font-semibold text-ink">{{ $title }}</h1>
 
-        <p class="max-w-md text-gray-500 dark:text-gray-400">{{ $message }}</p>
+        <p class="max-w-md text-ink-muted">{{ $message }}</p>
 
         @if ($hint)
-            <p class="max-w-md text-sm text-gray-400 dark:text-gray-500">{{ $hint }}</p>
+            <p class="max-w-md text-sm text-ink-muted">{{ $hint }}</p>
         @endif
 
         <div class="mt-2 flex flex-wrap items-center justify-center gap-2">

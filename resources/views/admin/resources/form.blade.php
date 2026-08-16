@@ -34,12 +34,12 @@
                    subtitle="Inilah string yang nanti dipakai di route, Blade, dan menu.">
             <div class="flex flex-wrap gap-2" id="key-preview">
                 <template x-for="action in $store.selectedActions.list" :key="action">
-                    <code class="rounded bg-gray-100 px-2 py-1 text-sm dark:bg-gray-700"
+                    <code class="rounded-sm bg-code px-2 py-1 font-mono text-sm text-code-ink"
                           x-text="(key || 'resource') + '.' + action"></code>
                 </template>
             </div>
 
-            <p class="mt-3 text-sm text-gray-500 dark:text-gray-400" x-show="$store.selectedActions.list.length === 0">
+            <p class="mt-3 text-sm text-ink-muted" x-show="$store.selectedActions.list.length === 0">
                 Belum ada aksi yang dipilih.
             </p>
         </x-ui.card>
@@ -49,29 +49,29 @@
         <x-ui.card title="Aksi" subtitle="Setiap aksi yang dicentang otomatis dibuatkan permission dan langsung dipetakan.">
             <div class="space-y-2">
                 @foreach ($actions as $action)
-                    <label class="flex items-start gap-2 rounded-lg border border-gray-200 p-3 dark:border-gray-700">
+                    <label class="flex items-start gap-2 rounded-lg border border-line p-3">
                         <input type="checkbox" name="actions[]" value="{{ $action->value }}"
                                @checked(in_array($action->value, $checked, true))
                                x-on:change="$store.selectedActions.toggle('{{ $action->value }}', $event.target.checked)"
                                x-init="$store.selectedActions.toggle('{{ $action->value }}', $el.checked)"
-                               class="mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700">
+                               class="form-check mt-0.5">
 
                         <span class="text-sm">
-                            <span class="flex items-center gap-2 font-medium text-gray-900 dark:text-white">
+                            <span class="flex items-center gap-2 font-medium text-ink">
                                 {{ $action->label() }}
-                                <code class="text-xs font-normal text-gray-500 dark:text-gray-400">{{ $action->value }}</code>
+                                <code class="text-xs font-normal text-ink-muted">{{ $action->value }}</code>
                                 @if ($action->isDestructive())
                                     <x-ui.badge variant="danger" pill>berisiko</x-ui.badge>
                                 @endif
                             </span>
-                            <span class="block text-xs text-gray-500 dark:text-gray-400">{{ $action->description() }}</span>
+                            <span class="block text-xs text-ink-muted">{{ $action->description() }}</span>
                         </span>
                     </label>
                 @endforeach
             </div>
 
             @error('actions')
-                <p class="mt-3 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                <p class="mt-3 text-sm text-danger">{{ $message }}</p>
             @enderror
         </x-ui.card>
     </div>

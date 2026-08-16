@@ -21,13 +21,13 @@ use App\Enums\ResourceAction;
 return [
     [
         'label' => 'Dashboard',
-        'icon' => 'home',
+        'icon' => 'house',
         'route' => 'dashboard',
     ],
 
     [
         'label' => 'Konten',
-        'icon' => 'document',
+        'icon' => 'file-text',
         'children' => [
             [
                 'label' => 'Artikel',
@@ -40,7 +40,7 @@ return [
 
     [
         'label' => 'Manajemen Akses',
-        'icon' => 'shield',
+        'icon' => 'shield-check',
         'children' => [
             [
                 'label' => 'Pengguna',

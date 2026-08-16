@@ -4,8 +4,8 @@
 ])
 
 {{--
-    Tab Flowbite. $tabs berbentuk ['nama' => 'Label']; isi tiap tab dikirim
-    lewat slot bernama sama:
+    $tabs berbentuk ['nama' => 'Label']; isi tiap tab dikirim lewat slot
+    bernama sama:
 
         <x-ui.tabs :tabs="['profil' => 'Profil', 'keamanan' => 'Keamanan']">
             <x-slot:profil>...</x-slot:profil>
@@ -14,20 +14,24 @@
 --}}
 
 @php
-    $id ??= 'tabs-'.uniqid();
+    $id ??= 'tabs-'.Str::random(8);
+    $first = array_key_first($tabs);
 @endphp
 
-<div>
-    <div class="border-b border-gray-200 dark:border-gray-700">
-        <ul class="-mb-px flex flex-wrap text-sm font-medium" id="{{ $id }}" data-tabs-toggle="#{{ $id }}-content" role="tablist">
+<div x-data="{ tab: @js($first) }">
+    <div class="border-b border-line">
+        <ul class="-mb-px flex flex-wrap gap-1" role="tablist">
             @foreach ($tabs as $key => $label)
                 <li role="presentation">
                     <button type="button" role="tab"
-                            class="inline-block rounded-t-lg border-b-2 p-4 hover:border-gray-300 hover:text-gray-600 dark:hover:text-gray-300"
                             id="{{ $id }}-{{ $key }}-tab"
-                            data-tabs-target="#{{ $id }}-{{ $key }}"
                             aria-controls="{{ $id }}-{{ $key }}"
-                            aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                            :aria-selected="tab === @js($key)"
+                            x-on:click="tab = @js($key)"
+                            class="border-b-2 px-3 py-3.5 text-sm transition outline-none focus-visible:ring-3 focus-visible:ring-accent-soft"
+                            :class="tab === @js($key)
+                                ? 'border-accent font-semibold text-ink'
+                                : 'border-transparent text-ink-secondary hover:text-ink'">
                         {{ $label }}
                     </button>
                 </li>
@@ -35,11 +39,10 @@
         </ul>
     </div>
 
-    <div id="{{ $id }}-content">
-        @foreach ($tabs as $key => $label)
-            <div class="hidden py-4" id="{{ $id }}-{{ $key }}" role="tabpanel" aria-labelledby="{{ $id }}-{{ $key }}-tab">
-                {{ $$key ?? '' }}
-            </div>
-        @endforeach
-    </div>
+    @foreach ($tabs as $key => $label)
+        <div id="{{ $id }}-{{ $key }}" role="tabpanel" aria-labelledby="{{ $id }}-{{ $key }}-tab"
+             x-show="tab === @js($key)" x-cloak class="py-5">
+            {{ $$key ?? '' }}
+        </div>
+    @endforeach
 </div>

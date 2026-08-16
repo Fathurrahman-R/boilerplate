@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Concerns\HandlesBulkDestroy;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreUserRequest;
 use App\Http\Requests\Admin\UpdateUserRequest;
@@ -11,11 +12,14 @@ use App\Support\Table\TableBuilder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class UserController extends Controller
 {
+    use HandlesBulkDestroy;
+
     public function index(): View
     {
         $table = TableBuilder::for(User::query()->with('roles'))
@@ -79,19 +83,54 @@ class UserController extends Controller
         return redirect()->route('admin.users.index')->with('success', "Pengguna {$user->name} diperbarui.");
     }
 
+    /**
+     * Fragmen panel detail yang diambil drawer saat baris tabel diklik.
+     * Tanpa layout — pemanggilnya yang sudah punya bingkai.
+     */
+    public function panel(User $user): View
+    {
+        return view('admin.users.panel', ['user' => $user->load('roles')]);
+    }
+
     public function destroy(User $user): RedirectResponse
     {
-        if ($user->is(auth()->user())) {
-            return back()->with('error', 'Anda tidak bisa menghapus akun sendiri.');
-        }
-
-        if ($this->isLastSuperAdmin($user)) {
-            return back()->with('error', 'Ini super admin terakhir. Tunjuk penggantinya lebih dulu.');
+        if ($reason = $this->deletionBlocker($user)) {
+            return back()->with('error', $reason);
         }
 
         $user->delete();
 
         return redirect()->route('admin.users.index')->with('success', 'Pengguna dihapus.');
+    }
+
+    public function bulkDestroy(Request $request): RedirectResponse
+    {
+        return $this->destroyMany($request, User::class, 'admin.users.index', function (User $user): ?string {
+            if ($reason = $this->deletionBlocker($user)) {
+                return $reason;
+            }
+
+            $user->delete();
+
+            return null;
+        });
+    }
+
+    /**
+     * Alasan sebuah akun tidak boleh dihapus, atau null kalau boleh. Dipakai
+     * penghapusan satuan maupun massal supaya keduanya tidak bisa berbeda.
+     */
+    private function deletionBlocker(User $user): ?string
+    {
+        if ($user->is(auth()->user())) {
+            return 'Anda tidak bisa menghapus akun sendiri.';
+        }
+
+        if ($this->isLastSuperAdmin($user)) {
+            return 'Ini super admin terakhir. Tunjuk penggantinya lebih dulu.';
+        }
+
+        return null;
     }
 
     public function export(): StreamedResponse

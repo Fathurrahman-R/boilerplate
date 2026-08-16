@@ -1,14 +1,17 @@
 @props([
     'header' => false,
     'align' => 'left',
+    'numeric' => false,
 ])
 
 @php
+    // Angka selalu mono dan rata kanan supaya digitnya lurus antar-baris.
     $classes = [
-        'px-6 py-4 align-middle',
-        'text-right' => $align === 'right',
+        'px-4 py-[11px] align-middle',
+        'text-right' => $align === 'right' || $numeric,
         'text-center' => $align === 'center',
-        'font-medium text-gray-900 whitespace-nowrap dark:text-white' => $header,
+        'num text-[12.5px]' => $numeric,
+        'font-medium whitespace-nowrap text-ink' => $header,
     ];
 @endphp
 

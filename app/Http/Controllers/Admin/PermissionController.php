@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Concerns\HandlesBulkDestroy;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StorePermissionRequest;
 use App\Http\Requests\Admin\UpdatePermissionRequest;
@@ -12,6 +13,7 @@ use App\Support\Table\TableBuilder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 /**
  * CRUD permission.
@@ -22,6 +24,8 @@ use Illuminate\Http\RedirectResponse;
  */
 class PermissionController extends Controller
 {
+    use HandlesBulkDestroy;
+
     public function __construct(private readonly ResourceManager $manager) {}
 
     public function index(): View
@@ -91,5 +95,18 @@ class PermissionController extends Controller
                 ? "Permission dihapus. {$affected} resource key kini tak terpetakan dan aksesnya tertutup."
                 : 'Permission dihapus.'
         );
+    }
+
+    public function bulkDestroy(Request $request): RedirectResponse
+    {
+        return $this->destroyMany($request, Permission::class, 'admin.permissions.index', function (Permission $permission): ?string {
+            try {
+                $this->manager->deletePermission($permission);
+            } catch (LockedRecord $exception) {
+                return $exception->getMessage();
+            }
+
+            return null;
+        });
     }
 }

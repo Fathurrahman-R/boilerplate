@@ -8,10 +8,34 @@ use App\Http\Controllers\Admin\ResourceMappingController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DesignSystemController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
+
+/*
+|--------------------------------------------------------------------------
+| Dokumentasi design system
+|--------------------------------------------------------------------------
+|
+| Sengaja tidak didaftarkan sama sekali kalau dimatikan, supaya di produksi
+| tidak ada permukaan tambahan yang perlu dijaga. Halamannya tidak menyentuh
+| database dan tidak butuh login, jadi tetap bisa dibuka di project baru yang
+| seedernya belum dijalankan.
+|
+*/
+if (config('design-system.enabled')) {
+    Route::controller(DesignSystemController::class)
+        ->prefix('design-system')
+        ->name('design-system.')
+        ->group(function () {
+            Route::get('/', 'foundation')->name('foundation');
+            Route::get('/komponen', 'components')->name('components');
+            Route::get('/pola', 'patterns')->name('patterns');
+            Route::get('/layar/{screen}', 'screen')->name('screen');
+        });
+}
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
@@ -39,18 +63,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/', 'index')->name('index')->middleware('resource:'.rk('users', ResourceAction::View));
             Route::get('/create', 'create')->name('create')->middleware('resource:'.rk('users', ResourceAction::Create));
             Route::post('/', 'store')->name('store')->middleware('resource:'.rk('users', ResourceAction::Create));
+            Route::get('/export', 'export')->name('export')->middleware('resource:'.rk('users', ResourceAction::Export));
+            Route::get('/{user}/panel', 'panel')->name('panel')->middleware('resource:'.rk('users', ResourceAction::View));
             Route::get('/{user}/edit', 'edit')->name('edit')->middleware('resource:'.rk('users', ResourceAction::Update));
             Route::put('/{user}', 'update')->name('update')->middleware('resource:'.rk('users', ResourceAction::Update));
+            Route::post('/bulk-destroy', 'bulkDestroy')->name('bulk-destroy')->middleware('resource:'.rk('users', ResourceAction::Delete));
             Route::delete('/{user}', 'destroy')->name('destroy')->middleware('resource:'.rk('users', ResourceAction::Delete));
-            Route::get('/export', 'export')->name('export')->middleware('resource:'.rk('users', ResourceAction::Export));
         });
 
         Route::controller(RoleController::class)->prefix('roles')->name('roles.')->group(function () {
             Route::get('/', 'index')->name('index')->middleware('resource:'.rk('roles', ResourceAction::View));
             Route::get('/create', 'create')->name('create')->middleware('resource:'.rk('roles', ResourceAction::Create));
             Route::post('/', 'store')->name('store')->middleware('resource:'.rk('roles', ResourceAction::Create));
+            Route::get('/{role}/panel', 'panel')->name('panel')->middleware('resource:'.rk('roles', ResourceAction::View));
             Route::get('/{role}/edit', 'edit')->name('edit')->middleware('resource:'.rk('roles', ResourceAction::Update));
             Route::put('/{role}', 'update')->name('update')->middleware('resource:'.rk('roles', ResourceAction::Update));
+            Route::post('/bulk-destroy', 'bulkDestroy')->name('bulk-destroy')->middleware('resource:'.rk('roles', ResourceAction::Delete));
             Route::delete('/{role}', 'destroy')->name('destroy')->middleware('resource:'.rk('roles', ResourceAction::Delete));
         });
 
@@ -60,6 +88,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::post('/', 'store')->name('store')->middleware('resource:'.rk('permissions', ResourceAction::Create));
             Route::get('/{permission}/edit', 'edit')->name('edit')->middleware('resource:'.rk('permissions', ResourceAction::Update));
             Route::put('/{permission}', 'update')->name('update')->middleware('resource:'.rk('permissions', ResourceAction::Update));
+            Route::post('/bulk-destroy', 'bulkDestroy')->name('bulk-destroy')->middleware('resource:'.rk('permissions', ResourceAction::Delete));
             Route::delete('/{permission}', 'destroy')->name('destroy')->middleware('resource:'.rk('permissions', ResourceAction::Delete));
         });
 
@@ -70,6 +99,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/{resource}', 'show')->name('show')->middleware('resource:'.rk('resources', ResourceAction::View));
             Route::get('/{resource}/edit', 'edit')->name('edit')->middleware('resource:'.rk('resources', ResourceAction::Update));
             Route::put('/{resource}', 'update')->name('update')->middleware('resource:'.rk('resources', ResourceAction::Update));
+            Route::post('/bulk-destroy', 'bulkDestroy')->name('bulk-destroy')->middleware('resource:'.rk('resources', ResourceAction::Delete));
             Route::delete('/{resource}', 'destroy')->name('destroy')->middleware('resource:'.rk('resources', ResourceAction::Delete));
         });
 
@@ -84,6 +114,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // untuk menunjukkan cara kedua memakai resource key yang sama.
         Route::resource('posts', PostController::class)->except('show');
         Route::get('posts-export', [PostController::class, 'export'])->name('posts.export');
+        Route::get('posts/{post}/panel', [PostController::class, 'panel'])->name('posts.panel');
+        Route::post('posts-bulk-destroy', [PostController::class, 'bulkDestroy'])->name('posts.bulk-destroy');
     });
 });
 

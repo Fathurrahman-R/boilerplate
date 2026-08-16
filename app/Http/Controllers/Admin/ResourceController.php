@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\ResourceAction;
+use App\Http\Controllers\Concerns\HandlesBulkDestroy;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreResourceRequest;
 use App\Http\Requests\Admin\UpdateResourceRequest;
@@ -13,6 +14,7 @@ use App\Support\Table\TableBuilder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 /**
  * CRUD resource.
@@ -23,6 +25,8 @@ use Illuminate\Http\RedirectResponse;
  */
 class ResourceController extends Controller
 {
+    use HandlesBulkDestroy;
+
     public function __construct(private readonly ResourceManager $manager) {}
 
     public function index(): View
@@ -96,5 +100,18 @@ class ResourceController extends Controller
 
         return redirect()->route('admin.resources.index')
             ->with('success', 'Resource dihapus. Permission-nya dibiarkan tetap ada.');
+    }
+
+    public function bulkDestroy(Request $request): RedirectResponse
+    {
+        return $this->destroyMany($request, Resource::class, 'admin.resources.index', function (Resource $resource): ?string {
+            try {
+                $this->manager->deleteResource($resource);
+            } catch (LockedRecord $exception) {
+                return $exception->getMessage();
+            }
+
+            return null;
+        });
     }
 }

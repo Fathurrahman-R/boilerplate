@@ -25,15 +25,15 @@
             @forelse ($resources as $resource)
                 <div>
                     <div class="mb-2 flex flex-wrap items-center gap-2">
-                        <h3 class="text-sm font-semibold text-gray-900 dark:text-white">{{ $resource->label }}</h3>
-                        <code class="rounded bg-gray-100 px-1.5 py-0.5 text-xs text-gray-600 dark:bg-gray-700 dark:text-gray-300">{{ $resource->key }}</code>
+                        <h3 class="text-sm font-semibold text-ink">{{ $resource->label }}</h3>
+                        <code class="rounded-sm bg-code px-1.5 py-0.5 font-mono text-xs text-code-ink">{{ $resource->key }}</code>
 
                         @if ($resource->group)
                             <x-ui.badge>{{ $resource->group }}</x-ui.badge>
                         @endif
 
                         <button type="button"
-                                class="ms-auto text-xs font-medium text-blue-600 hover:underline dark:text-blue-500"
+                                class="ms-auto text-xs font-medium text-link hover:underline"
                                 data-check-group="resource-{{ $resource->id }}">
                             Centang / lepas semua
                         </button>
@@ -42,24 +42,24 @@
                     <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                         @foreach ($resource->mappings->sortBy(fn ($m) => $m->action->value) as $mapping)
                             @if ($mapping->isMapped())
-                                <label class="flex items-start gap-2 rounded-lg border border-gray-200 p-3 text-sm dark:border-gray-700">
+                                <label class="flex items-start gap-2 rounded-lg border border-line p-3 text-sm">
                                     <input type="checkbox"
                                            name="permissions[]"
                                            value="{{ $mapping->permission_id }}"
                                            data-group="resource-{{ $resource->id }}"
                                            @checked(in_array((string) $mapping->permission_id, $selected, true))
-                                           class="mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700">
+                                           class="form-check mt-0.5">
 
                                     <span>
-                                        <span class="block font-medium text-gray-900 dark:text-white">{{ $mapping->action->label() }}</span>
-                                        <span class="block text-xs text-gray-500 dark:text-gray-400">{{ $mapping->permission->name }}</span>
+                                        <span class="block font-medium text-ink">{{ $mapping->action->label() }}</span>
+                                        <span class="block text-xs text-ink-muted">{{ $mapping->permission->name }}</span>
                                     </span>
                                 </label>
                             @else
-                                <div class="flex items-start gap-2 rounded-lg border border-dashed border-red-300 p-3 text-sm dark:border-red-800">
+                                <div class="flex items-start gap-2 rounded-lg border border-dashed border-danger p-3 text-sm">
                                     <span>
-                                        <span class="block font-medium text-gray-400 line-through">{{ $mapping->action->label() }}</span>
-                                        <span class="block text-xs text-red-600 dark:text-red-400">belum dipetakan ke permission</span>
+                                        <span class="block font-medium text-ink-muted line-through">{{ $mapping->action->label() }}</span>
+                                        <span class="block text-xs text-danger">belum dipetakan ke permission</span>
                                     </span>
                                 </div>
                             @endif
@@ -73,18 +73,18 @@
 
             @if ($loosePermissions->isNotEmpty())
                 <div>
-                    <h3 class="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+                    <h3 class="mb-2 text-sm font-semibold text-ink">
                         Permission lepas
-                        <span class="font-normal text-gray-500 dark:text-gray-400">— tidak dipakai resource key mana pun</span>
+                        <span class="font-normal text-ink-muted">— tidak dipakai resource key mana pun</span>
                     </h3>
 
                     <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                         @foreach ($loosePermissions as $permission)
-                            <label class="flex items-start gap-2 rounded-lg border border-gray-200 p-3 text-sm dark:border-gray-700">
+                            <label class="flex items-start gap-2 rounded-lg border border-line p-3 text-sm">
                                 <input type="checkbox" name="permissions[]" value="{{ $permission->id }}"
                                        @checked(in_array((string) $permission->id, $selected, true))
-                                       class="mt-0.5 h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700">
-                                <span class="font-medium text-gray-900 dark:text-white">{{ $permission->displayName() }}</span>
+                                       class="form-check mt-0.5">
+                                <span class="font-medium text-ink">{{ $permission->displayName() }}</span>
                             </label>
                         @endforeach
                     </div>

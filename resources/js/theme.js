@@ -19,7 +19,7 @@ export function currentTheme() {
 }
 
 export function applyTheme(theme) {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
+    document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem(STORAGE_KEY, theme);
     document.dispatchEvent(new CustomEvent('theme:changed', { detail: { theme } }));
 }

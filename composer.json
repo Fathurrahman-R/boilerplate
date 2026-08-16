@@ -2,12 +2,12 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "boilerplate/laravel-admin",
     "type": "project",
-    "description": "Boilerplate Laravel: auth, RBAC berbasis resource key, dan komponen UI Flowbite.",
+    "description": "Boilerplate Laravel: auth, RBAC berbasis resource key, dan design system RizzxxUI.",
     "keywords": [
         "laravel",
         "boilerplate",
         "rbac",
-        "flowbite"
+        "design-system"
     ],
     "license": "MIT",
     "require": {
@@ -15,6 +15,7 @@
         "laravel/fortify": "^1.38",
         "laravel/framework": "^13.17",
         "laravel/tinker": "^3.0",
+        "mallardduck/blade-lucide-icons": "^2.0",
         "spatie/laravel-permission": "^8.3"
     },
     "require-dev": {

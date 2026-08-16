@@ -3,50 +3,63 @@
         <x-ui.alert variant="warning" title="Ada resource key yang belum dipetakan" class="mb-6">
             {{ $unmappedCount }} key belum menunjuk permission mana pun, jadi aksesnya tertutup untuk semua orang
             kecuali super admin.
-            <a href="{{ route('admin.mappings.index', ['status' => 'unmapped']) }}" class="font-medium underline">
+            <a href="{{ route('admin.mappings.index', ['status' => 'unmapped']) }}" class="font-medium text-link underline-offset-2 hover:underline">
                 Lihat daftarnya
             </a>
         </x-ui.alert>
     @endif
 
+    {{-- Baris metrik memakai kartu kaca: ini satu-satunya lapisan yang boleh
+         mengambang di atas latar bertekstur. Sisanya turun ke permukaan solid. --}}
     <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         @foreach ($stats as $stat)
-            <x-ui.card>
-                <div class="flex items-center gap-4">
-                    <span class="rounded-lg bg-blue-50 p-3 text-blue-700 dark:bg-gray-700 dark:text-blue-400">
-                        <x-ui.icon :name="$stat['icon']" class="h-6 w-6" />
-                    </span>
-
-                    <div>
-                        <p class="text-sm text-gray-500 dark:text-gray-400">{{ $stat['label'] }}</p>
-                        <p class="text-2xl font-semibold text-gray-900 dark:text-white">{{ number_format($stat['value']) }}</p>
-                    </div>
-                </div>
-            </x-ui.card>
+            <x-ui.stat :label="$stat['label']"
+                       :value="number_format($stat['value'], 0, ',', '.')"
+                       :icon="$stat['icon']" />
         @endforeach
     </div>
 
-    <x-ui.card title="Mulai dari mana" class="mt-6">
-        <ul class="space-y-3 text-sm text-gray-600 dark:text-gray-300">
-            <li class="flex items-start gap-3">
-                <x-ui.icon name="document" class="mt-0.5 h-5 w-5 shrink-0 text-gray-400" />
-                <span>
-                    Buat <strong>Resource</strong> baru untuk tiap modul aplikasi. Sistem otomatis membuatkan
-                    permission untuk tiap aksi yang dicentang.
-                </span>
+    {{-- Dua kolom: grafik yang lebih lebar di kiri, aktivitas ringkas di
+         kanan. Rasio 1.6fr/1fr yang sama dipakai di seluruh pola dashboard. --}}
+    <div class="mt-4 grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+        <x-ui.card title="Pengguna baru" subtitle="6 bulan terakhir">
+            <x-ui.bar-chart :series="$signups" :tones="['chart-1']" :height="184" />
+        </x-ui.card>
+
+        <x-ui.card title="Aktivitas terbaru">
+            @if ($activity === [])
+                <p class="text-sm text-ink-muted">Belum ada aktivitas.</p>
+            @else
+                <x-ui.timeline :items="$activity" />
+            @endif
+        </x-ui.card>
+    </div>
+
+    <x-ui.card title="Mulai dari mana" class="mt-4">
+        {{-- Bernomor karena urutannya memang berarti: resource dulu, baru
+             pemetaannya, baru pembagiannya ke role. --}}
+        <ol class="space-y-4">
+            <li class="flex items-start gap-3.5">
+                <span class="num flex size-6 shrink-0 items-center justify-center rounded-sm bg-surface-inset text-[11px] text-ink-muted">01</span>
+                <p class="text-sm text-ink-secondary">
+                    Buat <strong class="font-semibold text-ink">Resource</strong> baru untuk tiap modul aplikasi.
+                    Sistem otomatis membuatkan permission untuk tiap aksi yang dicentang.
+                </p>
             </li>
-            <li class="flex items-start gap-3">
-                <x-ui.icon name="link" class="mt-0.5 h-5 w-5 shrink-0 text-gray-400" />
-                <span>
-                    Ubah permission di balik sebuah key lewat <strong>Pemetaan Key</strong> — tanpa menyentuh kode.
-                </span>
+            <li class="flex items-start gap-3.5">
+                <span class="num flex size-6 shrink-0 items-center justify-center rounded-sm bg-surface-inset text-[11px] text-ink-muted">02</span>
+                <p class="text-sm text-ink-secondary">
+                    Ubah permission di balik sebuah key lewat <strong class="font-semibold text-ink">Pemetaan Key</strong>
+                    — tanpa menyentuh kode.
+                </p>
             </li>
-            <li class="flex items-start gap-3">
-                <x-ui.icon name="shield" class="mt-0.5 h-5 w-5 shrink-0 text-gray-400" />
-                <span>
-                    Bagikan permission ke <strong>Role</strong>, lalu tugaskan role itu ke pengguna.
-                </span>
+            <li class="flex items-start gap-3.5">
+                <span class="num flex size-6 shrink-0 items-center justify-center rounded-sm bg-surface-inset text-[11px] text-ink-muted">03</span>
+                <p class="text-sm text-ink-secondary">
+                    Bagikan permission ke <strong class="font-semibold text-ink">Role</strong>, lalu tugaskan role itu
+                    ke pengguna.
+                </p>
             </li>
-        </ul>
+        </ol>
     </x-ui.card>
 </x-layouts.admin>

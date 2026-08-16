@@ -9,27 +9,35 @@
 ])
 
 @php
+    // Satu aksi utama per layar: hanya `primary` yang memakai aksen. Dua tombol
+    // aksen bersebelahan membuat pembaca tidak tahu mana yang dituju.
     $variants = [
-        'primary'   => 'text-white bg-blue-700 hover:bg-blue-800 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800',
-        'secondary' => 'text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:ring-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700',
-        'success'   => 'text-white bg-green-700 hover:bg-green-800 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800',
-        'danger'    => 'text-white bg-red-700 hover:bg-red-800 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900',
-        'warning'   => 'text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-yellow-300 dark:focus:ring-yellow-900',
-        'dark'      => 'text-white bg-gray-800 hover:bg-gray-900 focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700',
-        'ghost'     => 'text-gray-500 hover:bg-gray-100 hover:text-gray-900 focus:ring-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700',
+        'primary' => 'border-transparent bg-[image:var(--mat-accent)] text-accent-on font-semibold shadow-[var(--bevel),var(--lift)] hover:brightness-95 active:shadow-press active:translate-y-px',
+        'secondary' => 'border-line-strong bg-[image:var(--mat-raised)] text-ink shadow-[var(--bevel),var(--lift)] hover:brightness-95 active:shadow-press active:translate-y-px',
+        'ghost' => 'border-transparent bg-transparent text-ink-secondary hover:bg-surface-inset hover:text-ink',
+        'danger' => 'border-transparent bg-[image:var(--mat-danger)] text-ink-inverse font-semibold shadow-[var(--bevel),var(--lift)] active:shadow-press active:translate-y-px hover:opacity-[.88]',
+        'success' => 'border-transparent bg-[image:var(--mat-success)] text-ink-inverse font-semibold shadow-[var(--bevel),var(--lift)] active:shadow-press active:translate-y-px hover:opacity-[.88]',
+        'warning' => 'border-transparent bg-[image:var(--mat-warning)] text-ink-inverse font-semibold shadow-[var(--bevel),var(--lift)] active:shadow-press active:translate-y-px hover:opacity-[.88]',
+        'dark' => 'border-transparent bg-ink text-surface-raised font-semibold hover:opacity-90',
     ];
 
+    // Tinggi kontrol: 30 / 32 / 38 / 48. `icon` adalah tombol persegi seukuran
+    // kontrol — dipakai kalau ikonnya berdiri sendiri. `xs` khusus aksi di
+    // dalam baris tabel, di mana tinggi baris yang menentukan.
     $sizes = [
-        'xs' => 'px-3 py-2 text-xs',
-        'sm' => 'px-3 py-2 text-sm',
-        'md' => 'px-5 py-2.5 text-sm',
-        'lg' => 'px-5 py-3 text-base',
+        'xs' => 'h-[30px] gap-1.5 rounded-sm px-2.5 text-sm2',
+        'sm' => 'h-8 gap-1.5 rounded-sm px-3 text-[13px]',
+        'md' => 'h-control gap-2 rounded-md px-[18px] text-sm',
+        'lg' => 'h-12 gap-2 rounded-md px-[22px] text-[15px]',
+        'icon' => 'size-control rounded-md p-0',
+        'icon-round' => 'size-control rounded-full p-0',
     ];
 
     $classes = implode(' ', [
-        'inline-flex items-center justify-center gap-2 rounded-lg font-medium',
-        'focus:outline-none focus:ring-4 transition-colors',
-        'disabled:pointer-events-none disabled:opacity-50',
+        'inline-flex shrink-0 items-center justify-center border font-medium whitespace-nowrap',
+        'transition duration-120 ease-rizz outline-none',
+        'focus-visible:ring-3 focus-visible:ring-accent-soft',
+        'disabled:pointer-events-none disabled:border-line disabled:bg-surface-inset disabled:bg-none disabled:text-ink-muted disabled:shadow-none',
         $variants[$variant] ?? $variants['primary'],
         $sizes[$size] ?? $sizes['md'],
         $block ? 'w-full' : '',

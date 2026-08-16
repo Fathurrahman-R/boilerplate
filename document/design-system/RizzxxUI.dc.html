@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RizzxxUI — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.min.js"></script>
+<style>
+:root{
+  --surface:#F7F7F8; --surface-raised:#FFFFFF; --surface-sunken:#EDEDF0; --surface-inset:#E4E4E9;
+  --border-subtle:#E3E3E8; --border-strong:#C7C7D0;
+  --text-primary:#15171C; --text-secondary:#494E58; --text-muted:#6C717C; --text-inverse:#FFFFFF;
+  --accent:#3D5FE0; --accent-hover:#3450C4; --accent-soft:#E8EDFD; --accent-on:#FFFFFF;
+  --link:#2F4DC7; --link-hover:#1F3AA8;
+  --success:#0E7A55; --success-soft:#DFF4EC;
+  --warning:#8F5300; --warning-soft:#FBEEDA;
+  --danger:#C0342E;  --danger-soft:#FBE6E5;
+  --info:#3D5FE0;    --info-soft:#E8EDFD;
+  --glass-bg:rgba(255,255,255,0.62); --glass-border:rgba(255,255,255,0.9);
+  --glass-shadow:0 8px 32px rgba(20,24,40,0.10);
+  --shadow-sm:0 1px 2px rgba(16,20,30,0.07);
+  --shadow-md:0 4px 14px rgba(16,20,30,0.08);
+  --shadow-lg:0 18px 44px rgba(16,20,30,0.13);
+  --grid-line:rgba(21,23,28,0.05); --noise-opacity:0.035;
+  --code-bg:#EFEFF3; --code-text:#2A2E37;
+  --c1:#4F7CFF; --c2:#00A98F; --c3:#E0761F; --c4:#8B5CF6; --c5:#D4A017; --c6:#E0526B;
+  --mat-raised:linear-gradient(180deg,#FFFFFF 0%,#EFEFF3 100%);
+  --mat-base:linear-gradient(180deg,#F4F4F7 0%,#E9E9EE 100%);
+  --mat-accent:linear-gradient(180deg,#5B79EA 0%,var(--accent) 100%);
+  --bevel:inset 0 1px 0 rgba(255,255,255,.95), inset 0 -1px 0 rgba(15,18,28,.07);
+  --lift:0 1px 1px rgba(15,18,28,.05), 0 3px 7px rgba(15,18,28,.08);
+  --press:inset 0 2px 5px rgba(15,18,28,.16), inset 0 -1px 0 rgba(255,255,255,.55);
+  --well:inset 0 2px 5px rgba(15,18,28,.13), inset 0 -1px 0 rgba(255,255,255,.7);
+  --control-h:40px; --glass-blur:16px; --grid-size:32px;
+  --r-sm:6px; --r-md:8px; --r-lg:10px; --r-xl:14px;
+}
+html[data-theme="dark"]{
+  --surface:#0B0F14; --surface-raised:#131923; --surface-sunken:#080B10; --surface-inset:#1A212C;
+  --border-subtle:#1F2733; --border-strong:#333E4D;
+  --text-primary:#E9ECF2; --text-secondary:#A8B0BE; --text-muted:#7D8797; --text-inverse:#0B0F14;
+  --accent:#4F7CFF; --accent-hover:#6B90FF; --accent-soft:rgba(79,124,255,0.15); --accent-on:#07101F;
+  --link:#8FAAFF; --link-hover:#B4C6FF;
+  --success:#3DD69C; --success-soft:rgba(61,214,156,0.14);
+  --warning:#F0B23C; --warning-soft:rgba(240,178,60,0.14);
+  --danger:#FF6B63;  --danger-soft:rgba(255,107,99,0.14);
+  --info:#7A9BFF;    --info-soft:rgba(122,155,255,0.14);
+  --glass-bg:rgba(19,25,35,0.58); --glass-border:rgba(255,255,255,0.09);
+  --glass-shadow:0 8px 32px rgba(0,0,0,0.5);
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md:0 4px 14px rgba(0,0,0,0.45);
+  --shadow-lg:0 18px 44px rgba(0,0,0,0.55);
+  --grid-line:rgba(255,255,255,0.045); --noise-opacity:0.055;
+  --code-bg:#0E141C; --code-text:#C3CAD6;
+  --c1:#6B90FF; --c2:#2FD1B4; --c3:#F0913C; --c4:#A78BFA; --c5:#EFC64A; --c6:#FF7A90;
+  --mat-raised:linear-gradient(180deg,#1C2431 0%,#121822 100%);
+  --mat-base:linear-gradient(180deg,#111823 0%,#0A0F16 100%);
+  --mat-accent:linear-gradient(180deg,#7396FF 0%,var(--accent) 100%);
+  --bevel:inset 0 1px 0 rgba(255,255,255,.09), inset 0 -1px 0 rgba(0,0,0,.55);
+  --lift:0 1px 1px rgba(0,0,0,.5), 0 4px 10px rgba(0,0,0,.5);
+  --press:inset 0 2px 6px rgba(0,0,0,.65), inset 0 -1px 0 rgba(255,255,255,.06);
+  --well:inset 0 2px 6px rgba(0,0,0,.6), inset 0 -1px 0 rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface);color:var(--text-primary);font-family:'Space Grotesk',system-ui,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+a{color:var(--link);text-decoration:none}
+a:hover{color:var(--link-hover)}
+h1,h2,h3,h4{font-family:'Sora',system-ui,sans-serif;margin:0;letter-spacing:-0.02em;line-height:1.15}
+p{margin:0}
+svg[class*="lucide"]{width:1em;height:1em;stroke-width:1.5px;flex:none}
+input,textarea,select,button{font-family:inherit;font-size:inherit;color:inherit}
+::selection{background:var(--accent);color:var(--accent-on)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:99px;border:3px solid var(--surface)}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%{background-position:-500px 0}100%{background-position:500px 0}}
+@keyframes toastIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes overlayIn{from{opacity:0}to{opacity:1}}
+@keyframes dialogIn{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes riseIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+</style>
+</helmet>
+
+<div style="position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);background-size:var(--grid-size) var(--grid-size)"></div>
+<div style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:var(--noise-opacity);background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>')"></div>
+
+<div style="position:relative;z-index:1;min-height:100vh">
+
+  <header style="position:sticky;top:0;z-index:40;backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);background:var(--glass-bg);border-bottom:1px solid var(--border-subtle)">
+    <div style="max-width:1240px;margin:0 auto;padding:0 32px;height:62px;display:flex;align-items:center;gap:16px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:26px;height:26px;border-radius:var(--r-sm);background:var(--accent);display:flex;align-items:center;justify-content:center;color:var(--accent-on);font-family:'Sora';font-weight:700;font-size:14px">R</div>
+        <span style="font-family:'Sora';font-weight:600;font-size:16px;letter-spacing:-0.02em">RizzxxUI</span>
+        <span style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);border:1px solid var(--border-subtle);border-radius:99px;padding:1px 8px">v0.1</span>
+      </div>
+      <div style="flex:1"></div>
+      <span style="font-size:13px;color:var(--text-muted);display:none" data-hide-sm="1"></span>
+      <button onClick="{{ toggleTheme }}" style="height:34px;padding:0 12px;display:flex;align-items:center;gap:8px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);cursor:pointer;font-size:13px;font-weight:500;transition:box-shadow .1s,transform .1s" style-active="box-shadow:var(--press);transform:translateY(1px)" style-hover="border-color:var(--border-strong)">
+        <i data-lucide="sun-moon" style="font-size:15px"></i><span>{{ themeLabel }}</span>
+      </button>
+    </div>
+  </header>
+
+  <div style="max-width:1240px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:196px minmax(0,1fr);gap:56px;align-items:start">
+
+    <nav style="position:sticky;top:62px;padding:40px 0;display:flex;flex-direction:column;gap:1px;font-size:13.5px">
+      <span style="font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);padding:0 10px 8px">Fondasi</span>
+      <a href="#prinsip" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Prinsip</a>
+      <a href="#warna" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Warna</a>
+      <a href="#tipografi" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Tipografi</a>
+      <a href="#spacing" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Spacing &amp; Grid</a>
+      <a href="#permukaan" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Permukaan &amp; Kaca</a>
+      <a href="#material" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Material</a>
+      <a href="#motion" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Motion</a>
+      <a href="#ikon" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Ikon</a>
+      <span style="font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);padding:16px 10px 8px">Komponen</span>
+      <a href="#tombol" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Tombol</a>
+      <a href="#form" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Form</a>
+      <a href="#navigasi" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Navigasi</a>
+      <a href="#data" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Data</a>
+      <a href="#feedback" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Feedback</a>
+      <a href="#overlay" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Overlay &amp; Menu</a>
+      <a href="#input-lanjutan" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Input lanjutan</a>
+      <a href="#konten" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Konten &amp; Status</a>
+      <span style="font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);padding:16px 10px 8px">Pakai</span>
+      <a href="#layout" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Pola Layout</a>
+      <a href="#voice" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Voice &amp; Tone</a>
+      <a href="#tailwind" style="color:var(--text-secondary);padding:5px 10px;border-radius:var(--r-sm);transition:background .16s,color .16s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Tailwind</a>
+    </nav>
+
+    <main style="padding:40px 0 120px;min-width:0">
+
+      <section style="padding:32px 0 8px">
+        <span style="font-family:'IBM Plex Mono';font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent)">Design System</span>
+        <h1 style="font-size:52px;font-weight:600;margin:14px 0 18px;max-width:15ch">Sistem untuk produk bisnis yang padat informasi.</h1>
+        <p style="font-size:17px;color:var(--text-secondary);max-width:62ch">RizzxxUI adalah fondasi visual untuk admin dashboard, SaaS, dan internal tools. Netral abu kebiruan, satu aksen biru, tipografi geometrik, dan kaca yang dipakai seperlunya — bukan sebagai dekorasi.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:26px">
+          <span style="font-family:'IBM Plex Mono';font-size:12px;padding:5px 11px;border-radius:99px;border:1px solid var(--border-subtle);background:var(--surface-raised);color:var(--text-secondary)">Dark &amp; light setara</span>
+          <span style="font-family:'IBM Plex Mono';font-size:12px;padding:5px 11px;border-radius:99px;border:1px solid var(--border-subtle);background:var(--surface-raised);color:var(--text-secondary)">WCAG AA ketat</span>
+          <span style="font-family:'IBM Plex Mono';font-size:12px;padding:5px 11px;border-radius:99px;border:1px solid var(--border-subtle);background:var(--surface-raised);color:var(--text-secondary)">Token semantik</span>
+          <span style="font-family:'IBM Plex Mono';font-size:12px;padding:5px 11px;border-radius:99px;border:1px solid var(--border-subtle);background:var(--surface-raised);color:var(--text-secondary)">Tailwind-ready</span>
+        </div>
+      </section>
+
+      <section id="prinsip" style="padding:64px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">01 — Prinsip</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--border-subtle);border:1px solid var(--border-subtle);border-radius:var(--r-lg);overflow:hidden;margin-top:20px">
+          <div style="background:var(--surface-raised);padding:24px">
+            <i data-lucide="align-left" style="font-size:19px;color:var(--accent)"></i>
+            <h3 style="font-size:17px;font-weight:600;margin:12px 0 8px">Data dulu, gaya belakangan</h3>
+            <p style="font-size:14px;color:var(--text-secondary)">Kalau sebuah efek visual membuat angka lebih sulit dibaca, efek itu yang pergi.</p>
+          </div>
+          <div style="background:var(--surface-raised);padding:24px">
+            <i data-lucide="layers" style="font-size:19px;color:var(--accent)"></i>
+            <h3 style="font-size:17px;font-weight:600;margin:12px 0 8px">Kaca itu lapisan, bukan tema</h3>
+            <p style="font-size:14px;color:var(--text-secondary)">Blur hanya di card konten dan hero. Tabel, form, dan teks panjang selalu di permukaan solid.</p>
+          </div>
+          <div style="background:var(--surface-raised);padding:24px">
+            <i data-lucide="ruler" style="font-size:19px;color:var(--accent)"></i>
+            <h3 style="font-size:17px;font-weight:600;margin:12px 0 8px">Satu keputusan, satu tempat</h3>
+            <p style="font-size:14px;color:var(--text-secondary)">Nilai mentah tidak pernah ditulis di komponen. Semua lewat token semantik.</p>
+          </div>
+          <div style="background:var(--surface-raised);padding:24px">
+            <i data-lucide="contrast" style="font-size:19px;color:var(--accent)"></i>
+            <h3 style="font-size:17px;font-weight:600;margin:12px 0 8px">AA bukan target, tapi syarat</h3>
+            <p style="font-size:14px;color:var(--text-secondary)">Teks minimal 4.5:1, elemen UI 3:1 — di kedua mode, termasuk di atas kaca.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="warna" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">02 — Warna</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Token semantik, bukan nama warna</h3>
+        <p style="font-size:15px;color:var(--text-secondary);max-width:64ch;margin-bottom:28px">Developer tidak perlu tahu <span style="font-family:'IBM Plex Mono';font-size:13px">#131923</span>. Mereka perlu tahu bahwa panel duduk di <span style="font-family:'IBM Plex Mono';font-size:13px">surface-raised</span>. Setiap token punya pasangan di kedua mode dan sudah diuji kontrasnya.</p>
+
+        <h4 style="font-family:'IBM Plex Mono';font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px">Permukaan</h4>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:32px">
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);overflow:hidden;background:var(--surface-raised)">
+            <div style="height:64px;background:var(--surface)"></div>
+            <div style="padding:10px 12px;border-top:1px solid var(--border-subtle)"><div style="font-family:'IBM Plex Mono';font-size:12.5px">surface</div><div style="font-size:12px;color:var(--text-muted)">Latar halaman</div></div>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);overflow:hidden;background:var(--surface-raised)">
+            <div style="height:64px;background:var(--surface-raised)"></div>
+            <div style="padding:10px 12px;border-top:1px solid var(--border-subtle)"><div style="font-family:'IBM Plex Mono';font-size:12.5px">surface-raised</div><div style="font-size:12px;color:var(--text-muted)">Card, panel, popover</div></div>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);overflow:hidden;background:var(--surface-raised)">
+            <div style="height:64px;background:var(--surface-sunken)"></div>
+            <div style="padding:10px 12px;border-top:1px solid var(--border-subtle)"><div style="font-family:'IBM Plex Mono';font-size:12.5px">surface-sunken</div><div style="font-size:12px;color:var(--text-muted)">Sidebar, header tabel</div></div>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);overflow:hidden;background:var(--surface-raised)">
+            <div style="height:64px;background:var(--surface-inset)"></div>
+            <div style="padding:10px 12px;border-top:1px solid var(--border-subtle)"><div style="font-family:'IBM Plex Mono';font-size:12.5px">surface-inset</div><div style="font-size:12px;color:var(--text-muted)">Hover, track, well</div></div>
+          </div>
+        </div>
+
+        <h4 style="font-family:'IBM Plex Mono';font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px">Teks &amp; garis</h4>
+        <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);overflow:hidden;margin-bottom:32px;background:var(--surface-raised)">
+          <div style="display:flex;align-items:center;gap:16px;padding:13px 16px;border-bottom:1px solid var(--border-subtle)">
+            <span style="font-family:'IBM Plex Mono';font-size:12.5px;width:160px;flex:none">text-primary</span>
+            <span style="color:var(--text-primary);font-size:15px;flex:1">Judul, angka, label utama</span>
+            <span style="font-family:'IBM Plex Mono';font-size:12px;color:var(--text-muted)">15.8:1</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;padding:13px 16px;border-bottom:1px solid var(--border-subtle)">
+            <span style="font-family:'IBM Plex Mono';font-size:12.5px;width:160px;flex:none">text-secondary</span>
+            <span style="color:var(--text-secondary);font-size:15px;flex:1">Paragraf, deskripsi, isi tabel</span>
+            <span style="font-family:'IBM Plex Mono';font-size:12px;color:var(--text-muted)">8.4:1</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;padding:13px 16px;border-bottom:1px solid var(--border-subtle)">
+            <span style="font-family:'IBM Plex Mono';font-size:12.5px;width:160px;flex:none">text-muted</span>
+            <span style="color:var(--text-muted);font-size:15px;flex:1">Caption, timestamp, helper — tidak untuk teks penting</span>
+            <span style="font-family:'IBM Plex Mono';font-size:12px;color:var(--text-muted)">4.7:1</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;padding:13px 16px;border-bottom:1px solid var(--border-subtle)">
+            <span style="font-family:'IBM Plex Mono';font-size:12.5px;width:160px;flex:none">border-subtle</span>
+            <span style="flex:1;height:1px;background:var(--border-subtle)"></span>
+            <span style="font-family:'IBM Plex Mono';font-size:12px;color:var(--text-muted)">pemisah</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;padding:13px 16px">
+            <span style="font-family:'IBM Plex Mono';font-size:12.5px;width:160px;flex:none">border-strong</span>
+            <span style="flex:1;height:1px;background:var(--border-strong)"></span>
+            <span style="font-family:'IBM Plex Mono';font-size:12px;color:var(--text-muted)">input, fokus</span>
+          </div>
+        </div>
+
+        <h4 style="font-family:'IBM Plex Mono';font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px">Aksen &amp; status</h4>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px">
+          <div style="border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border-subtle)">
+            <div style="height:56px;background:var(--accent);display:flex;align-items:flex-end;padding:8px 10px;color:var(--accent-on);font-family:'IBM Plex Mono';font-size:11px">Aa</div>
+            <div style="padding:9px 11px;background:var(--surface-raised);font-family:'IBM Plex Mono';font-size:12px">accent</div>
+          </div>
+          <div style="border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border-subtle)">
+            <div style="height:56px;background:var(--success);display:flex;align-items:flex-end;padding:8px 10px;color:var(--text-inverse);font-family:'IBM Plex Mono';font-size:11px">Aa</div>
+            <div style="padding:9px 11px;background:var(--surface-raised);font-family:'IBM Plex Mono';font-size:12px">success</div>
+          </div>
+          <div style="border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border-subtle)">
+            <div style="height:56px;background:var(--warning);display:flex;align-items:flex-end;padding:8px 10px;color:var(--text-inverse);font-family:'IBM Plex Mono';font-size:11px">Aa</div>
+            <div style="padding:9px 11px;background:var(--surface-raised);font-family:'IBM Plex Mono';font-size:12px">warning</div>
+          </div>
+          <div style="border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border-subtle)">
+            <div style="height:56px;background:var(--danger);display:flex;align-items:flex-end;padding:8px 10px;color:var(--text-inverse);font-family:'IBM Plex Mono';font-size:11px">Aa</div>
+            <div style="padding:9px 11px;background:var(--surface-raised);font-family:'IBM Plex Mono';font-size:12px">danger</div>
+          </div>
+        </div>
+        <p style="font-size:14px;color:var(--text-secondary);max-width:64ch;margin-bottom:32px">Setiap status punya varian <span style="font-family:'IBM Plex Mono';font-size:13px">-soft</span> untuk latar badge dan alert. Aksen hanya untuk aksi utama dan state terpilih — bukan untuk mewarnai judul.</p>
+
+        <h4 style="font-family:'IBM Plex Mono';font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:12px">Palet chart — kategorikal</h4>
+        <div style="display:flex;border-radius:var(--r-md);overflow:hidden;border:1px solid var(--border-subtle);margin-bottom:12px">
+          <div style="flex:1;height:52px;background:var(--c1)"></div>
+          <div style="flex:1;height:52px;background:var(--c2)"></div>
+          <div style="flex:1;height:52px;background:var(--c3)"></div>
+          <div style="flex:1;height:52px;background:var(--c4)"></div>
+          <div style="flex:1;height:52px;background:var(--c5)"></div>
+          <div style="flex:1;height:52px;background:var(--c6)"></div>
+        </div>
+        <p style="font-size:14px;color:var(--text-secondary);max-width:64ch">Urutan tetap: <span style="font-family:'IBM Plex Mono';font-size:13px">chart-1</span> selalu seri pertama. Lebih dari enam kategori — gabungkan sisanya jadi "Lainnya".</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:28px">
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--success);margin-bottom:10px"><i data-lucide="check" style="font-size:14px"></i>LAKUKAN</div>
+            <p style="font-size:14px;color:var(--text-secondary)">Pakai warna hanya untuk membedakan makna: status, seri data, aksi utama.</p>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--danger);margin-bottom:10px"><i data-lucide="x" style="font-size:14px"></i>HINDARI</div>
+            <p style="font-size:14px;color:var(--text-secondary)">Gradien warna-warni sebagai latar, atau menandai status hanya dengan warna tanpa label.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="tipografi" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">03 — Tipografi</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Sora untuk suara, Space Grotesk untuk kerja</h3>
+        <p style="font-size:15px;color:var(--text-secondary);max-width:64ch;margin-bottom:28px">Sora dipakai di heading dan angka besar — geometrik, sedikit berkarakter. Space Grotesk menangani seluruh UI: label, isi tabel, tombol. IBM Plex Mono untuk nilai teknis dan kode.</p>
+        <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);overflow:hidden;background:var(--surface-raised)">
+          <div style="display:flex;align-items:baseline;gap:20px;padding:20px 22px;border-bottom:1px solid var(--border-subtle)">
+            <span style="font-family:'IBM Plex Mono';font-size:11.5px;color:var(--text-muted);width:130px;flex:none">display / 52 / 600</span>
+            <span style="font-family:'Sora';font-size:52px;font-weight:600;letter-spacing:-0.03em;line-height:1.1">Pendapatan</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:20px;padding:18px 22px;border-bottom:1px solid var(--border-subtle)">
+            <span style="font-family:'IBM Plex Mono';font-size:11.5px;color:var(--text-muted);width:130px;flex:none">h1 / 30 / 600</span>
+            <span style="font-family:'Sora';font-size:30px;font-weight:600;letter-spacing:-0.02em">Ringkasan bulanan</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:20px;padding:16px 22px;border-bottom:1px solid var(--border-subtle)">
+            <span style="font-family:'IBM Plex Mono';font-size:11.5px;color:var(--text-muted);width:130px;flex:none">h2 / 22 / 600</span>
+            <span style="font-family:'Sora';font-size:22px;font-weight:600;letter-spacing:-0.02em">Transaksi terakhir</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:20px;padding:15px 22px;border-bottom:1px solid var(--border-subtle)">
+            <span style="font-family:'IBM Plex Mono';font-size:11.5px;color:var(--text-muted);width:130px;flex:none">h3 / 17 / 600</span>
+            <span style="font-family:'Sora';font-size:17px;font-weight:600">Metode pembayaran</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:20px;padding:15px 22px;border-bottom:1px solid var(--border-subtle)">
+            <span style="font-family:'IBM Plex Mono';font-size:11.5px;color:var(--text-muted);width:130px;flex:none">body / 15 / 400</span>
+            <span style="font-size:15px;color:var(--text-secondary);max-width:52ch">Ukuran default seluruh antarmuka. Panjang baris ideal 60–75 karakter agar tetap nyaman dibaca.</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:20px;padding:15px 22px;border-bottom:1px solid var(--border-subtle)">
+            <span style="font-family:'IBM Plex Mono';font-size:11.5px;color:var(--text-muted);width:130px;flex:none">small / 13 / 400</span>
+            <span style="font-size:13px;color:var(--text-secondary)">Helper text, isi tabel padat, caption di bawah chart</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:20px;padding:15px 22px">
+            <span style="font-family:'IBM Plex Mono';font-size:11.5px;color:var(--text-muted);width:130px;flex:none">mono / 13 / 400</span>
+            <span style="font-family:'IBM Plex Mono';font-size:13px">IDR 24.850.000 · INV-2048 · 99.94%</span>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:20px">
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--success);margin-bottom:10px"><i data-lucide="check" style="font-size:14px"></i>LAKUKAN</div>
+            <p style="font-size:14px;color:var(--text-secondary)">Angka di tabel dan metrik pakai mono dengan <span style="font-family:'IBM Plex Mono';font-size:13px">tabular-nums</span> supaya kolom lurus.</p>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--danger);margin-bottom:10px"><i data-lucide="x" style="font-size:14px"></i>HINDARI</div>
+            <p style="font-size:14px;color:var(--text-secondary)">Sora untuk paragraf panjang — bentuk geometrisnya melelahkan di bawah 16px.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="spacing" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">04 — Spacing &amp; Grid</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Skala 4px, kepadatan sedang</h3>
+        <p style="font-size:15px;color:var(--text-secondary);max-width:64ch;margin-bottom:24px">Tinggi kontrol default 40px. Semua jarak kelipatan 4 — tidak ada 5px, 15px, atau 22px di mana pun.</p>
+        <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);padding:20px 22px;background:var(--surface-raised);display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ spacing }}" as="s" hint-placeholder-count="8">
+            <div style="display:flex;align-items:center;gap:16px">
+              <span style="font-family:'IBM Plex Mono';font-size:12px;color:var(--text-muted);width:64px;flex:none">{{ s.name }}</span>
+              <span style="font-family:'IBM Plex Mono';font-size:12px;width:48px;flex:none">{{ s.px }}</span>
+              <span style="height:12px;border-radius:3px;background:var(--accent-soft);border:1px solid var(--accent);width:{{ s.w }}"></span>
+              <span style="font-size:12.5px;color:var(--text-muted)">{{ s.use }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:16px">
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);letter-spacing:0.08em">GRID</div>
+            <div style="font-family:'Sora';font-size:24px;font-weight:600;margin-top:6px">12 kolom</div>
+            <p style="font-size:13.5px;color:var(--text-secondary);margin-top:6px">Gutter 24px, maks 1240px untuk konten aplikasi.</p>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);letter-spacing:0.08em">BREAKPOINT</div>
+            <div style="font-family:'Sora';font-size:24px;font-weight:600;margin-top:6px">640 · 1024 · 1440</div>
+            <p style="font-size:13.5px;color:var(--text-secondary);margin-top:6px">Sidebar runtuh jadi drawer di bawah 1024.</p>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);letter-spacing:0.08em">TARGET SENTUH</div>
+            <div style="font-family:'Sora';font-size:24px;font-weight:600;margin-top:6px">44 × 44</div>
+            <p style="font-size:13.5px;color:var(--text-secondary);margin-top:6px">Minimum di mobile, walau visualnya lebih kecil.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="permukaan" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">05 — Permukaan, Radius &amp; Kaca</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Tiga tingkat elevasi, satu lapisan kaca</h3>
+        <p style="font-size:15px;color:var(--text-secondary);max-width:64ch;margin-bottom:24px">Radius lembut: 6px untuk elemen kecil, 8–10px untuk kontrol dan card, 14px untuk panel besar dan modal.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px">
+          <div style="background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:20px;box-shadow:var(--shadow-sm)">
+            <div style="font-family:'IBM Plex Mono';font-size:12px;color:var(--text-muted)">shadow-sm</div>
+            <div style="font-family:'Sora';font-weight:600;margin-top:4px">Diam</div>
+            <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Card di dalam halaman</p>
+          </div>
+          <div style="background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:20px;box-shadow:var(--shadow-md)">
+            <div style="font-family:'IBM Plex Mono';font-size:12px;color:var(--text-muted)">shadow-md</div>
+            <div style="font-family:'Sora';font-weight:600;margin-top:4px">Mengambang</div>
+            <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Dropdown, popover</p>
+          </div>
+          <div style="background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:20px;box-shadow:var(--shadow-lg)">
+            <div style="font-family:'IBM Plex Mono';font-size:12px;color:var(--text-muted)">shadow-lg</div>
+            <div style="font-family:'Sora';font-weight:600;margin-top:4px">Terangkat</div>
+            <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Modal, drawer</p>
+          </div>
+        </div>
+
+        <div style="margin-top:28px;position:relative;border-radius:var(--r-xl);overflow:hidden;border:1px solid var(--border-subtle);padding:36px;background:radial-gradient(120% 120% at 12% 0%,var(--accent-soft) 0%,transparent 55%),var(--surface-sunken)">
+          <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);background-size:24px 24px"></div>
+          <div style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px">
+            <div style="backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-lg);padding:20px;box-shadow:var(--glass-shadow)">
+              <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);letter-spacing:0.08em">MRR</div>
+              <div style="font-family:'Sora';font-size:28px;font-weight:600;margin-top:6px;font-variant-numeric:tabular-nums">Rp 412jt</div>
+              <div style="display:flex;align-items:center;gap:5px;font-size:13px;color:var(--success);margin-top:4px"><i data-lucide="trending-up" style="font-size:14px"></i>+12,4%</div>
+            </div>
+            <div style="backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-lg);padding:20px;box-shadow:var(--glass-shadow)">
+              <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);letter-spacing:0.08em">RETENSI</div>
+              <div style="font-family:'Sora';font-size:28px;font-weight:600;margin-top:6px;font-variant-numeric:tabular-nums">94,2%</div>
+              <div style="display:flex;align-items:center;gap:5px;font-size:13px;color:var(--text-muted);margin-top:4px"><i data-lucide="minus" style="font-size:14px"></i>Stabil</div>
+            </div>
+            <div style="backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-lg);padding:20px;box-shadow:var(--glass-shadow)">
+              <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);letter-spacing:0.08em">CHURN</div>
+              <div style="font-family:'Sora';font-size:28px;font-weight:600;margin-top:6px;font-variant-numeric:tabular-nums">1,8%</div>
+              <div style="display:flex;align-items:center;gap:5px;font-size:13px;color:var(--danger);margin-top:4px"><i data-lucide="trending-down" style="font-size:14px"></i>+0,3%</div>
+            </div>
+          </div>
+        </div>
+        <p style="font-size:13.5px;color:var(--text-muted);margin-top:10px">Resep kaca: <span style="font-family:'IBM Plex Mono';font-size:12.5px">blur(16px) saturate(160%)</span> + tint <span style="font-family:'IBM Plex Mono';font-size:12.5px">glass-bg</span> + border 1px + shadow. Selalu di atas backdrop bertekstur — di atas warna rata, kaca hanya jadi abu-abu.</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:20px">
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--success);margin-bottom:10px"><i data-lucide="check" style="font-size:14px"></i>LAKUKAN</div>
+            <p style="font-size:14px;color:var(--text-secondary)">Kaca untuk card ringkasan, hero, dan panel yang berdiri di atas latar bertekstur.</p>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--danger);margin-bottom:10px"><i data-lucide="x" style="font-size:14px"></i>HINDARI</div>
+            <p style="font-size:14px;color:var(--text-secondary)">Kaca menumpuk di atas kaca, atau tabel dan input di atas permukaan blur.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="material" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">06 — Material &amp; Kedalaman</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Kedalaman menandai fungsi, bukan gaya</h3>
+        <p style="font-size:15px;color:var(--text-secondary);max-width:64ch;margin-bottom:24px">Di bawah lapisan kaca ada lapisan material: permukaan dengan bevel dan cahaya tetap dari atas. Aturannya satu kalimat — yang menonjol bisa ditekan, yang cekung bisa diisi, dan konten selalu datar. Tekstur figuratif seperti kulit, kayu, atau logam tidak dipakai; materialnya abstrak, hanya cahaya dan kedalaman.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px">
+          <div style="border-radius:var(--r-lg);padding:20px;background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);border:1px solid var(--border-subtle)">
+            <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);letter-spacing:0.08em">raised</div>
+            <div style="font-family:'Sora';font-weight:600;margin-top:6px;font-size:15px">Bisa ditekan</div>
+            <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Tombol, chip, tuas aktif</p>
+          </div>
+          <div style="border-radius:var(--r-lg);padding:20px;background:var(--surface-sunken);box-shadow:var(--well);border:1px solid var(--border-subtle)">
+            <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);letter-spacing:0.08em">well</div>
+            <div style="font-family:'Sora';font-weight:600;margin-top:6px;font-size:15px">Bisa diisi</div>
+            <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Input, track, segmented</p>
+          </div>
+          <div style="border-radius:var(--r-lg);padding:20px;background:var(--mat-raised);box-shadow:var(--press);border:1px solid var(--border-subtle)">
+            <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);letter-spacing:0.08em">pressed</div>
+            <div style="font-family:'Sora';font-weight:600;margin-top:6px;font-size:15px">Sedang ditekan</div>
+            <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Hanya selama jari menempel</p>
+          </div>
+          <div style="border-radius:var(--r-lg);padding:20px;backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);background:var(--glass-bg);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow)">
+            <div style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);letter-spacing:0.08em">glass</div>
+            <div style="font-family:'Sora';font-weight:600;margin-top:6px;font-size:15px">Mengambang</div>
+            <p style="font-size:13px;color:var(--text-secondary);margin-top:4px">Sidebar, hero, kartu metrik</p>
+          </div>
+        </div>
+        <div style="margin-top:18px;border-radius:var(--r-lg);padding:22px;background:var(--mat-base);box-shadow:var(--bevel),var(--lift);border:1px solid var(--border-subtle);display:flex;flex-wrap:wrap;gap:16px;align-items:center">
+          <div style="display:flex;gap:2px;padding:3px;border-radius:var(--r-md);background:var(--surface-sunken);box-shadow:var(--well)">
+            <sc-for list="{{ segments }}" as="sg" hint-placeholder-count="3">
+              <div onClick="{{ sg.pick }}" style="padding:7px 16px;border-radius:var(--r-sm);font-size:13.5px;cursor:pointer;background:{{ sg.bg }};box-shadow:{{ sg.shadow }};color:{{ sg.color }};font-weight:{{ sg.weight }};transition:all .16s">{{ sg.label }}</div>
+            </sc-for>
+          </div>
+          <div style="flex:1;min-width:200px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px">
+              <span style="font-size:13.5px;color:var(--text-secondary)">Ambang peringatan</span>
+              <span style="font-family:'IBM Plex Mono';font-size:12.5px;padding:2px 9px;border-radius:var(--r-sm);background:var(--surface-sunken);box-shadow:var(--well)">{{ sliderLabel }}</span>
+            </div>
+            <div onClick="{{ setSlider }}" style="height:16px;border-radius:99px;background:var(--surface-sunken);box-shadow:var(--well);padding:3px;cursor:pointer;position:relative">
+              <div style="height:10px;border-radius:99px;background:var(--mat-accent);width:{{ sliderPct }}"></div>
+              <div style="position:absolute;top:-4px;left:{{ sliderPct }};width:24px;height:24px;margin-left:-12px;border-radius:99px;background:var(--mat-raised);border:1px solid var(--border-strong);box-shadow:var(--bevel),var(--lift);pointer-events:none"></div>
+            </div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:16px">
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--success);margin-bottom:10px"><i data-lucide="check" style="font-size:14px"></i>LAKUKAN</div>
+            <p style="font-size:14px;color:var(--text-secondary)">Satu sumber cahaya, selalu dari atas. Semua bevel dan bayangan mengikuti arah yang sama.</p>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--danger);margin-bottom:10px"><i data-lucide="x" style="font-size:14px"></i>HINDARI</div>
+            <p style="font-size:14px;color:var(--text-secondary)">Emboss pada teks, dan kedalaman pada baris tabel — keduanya langsung menggagalkan AA.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="motion" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">07 — Motion</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Cepat, satu arah, bisa dimatikan</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:20px">
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="font-family:'IBM Plex Mono';font-size:12px;color:var(--text-muted)">instant · 120ms</div>
+            <p style="font-size:13.5px;color:var(--text-secondary);margin-top:6px">Hover, fokus, perubahan warna</p>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="font-family:'IBM Plex Mono';font-size:12px;color:var(--text-muted)">base · 200ms</div>
+            <p style="font-size:13.5px;color:var(--text-secondary);margin-top:6px">Dropdown, tab, toggle</p>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="font-family:'IBM Plex Mono';font-size:12px;color:var(--text-muted)">deliberate · 280ms</div>
+            <p style="font-size:13.5px;color:var(--text-secondary);margin-top:6px">Modal, drawer, toast</p>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="font-family:'IBM Plex Mono';font-size:12px;color:var(--text-muted)">stagger · 40ms</div>
+            <p style="font-size:13.5px;color:var(--text-secondary);margin-top:6px">Jeda antar item list, maks 6 item</p>
+          </div>
+        </div>
+        <div style="margin-top:16px;border:1px solid var(--border-subtle);border-radius:var(--r-lg);padding:20px;background:var(--surface-raised)">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px">
+            <span style="font-size:13.5px;color:var(--text-secondary)">Easing standar: <span style="font-family:'IBM Plex Mono';font-size:12.5px">cubic-bezier(.2,.8,.2,1)</span></span>
+            <button onClick="{{ replayStagger }}" style="height:32px;padding:0 12px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface);cursor:pointer;font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px" style-hover="border-color:var(--border-strong)"><i data-lucide="rotate-ccw" style="font-size:14px"></i>Putar ulang</button>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">{{ staggerDemo }}</div>
+        </div>
+      </section>
+
+      <section id="ikon" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">08 — Ikon</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Lucide, stroke 1.5, ukuran 16 / 20 / 24</h3>
+        <p style="font-size:15px;color:var(--text-secondary);max-width:64ch;margin-bottom:22px">Satu set saja. Ikon selalu berdampingan dengan teks kecuali di ikon-tombol yang punya tooltip. Warna mengikuti teks di sekitarnya, bukan aksen.</p>
+        <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);background:var(--surface-raised);padding:8px;display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:2px">
+          <sc-for list="{{ icons }}" as="ic" hint-placeholder-count="24">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:7px;padding:14px 6px;border-radius:var(--r-sm);transition:background .16s" style-hover="background:var(--surface-inset)">
+              <i data-lucide="{{ ic }}" style="font-size:20px;color:var(--text-secondary)"></i>
+              <span style="font-family:'IBM Plex Mono';font-size:10.5px;color:var(--text-muted);text-align:center;overflow:hidden;text-overflow:ellipsis;max-width:100%;white-space:nowrap">{{ ic }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section id="tombol" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">09 — Tombol</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Satu aksi utama per layar</h3>
+        <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);background:var(--surface-raised);overflow:hidden;margin-top:20px">
+          <div style="padding:28px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;background:var(--surface-sunken)">
+            <button style="height:var(--control-h);padding:0 18px;border-radius:var(--r-md);border:1px solid transparent;background:var(--mat-accent);color:var(--accent-on);font-weight:600;box-shadow:var(--bevel),var(--lift);font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:box-shadow .1s,transform .1s" style-hover="background:var(--accent-hover)" style-active="box-shadow:var(--press);transform:translateY(1px)">Simpan perubahan</button>
+            <button style="height:var(--control-h);padding:0 18px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--mat-raised);font-weight:500;font-size:14px;cursor:pointer;box-shadow:var(--bevel),var(--lift);display:inline-flex;align-items:center;gap:8px;transition:box-shadow .1s,transform .1s" style-hover="background:var(--surface-inset)" style-active="box-shadow:var(--press);transform:translateY(1px)">Sekunder</button>
+            <button style="height:var(--control-h);padding:0 14px;border-radius:var(--r-md);border:1px solid transparent;background:transparent;color:var(--text-secondary);font-weight:500;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:background .12s,color .12s" style-hover="background:var(--surface-inset);color:var(--text-primary)">Ghost</button>
+            <button style="height:var(--control-h);padding:0 18px;border-radius:var(--r-md);border:1px solid transparent;background:var(--danger);color:var(--text-inverse);font-weight:600;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:opacity .12s" style-hover="opacity:.88"><i data-lucide="trash-2" style="font-size:15px"></i>Hapus</button>
+            <button disabled="disabled" style="height:var(--control-h);padding:0 18px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-inset);color:var(--text-muted);font-weight:500;font-size:14px;cursor:not-allowed">Nonaktif</button>
+            <button onClick="{{ fakeLoad }}" style="height:var(--control-h);padding:0 18px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--mat-raised);font-weight:500;font-size:14px;cursor:pointer;box-shadow:var(--bevel),var(--lift);display:inline-flex;align-items:center;gap:8px" style-hover="background:var(--surface-inset)">{{ loadingIcon }}<span>{{ loadingLabel }}</span></button>
+          </div>
+          <div style="padding:22px 28px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;border-top:1px solid var(--border-subtle)">
+            <span style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);letter-spacing:0.08em;width:100%">UKURAN &amp; IKON</span>
+            <button style="height:32px;padding:0 12px;border-radius:var(--r-sm);border:1px solid transparent;background:var(--mat-accent);color:var(--accent-on);font-weight:600;box-shadow:var(--bevel),var(--lift);font-size:13px;cursor:pointer">sm · 32</button>
+            <button style="height:40px;padding:0 16px;border-radius:var(--r-md);border:1px solid transparent;background:var(--mat-accent);color:var(--accent-on);font-weight:600;box-shadow:var(--bevel),var(--lift);font-size:14px;cursor:pointer">md · 40</button>
+            <button style="height:48px;padding:0 22px;border-radius:var(--r-md);border:1px solid transparent;background:var(--mat-accent);color:var(--accent-on);font-weight:600;box-shadow:var(--bevel),var(--lift);font-size:15px;cursor:pointer">lg · 48</button>
+            <button style="width:40px;height:40px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--surface-raised);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:box-shadow .1s,transform .1s" style-hover="background:var(--surface-inset)" style-active="box-shadow:var(--press);transform:translateY(1px)"><i data-lucide="settings" style="font-size:17px"></i></button>
+            <button style="width:40px;height:40px;border-radius:99px;border:1px solid var(--border-strong);background:var(--surface-raised);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:box-shadow .1s,transform .1s" style-hover="background:var(--surface-inset)" style-active="box-shadow:var(--press);transform:translateY(1px)"><i data-lucide="more-horizontal" style="font-size:17px"></i></button>
+          </div>
+        </div>
+        <pre style="margin:14px 0 0;background:var(--code-bg);color:var(--code-text);border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px 18px;font-family:'IBM Plex Mono';font-size:12.5px;line-height:1.7;overflow-x:auto">&lt;button class="h-10 px-[18px] rounded-md bg-accent text-accent-on
+  font-semibold shadow-sm transition hover:bg-accent-hover
+  focus-visible:ring-2 focus-visible:ring-accent/50"&gt;
+  Simpan perubahan
+&lt;/button&gt;</pre>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:16px">
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--success);margin-bottom:10px"><i data-lucide="check" style="font-size:14px"></i>LAKUKAN</div>
+            <p style="font-size:14px;color:var(--text-secondary)">Label berupa kata kerja spesifik: "Simpan perubahan", "Kirim undangan".</p>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--danger);margin-bottom:10px"><i data-lucide="x" style="font-size:14px"></i>HINDARI</div>
+            <p style="font-size:14px;color:var(--text-secondary)">Dua tombol aksen bersebelahan — pembaca jadi tidak tahu mana yang utama.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="form" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">10 — Form</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Label di atas, error yang menjelaskan</h3>
+        <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);background:var(--surface-raised);padding:28px;margin-top:20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:13px;font-weight:600">Nama perusahaan</label>
+            <input value="{{ nameVal }}" onChange="{{ onName }}" placeholder="PT Contoh Sejahtera" style="height:var(--control-h);padding:0 12px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none;transition:border-color .12s,box-shadow .12s" style-focus="box-shadow:var(--well),0 0 0 3px var(--accent-soft)" />
+            <span style="font-size:12.5px;color:var(--text-muted)">Muncul di faktur dan email.</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:13px;font-weight:600">Email penagihan</label>
+            <input value="finance@" style="height:var(--control-h);padding:0 12px;border-radius:var(--r-md);border:1px solid var(--danger);background:var(--surface-sunken);box-shadow:var(--well);outline:none" readonly="readonly" />
+            <span style="font-size:12.5px;color:var(--danger);display:flex;align-items:center;gap:5px"><i data-lucide="alert-circle" style="font-size:13px"></i>Alamat belum lengkap — tambahkan domain.</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:13px;font-weight:600">Paket</label>
+            <select style="height:var(--control-h);padding:0 12px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none;cursor:pointer">
+              <option>Starter</option><option>Growth</option><option>Enterprise</option>
+            </select>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:13px;font-weight:600">Mulai berlaku</label>
+            <input type="date" style="height:var(--control-h);padding:0 12px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none" />
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;grid-column:1/-1">
+            <label style="font-size:13px;font-weight:600">Catatan internal</label>
+            <textarea rows="3" placeholder="Opsional" style="padding:10px 12px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none;resize:vertical;line-height:1.5" style-focus="box-shadow:var(--well),0 0 0 3px var(--accent-soft)"></textarea>
+          </div>
+          <div style="grid-column:1/-1;border-top:1px solid var(--border-subtle);padding-top:20px;display:flex;flex-wrap:wrap;gap:28px;align-items:center">
+            <label onClick="{{ toggleCheck }}" style="display:flex;align-items:center;gap:9px;cursor:pointer;font-size:14px">
+              <span style="width:18px;height:18px;border-radius:5px;border:1px solid {{ checkBorder }};background:{{ checkBg }};box-shadow:{{ checkShadow }};display:flex;align-items:center;justify-content:center;color:var(--accent-on);transition:background .14s,border-color .14s">{{ checkMark }}</span>
+              Kirim faktur otomatis
+            </label>
+            <div style="display:flex;gap:18px">
+              <label onClick="{{ pickA }}" style="display:flex;align-items:center;gap:9px;cursor:pointer;font-size:14px">
+                <span style="width:18px;height:18px;border-radius:99px;border:1px solid {{ radioABorder }};background:var(--surface-sunken);box-shadow:var(--well);display:flex;align-items:center;justify-content:center;transition:border-color .14s">{{ radioADot }}</span>Bulanan
+              </label>
+              <label onClick="{{ pickB }}" style="display:flex;align-items:center;gap:9px;cursor:pointer;font-size:14px">
+                <span style="width:18px;height:18px;border-radius:99px;border:1px solid {{ radioBBorder }};background:var(--surface-sunken);box-shadow:var(--well);display:flex;align-items:center;justify-content:center;transition:border-color .14s">{{ radioBDot }}</span>Tahunan
+              </label>
+            </div>
+            <label onClick="{{ toggleSwitch }}" style="display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px">
+              <span style="width:38px;height:22px;border-radius:99px;background:{{ switchBg }};box-shadow:var(--well);padding:2px;display:flex;justify-content:{{ switchJustify }};transition:background .2s">
+                <span style="width:18px;height:18px;border-radius:99px;background:var(--mat-raised);border:1px solid var(--border-strong);box-shadow:var(--bevel),var(--lift);transition:transform .2s"></span>
+              </span>
+              Mode sandbox
+            </label>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:16px">
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--success);margin-bottom:10px"><i data-lucide="check" style="font-size:14px"></i>LAKUKAN</div>
+            <p style="font-size:14px;color:var(--text-secondary)">Error menyebutkan cara memperbaiki, bukan sekadar "tidak valid".</p>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--danger);margin-bottom:10px"><i data-lucide="x" style="font-size:14px"></i>HINDARI</div>
+            <p style="font-size:14px;color:var(--text-secondary)">Placeholder sebagai pengganti label — hilang begitu orang mulai mengetik.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="navigasi" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">11 — Navigasi</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Sidebar mengambang, bisa diciutkan</h3>
+        <p style="font-size:15px;color:var(--text-secondary);max-width:64ch;margin-bottom:20px">Sidebar berdiri sebagai panel kaca terpisah di atas latar bertekstur — bukan kolom yang menempel di tepi layar. Diciutkan jadi rail ikon 68px; label hilang, tooltip mengambil alih. Status ciut disimpan per pengguna.</p>
+        <div style="border:1px solid var(--border-subtle);border-radius:var(--r-xl);margin-top:20px;padding:18px;display:flex;gap:18px;position:relative;background:radial-gradient(90% 120% at 8% 0%,var(--accent-soft) 0%,transparent 52%),var(--surface-sunken)">
+          <div style="position:absolute;inset:0;pointer-events:none;border-radius:var(--r-xl);background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);background-size:24px 24px"></div>
+          <aside style="position:relative;flex:none;width:{{ sidebarW }};align-self:flex-start;backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-xl);box-shadow:var(--glass-shadow);padding:12px 10px;display:flex;flex-direction:column;gap:2px;transition:width .26s cubic-bezier(.2,.8,.2,1)">
+            <button onClick="{{ toggleCollapse }}" title="{{ collapseTitle }}" style="position:absolute;top:18px;right:-13px;width:26px;height:26px;border-radius:99px;border:1px solid var(--border-subtle);background:var(--surface-raised);box-shadow:var(--shadow-md);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);z-index:2;transition:color .14s,border-color .14s" style-hover="color:var(--text-primary);border-color:var(--border-strong)">
+              <span style="display:flex;transform:rotate({{ collapseRot }});transition:transform .22s cubic-bezier(.2,.8,.2,1)"><i data-lucide="chevron-left" style="font-size:14px"></i></span>
+            </button>
+            <div style="display:flex;align-items:center;gap:9px;padding:4px 6px 12px;justify-content:{{ itemJustify }};overflow:hidden;white-space:nowrap">
+              <div style="width:24px;height:24px;flex:none;border-radius:var(--r-sm);background:var(--accent);display:flex;align-items:center;justify-content:center;color:var(--accent-on);font-family:'Sora';font-weight:700;font-size:13px">R</div>
+              <span style="font-family:'Sora';font-weight:600;font-size:14.5px;letter-spacing:-0.02em">{{ brandLabel }}</span>
+            </div>
+            <span style="font-family:'IBM Plex Mono';font-size:10px;letter-spacing:0.1em;color:var(--text-muted);padding:0 10px 6px;height:16px;overflow:hidden;white-space:nowrap">{{ sectionLabel }}</span>
+            <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="5">
+              <div onClick="{{ n.pick }}" title="{{ n.label }}" style="display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--r-md);cursor:pointer;font-size:14px;background:{{ n.bg }};color:{{ n.color }};font-weight:{{ n.weight }};transition:background .16s,color .16s;overflow:hidden;white-space:nowrap;justify-content:{{ n.justify }}" style-hover="background:var(--surface-inset)">
+                <i data-lucide="{{ n.icon }}" style="font-size:17px;flex:none"></i>{{ n.labelText }}
+              </div>
+            </sc-for>
+            <div style="height:1px;background:var(--border-subtle);margin:10px 4px"></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:6px 10px;overflow:hidden;white-space:nowrap;justify-content:{{ itemJustify }}">
+              <div style="width:26px;height:26px;flex:none;border-radius:99px;background:var(--surface-inset);border:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-secondary)">RA</div>
+              <div style="min-width:0">
+                <div style="font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis">{{ userName }}</div>
+                <div style="font-size:11.5px;color:var(--text-muted)">{{ userRole }}</div>
+              </div>
+            </div>
+          </aside>
+          <div style="flex:1;min-width:0;background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--r-lg);overflow:hidden;position:relative">
+            <div style="padding:14px 20px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-muted)">
+              <span>Workspace</span><i data-lucide="chevron-right" style="font-size:13px"></i><span>Penagihan</span><i data-lucide="chevron-right" style="font-size:13px"></i><span style="color:var(--text-primary);font-weight:500">Faktur</span>
+            </div>
+            <div style="display:flex;gap:4px;padding:0 20px;border-bottom:1px solid var(--border-subtle)">
+              <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+                <div onClick="{{ t.pick }}" style="padding:13px 12px;font-size:14px;cursor:pointer;color:{{ t.color }};font-weight:{{ t.weight }};border-bottom:2px solid {{ t.border }};margin-bottom:-1px;transition:color .16s,border-color .16s">{{ t.label }}</div>
+              </sc-for>
+            </div>
+            <div style="padding:24px 20px;font-size:14px;color:var(--text-secondary);min-height:96px">{{ tabBody }}</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="data" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">12 — Tampilan Data</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Tabel selalu di permukaan solid</h3>
+        <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);overflow:hidden;background:var(--surface-raised);margin-top:20px">
+          <div style="padding:16px 20px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border-subtle);flex-wrap:wrap">
+            <h4 style="font-size:16px;font-weight:600;flex:1">Faktur terbaru</h4>
+            <div style="position:relative;display:flex;align-items:center">
+              <i data-lucide="search" style="font-size:15px;position:absolute;left:11px;color:var(--text-muted)"></i>
+              <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="Cari faktur" style="height:36px;padding:0 12px 0 32px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none;width:200px;font-size:13.5px" style-focus="box-shadow:var(--well),0 0 0 3px var(--accent-soft)" />
+            </div>
+            <button style="height:36px;padding:0 13px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--surface);cursor:pointer;font-size:13.5px;display:flex;align-items:center;gap:7px" style-hover="background:var(--surface-inset)"><i data-lucide="sliders-horizontal" style="font-size:14px"></i>Filter</button>
+          </div>
+          <div style="overflow-x:auto">
+            <table style="width:100%;border-collapse:collapse;font-size:13.5px">
+              <thead>
+                <tr style="background:var(--surface-sunken)">
+                  <th onClick="{{ sortBy }}" style="text-align:left;padding:11px 20px;font-weight:600;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-muted);cursor:pointer;white-space:nowrap">Faktur {{ sortArrow }}</th>
+                  <th style="text-align:left;padding:11px 20px;font-weight:600;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-muted)">Klien</th>
+                  <th style="text-align:left;padding:11px 20px;font-weight:600;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-muted)">Status</th>
+                  <th style="text-align:right;padding:11px 20px;font-weight:600;font-size:12px;letter-spacing:0.04em;text-transform:uppercase;color:var(--text-muted)">Nilai</th>
+                </tr>
+              </thead>
+              <tbody>
+                <sc-for list="{{ rows }}" as="r" hint-placeholder-count="5">
+                  <tr style="border-top:1px solid var(--border-subtle);transition:background .14s" style-hover="background:var(--surface-inset)">
+                    <td style="padding:12px 20px;font-family:'IBM Plex Mono';font-size:12.5px">{{ r.id }}</td>
+                    <td style="padding:12px 20px;color:var(--text-secondary)">{{ r.client }}</td>
+                    <td style="padding:12px 20px"><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:{{ r.softBg }};color:{{ r.statusColor }}"><span style="width:5px;height:5px;border-radius:99px;background:{{ r.statusColor }}"></span>{{ r.status }}</span></td>
+                    <td style="padding:12px 20px;text-align:right;font-family:'IBM Plex Mono';font-size:12.5px;font-variant-numeric:tabular-nums">{{ r.amount }}</td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+          <div style="padding:12px 20px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border-subtle);font-size:13px;color:var(--text-muted);flex-wrap:wrap;gap:10px">
+            <span>{{ rangeLabel }}</span>
+            <div style="display:flex;gap:6px">
+              <button onClick="{{ prevPage }}" style="height:32px;width:32px;border-radius:var(--r-sm);border:1px solid var(--border-subtle);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:var(--surface-inset)"><i data-lucide="chevron-left" style="font-size:15px"></i></button>
+              <span style="height:32px;min-width:32px;padding:0 8px;border-radius:var(--r-sm);background:var(--accent);color:var(--accent-on);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px">{{ page }}</span>
+              <button onClick="{{ nextPage }}" style="height:32px;width:32px;border-radius:var(--r-sm);border:1px solid var(--border-subtle);background:var(--surface);cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:var(--surface-inset)"><i data-lucide="chevron-right" style="font-size:15px"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:16px">
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);background:var(--surface-raised);padding:20px">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:18px">
+              <h4 style="font-size:15px;font-weight:600">Volume per kanal</h4>
+              <span style="font-family:'IBM Plex Mono';font-size:11.5px;color:var(--text-muted)">30 hari</span>
+            </div>
+            <div style="display:flex;align-items:flex-end;gap:10px;height:132px">
+              <sc-for list="{{ bars }}" as="b" hint-placeholder-count="6">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end">
+                  <div style="width:100%;border-radius:5px 5px 2px 2px;background:{{ b.color }};height:{{ b.h }};transition:height .4s cubic-bezier(.2,.8,.2,1)"></div>
+                  <span style="font-family:'IBM Plex Mono';font-size:10.5px;color:var(--text-muted)">{{ b.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);background:var(--surface-raised);padding:36px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px">
+            <div style="width:44px;height:44px;border-radius:var(--r-lg);background:var(--surface-inset);display:flex;align-items:center;justify-content:center;margin-bottom:6px"><i data-lucide="inbox" style="font-size:21px;color:var(--text-muted)"></i></div>
+            <h4 style="font-size:16px;font-weight:600">Belum ada faktur jatuh tempo</h4>
+            <p style="font-size:13.5px;color:var(--text-secondary);max-width:34ch">Semua tagihan bulan ini sudah lunas. Faktur berikutnya terbit 1 September.</p>
+            <button style="margin-top:12px;height:36px;padding:0 15px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--surface);cursor:pointer;font-size:13.5px;font-weight:500" style-hover="background:var(--surface-inset)">Buat faktur manual</button>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);background:var(--surface-raised);padding:20px;margin-top:16px">
+          <span style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted);letter-spacing:0.08em">SKELETON</span>
+          <div style="display:flex;flex-direction:column;gap:11px;margin-top:14px">
+            <div style="height:12px;width:38%;border-radius:4px;background:linear-gradient(90deg,var(--surface-inset) 0%,var(--surface-sunken) 40%,var(--surface-inset) 80%);background-size:600px 100%;animation:shimmer 1.4s linear infinite"></div>
+            <div style="height:12px;width:72%;border-radius:4px;background:linear-gradient(90deg,var(--surface-inset) 0%,var(--surface-sunken) 40%,var(--surface-inset) 80%);background-size:600px 100%;animation:shimmer 1.4s linear infinite"></div>
+            <div style="height:12px;width:56%;border-radius:4px;background:linear-gradient(90deg,var(--surface-inset) 0%,var(--surface-sunken) 40%,var(--surface-inset) 80%);background-size:600px 100%;animation:shimmer 1.4s linear infinite"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="feedback" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">13 — Feedback</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Sela orang hanya kalau perlu keputusan</h3>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-top:20px">
+          <div style="display:flex;gap:12px;padding:14px 16px;border-radius:var(--r-md);background:var(--info-soft);border:1px solid var(--border-subtle)">
+            <i data-lucide="info" style="font-size:18px;color:var(--info);margin-top:1px"></i>
+            <div><div style="font-weight:600;font-size:14px">Periode penagihan berubah</div><p style="font-size:13.5px;color:var(--text-secondary);margin-top:2px">Mulai 1 September, faktur terbit setiap tanggal 1.</p></div>
+          </div>
+          <div style="display:flex;gap:12px;padding:14px 16px;border-radius:var(--r-md);background:var(--success-soft);border:1px solid var(--border-subtle)">
+            <i data-lucide="check-circle-2" style="font-size:18px;color:var(--success);margin-top:1px"></i>
+            <div><div style="font-weight:600;font-size:14px">Pembayaran diterima</div><p style="font-size:13.5px;color:var(--text-secondary);margin-top:2px">INV-2048 lunas Rp 24.850.000.</p></div>
+          </div>
+          <div style="display:flex;gap:12px;padding:14px 16px;border-radius:var(--r-md);background:var(--warning-soft);border:1px solid var(--border-subtle)">
+            <i data-lucide="alert-triangle" style="font-size:18px;color:var(--warning);margin-top:1px"></i>
+            <div><div style="font-weight:600;font-size:14px">Kartu akan kedaluwarsa</div><p style="font-size:13.5px;color:var(--text-secondary);margin-top:2px">Perbarui sebelum 30 September agar layanan tidak terputus.</p></div>
+          </div>
+          <div style="display:flex;gap:12px;padding:14px 16px;border-radius:var(--r-md);background:var(--danger-soft);border:1px solid var(--border-subtle)">
+            <i data-lucide="x-circle" style="font-size:18px;color:var(--danger);margin-top:1px"></i>
+            <div><div style="font-weight:600;font-size:14px">Sinkronisasi gagal</div><p style="font-size:13.5px;color:var(--text-secondary);margin-top:2px">Tiga faktur tidak terkirim ke akuntansi. Coba lagi atau unduh manual.</p></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;margin-top:20px;flex-wrap:wrap">
+          <button onClick="{{ openModal }}" style="height:var(--control-h);padding:0 18px;border-radius:var(--r-md);border:1px solid transparent;background:var(--mat-accent);color:var(--accent-on);font-weight:600;box-shadow:var(--bevel),var(--lift);font-size:14px;cursor:pointer" style-hover="background:var(--accent-hover)">Buka modal</button>
+          <button onClick="{{ fireToast }}" style="height:var(--control-h);padding:0 18px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--mat-raised);font-weight:500;font-size:14px;cursor:pointer;box-shadow:var(--bevel),var(--lift)" style-hover="background:var(--surface-inset)">Munculkan toast</button>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:20px">
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--success);margin-bottom:10px"><i data-lucide="check" style="font-size:14px"></i>LAKUKAN</div>
+            <p style="font-size:14px;color:var(--text-secondary)">Toast untuk konfirmasi yang lewat begitu saja. Modal hanya kalau butuh jawaban.</p>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--danger);margin-bottom:10px"><i data-lucide="x" style="font-size:14px"></i>HINDARI</div>
+            <p style="font-size:14px;color:var(--text-secondary)">Modal bertumpuk, atau toast berisi error yang butuh tindakan.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="overlay" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">14 — Overlay &amp; Menu</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Satu primitif, empat perilaku</h3>
+        <p style="font-size:15px;color:var(--text-secondary);max-width:64ch;margin-bottom:24px">Dropdown, popover, drawer, dan command palette memakai fondasi yang sama: permukaan terangkat, tutup dengan Esc, kembalikan fokus ke pemicunya. Yang membedakan hanya posisi dan seberapa besar penyelaan yang dibenarkan.</p>
+
+        <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);background:var(--surface-raised);padding:28px;display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start">
+          <div style="position:relative">
+            <button onClick="{{ toggleMenu }}" style="height:var(--control-h);padding:0 16px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);font-weight:500;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:8px" style-active="box-shadow:var(--press);transform:translateY(1px)">
+              Tindakan<i data-lucide="chevron-down" style="font-size:15px"></i>
+            </button>
+            <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;top:46px;left:0;z-index:20;min-width:216px;background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--r-md);box-shadow:var(--shadow-lg);padding:5px;animation:riseIn .16s ease">
+                <div onClick="{{ closeMenu }}" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-sm);cursor:pointer;font-size:14px;transition:background .14s" style-hover="background:var(--surface-inset)"><i data-lucide="pencil" style="font-size:15px;color:var(--text-muted)"></i>Ubah faktur</div>
+                <div onClick="{{ closeMenu }}" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-sm);cursor:pointer;font-size:14px;transition:background .14s" style-hover="background:var(--surface-inset)"><i data-lucide="download" style="font-size:15px;color:var(--text-muted)"></i>Unduh PDF</div>
+                <div onClick="{{ closeMenu }}" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-sm);cursor:pointer;font-size:14px;transition:background .14s" style-hover="background:var(--surface-inset)"><i data-lucide="share-2" style="font-size:15px;color:var(--text-muted)"></i>Kirim ulang<span style="flex:1"></span><span style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted)">⌘R</span></div>
+                <div style="height:1px;background:var(--border-subtle);margin:5px 4px"></div>
+                <div onClick="{{ closeMenu }}" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-sm);cursor:pointer;font-size:14px;color:var(--danger);transition:background .14s" style-hover="background:var(--danger-soft)"><i data-lucide="trash-2" style="font-size:15px"></i>Hapus</div>
+              </div>
+            </sc-if>
+          </div>
+
+          <div onMouseEnter="{{ tipOn }}" onMouseLeave="{{ tipOff }}" style="position:relative;display:inline-flex">
+            <button style="height:var(--control-h);padding:0 16px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);font-weight:500;font-size:14px;cursor:default;display:flex;align-items:center;gap:8px"><i data-lucide="info" style="font-size:15px"></i>Arahkan kursor</button>
+            <sc-if value="{{ tipShown }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;bottom:48px;left:50%;transform:translateX(-50%);z-index:20;white-space:nowrap;font-size:12.5px;padding:6px 10px;border-radius:var(--r-sm);background:var(--text-primary);color:var(--surface-raised);box-shadow:var(--shadow-md);animation:riseIn .14s ease">Tooltip menjelaskan, bukan mengulang label</div>
+            </sc-if>
+          </div>
+
+          <button onClick="{{ openDrawer }}" style="height:var(--control-h);padding:0 16px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);font-weight:500;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:8px" style-active="box-shadow:var(--press);transform:translateY(1px)"><i data-lucide="panel-right" style="font-size:15px"></i>Buka drawer</button>
+          <button onClick="{{ openCmd }}" style="height:var(--control-h);padding:0 16px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);font-weight:500;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:8px" style-active="box-shadow:var(--press);transform:translateY(1px)"><i data-lucide="search" style="font-size:15px"></i>Command palette<span style="font-family:'IBM Plex Mono';font-size:11px;padding:1px 6px;border-radius:4px;background:var(--surface-sunken);box-shadow:var(--well);color:var(--text-muted)">⌘K</span></button>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:16px">
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--success);margin-bottom:10px"><i data-lucide="check" style="font-size:14px"></i>LAKUKAN</div>
+            <p style="font-size:14px;color:var(--text-secondary)">Drawer untuk tugas sampingan yang butuh konteks halaman tetap terlihat.</p>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:16px;background:var(--surface-raised)">
+            <div style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--danger);margin-bottom:10px"><i data-lucide="x" style="font-size:14px"></i>HINDARI</div>
+            <p style="font-size:14px;color:var(--text-secondary)">Menu bertingkat lebih dari satu. Kalau butuh submenu, itu sebenarnya halaman.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="input-lanjutan" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">15 — Input Lanjutan</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Untuk data yang tidak muat di satu baris</h3>
+        <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);background:var(--surface-raised);padding:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px;margin-top:20px">
+
+          <div style="display:flex;flex-direction:column;gap:6px;position:relative">
+            <label style="font-size:13px;font-weight:600">Combobox — cari klien</label>
+            <input value="{{ cbQuery }}" onChange="{{ onCb }}" onFocus="{{ cbFocus }}" placeholder="Ketik nama klien" style="height:var(--control-h);padding:0 12px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none" style-focus="box-shadow:var(--well),0 0 0 3px var(--accent-soft)" />
+            <sc-if value="{{ cbOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;top:70px;left:0;right:0;z-index:15;background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--r-md);box-shadow:var(--shadow-lg);padding:5px;max-height:190px;overflow:auto">
+                <sc-for list="{{ cbResults }}" as="c" hint-placeholder-count="4">
+                  <div onClick="{{ c.pick }}" style="display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-sm);cursor:pointer;font-size:14px;transition:background .14s" style-hover="background:var(--surface-inset)">
+                    <span style="width:24px;height:24px;border-radius:99px;background:var(--surface-inset);border:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:600;color:var(--text-secondary);flex:none">{{ c.initials }}</span>
+                    {{ c.name }}
+                  </div>
+                </sc-for>
+                <sc-if value="{{ cbEmpty }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:10px;font-size:13.5px;color:var(--text-muted)">Tidak ada klien yang cocok.</div>
+                </sc-if>
+              </div>
+            </sc-if>
+            <span style="font-size:12.5px;color:var(--text-muted)">Menyaring saat mengetik. Enter memilih hasil teratas.</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:13px;font-weight:600">Tag input — penerima</label>
+            <div style="min-height:var(--control-h);padding:5px 6px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);display:flex;flex-wrap:wrap;gap:6px;align-items:center">
+              <sc-for list="{{ tags }}" as="t" hint-placeholder-count="2">
+                <span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;padding:4px 6px 4px 10px;border-radius:99px;background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);border:1px solid var(--border-subtle)">
+                  {{ t.label }}
+                  <span onClick="{{ t.remove }}" style="display:flex;cursor:pointer;color:var(--text-muted)" style-hover="color:var(--danger)"><i data-lucide="x" style="font-size:13px"></i></span>
+                </span>
+              </sc-for>
+              <input value="{{ tagDraft }}" onChange="{{ onTagDraft }}" onKeyDown="{{ onTagKey }}" placeholder="Tambah email…" style="flex:1;min-width:120px;height:28px;border:none;background:transparent;outline:none;font-size:13.5px" />
+            </div>
+            <span style="font-size:12.5px;color:var(--text-muted)">Enter atau koma menambahkan. Backspace pada kolom kosong menghapus tag terakhir.</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:13px;font-weight:600">Stepper — jumlah lisensi</label>
+            <div style="display:flex;align-items:center;gap:2px;padding:3px;border-radius:var(--r-md);background:var(--surface-sunken);box-shadow:var(--well);width:fit-content">
+              <button onClick="{{ dec }}" style="width:34px;height:34px;border-radius:var(--r-sm);border:1px solid var(--border-subtle);background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);cursor:pointer;display:flex;align-items:center;justify-content:center" style-active="box-shadow:var(--press);transform:translateY(1px)"><i data-lucide="minus" style="font-size:16px"></i></button>
+              <span style="width:56px;text-align:center;font-family:'IBM Plex Mono';font-size:15px;font-variant-numeric:tabular-nums">{{ qty }}</span>
+              <button onClick="{{ inc }}" style="width:34px;height:34px;border-radius:var(--r-sm);border:1px solid var(--border-subtle);background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);cursor:pointer;display:flex;align-items:center;justify-content:center" style-active="box-shadow:var(--press);transform:translateY(1px)"><i data-lucide="plus" style="font-size:16px"></i></button>
+            </div>
+            <span style="font-size:12.5px;color:var(--text-muted)">Nilai tetap bisa diketik langsung pada implementasi nyata.</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <label style="font-size:13px;font-weight:600">Rentang tanggal</label>
+            <div style="display:flex;align-items:center;gap:8px">
+              <input type="date" style="flex:1;height:var(--control-h);padding:0 11px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none" />
+              <span style="color:var(--text-muted)">—</span>
+              <input type="date" style="flex:1;height:var(--control-h);padding:0 11px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none" />
+            </div>
+            <span style="font-size:12.5px;color:var(--text-muted)">Tanggal akhir tidak boleh mendahului tanggal awal.</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:6px;grid-column:1/-1">
+            <label style="font-size:13px;font-weight:600">Unggah berkas</label>
+            <div style="border:1.5px dashed var(--border-strong);border-radius:var(--r-lg);background:var(--surface-sunken);box-shadow:var(--well);padding:28px;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;cursor:pointer;transition:border-color .16s" style-hover="border-color:var(--accent)">
+              <i data-lucide="upload" style="font-size:22px;color:var(--text-muted)"></i>
+              <div style="font-size:14px;font-weight:500">Letakkan berkas di sini atau klik untuk memilih</div>
+              <div style="font-size:12.5px;color:var(--text-muted)">CSV, XLSX, atau PDF · maksimal 20 MB</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-raised);margin-top:4px">
+              <i data-lucide="file-text" style="font-size:18px;color:var(--text-muted)"></i>
+              <div style="flex:1;min-width:0">
+                <div style="font-size:13.5px;font-weight:500">faktur-agustus-2026.csv</div>
+                <div style="height:5px;border-radius:99px;background:var(--surface-sunken);box-shadow:var(--well);margin-top:6px;overflow:hidden"><div style="height:100%;width:68%;border-radius:99px;background:var(--mat-accent)"></div></div>
+              </div>
+              <span style="font-family:'IBM Plex Mono';font-size:12px;color:var(--text-muted)">68%</span>
+              <span style="display:flex;cursor:pointer;color:var(--text-muted)" style-hover="color:var(--danger)"><i data-lucide="x" style="font-size:16px"></i></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="konten" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">16 — Konten &amp; Status</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Potongan kecil yang dipakai di mana-mana</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:20px">
+
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);background:var(--surface-raised);padding:22px">
+            <div style="font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:0.09em;color:var(--text-muted);margin-bottom:14px">AVATAR</div>
+            <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+              <div style="display:flex">
+                <span style="width:34px;height:34px;border-radius:99px;background:var(--surface-inset);border:2px solid var(--surface-raised);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--text-secondary)">RA</span>
+                <span style="width:34px;height:34px;border-radius:99px;background:var(--surface-inset);border:2px solid var(--surface-raised);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--text-secondary);margin-left:-10px">MW</span>
+                <span style="width:34px;height:34px;border-radius:99px;background:var(--surface-inset);border:2px solid var(--surface-raised);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--text-secondary);margin-left:-10px">DP</span>
+                <span style="width:34px;height:34px;border-radius:99px;background:var(--accent-soft);border:2px solid var(--surface-raised);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--accent);margin-left:-10px">+5</span>
+              </div>
+              <div style="position:relative">
+                <span style="width:38px;height:38px;border-radius:99px;background:var(--surface-inset);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--text-secondary)">RA</span>
+                <span style="position:absolute;right:-1px;bottom:-1px;width:11px;height:11px;border-radius:99px;background:var(--success);border:2px solid var(--surface-raised)"></span>
+              </div>
+            </div>
+          </div>
+
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);background:var(--surface-raised);padding:22px">
+            <div style="font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:0.09em;color:var(--text-muted);margin-bottom:14px">PROGRES &amp; LANGKAH</div>
+            <div style="height:7px;border-radius:99px;background:var(--surface-sunken);box-shadow:var(--well);overflow:hidden"><div style="height:100%;width:46%;border-radius:99px;background:var(--mat-accent)"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-top:7px"><span>46% terverifikasi</span><span style="font-family:'IBM Plex Mono'">128 / 278</span></div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:20px">
+              <span style="width:24px;height:24px;border-radius:99px;background:var(--mat-accent);box-shadow:var(--bevel),var(--lift);color:var(--accent-on);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">1</span>
+              <span style="flex:1;height:2px;background:var(--accent)"></span>
+              <span style="width:24px;height:24px;border-radius:99px;background:var(--mat-accent);box-shadow:var(--bevel),var(--lift);color:var(--accent-on);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">2</span>
+              <span style="flex:1;height:2px;background:var(--border-strong)"></span>
+              <span style="width:24px;height:24px;border-radius:99px;background:var(--surface-sunken);box-shadow:var(--well);color:var(--text-muted);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600">3</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:11.5px;color:var(--text-muted);margin-top:7px"><span>Unggah</span><span>Verifikasi</span><span>Terbit</span></div>
+          </div>
+
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);background:var(--surface-raised);padding:22px;grid-column:span 1">
+            <div style="font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:0.09em;color:var(--text-muted);margin-bottom:6px">ACCORDION</div>
+            <sc-for list="{{ accordion }}" as="a" hint-placeholder-count="3">
+              <div style="border-bottom:1px solid var(--border-subtle)">
+                <div onClick="{{ a.toggle }}" style="display:flex;align-items:center;gap:12px;padding:13px 0;cursor:pointer;font-size:14.5px;font-weight:500">
+                  <span style="flex:1">{{ a.q }}</span>
+                  <span style="display:flex;color:var(--text-muted);transform:rotate({{ a.rot }});transition:transform .22s cubic-bezier(.2,.8,.2,1)"><i data-lucide="chevron-down" style="font-size:16px"></i></span>
+                </div>
+                <div style="max-height:{{ a.max }};overflow:hidden;transition:max-height .24s cubic-bezier(.2,.8,.2,1)">
+                  <p style="font-size:13.5px;color:var(--text-secondary);padding-bottom:14px">{{ a.body }}</p>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);background:var(--surface-raised);padding:22px">
+            <div style="font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:0.09em;color:var(--text-muted);margin-bottom:16px">AKTIVITAS</div>
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <div style="display:flex;gap:12px"><span style="width:8px;height:8px;border-radius:99px;background:var(--accent);margin-top:7px;flex:none"></span><div style="font-size:13.5px"><div><strong style="font-weight:600">Maya</strong> menyetujui INV-2048</div><div style="color:var(--text-muted);font-size:12px">2 menit lalu</div></div></div>
+              <div style="display:flex;gap:12px"><span style="width:8px;height:8px;border-radius:99px;background:var(--border-strong);margin-top:7px;flex:none"></span><div style="font-size:13.5px"><div><strong style="font-weight:600">Sistem</strong> mengirim pengingat ke 4 klien</div><div style="color:var(--text-muted);font-size:12px">Hari ini · 09:00</div></div></div>
+              <div style="display:flex;gap:12px"><span style="width:8px;height:8px;border-radius:99px;background:var(--border-strong);margin-top:7px;flex:none"></span><div style="font-size:13.5px"><div><strong style="font-weight:600">Dimas</strong> mengubah termin Delta Manufaktur</div><div style="color:var(--text-muted);font-size:12px">Kemarin · 16:22</div></div></div>
+            </div>
+          </div>
+
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);background:var(--surface-raised);padding:22px">
+            <div style="font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:0.09em;color:var(--text-muted);margin-bottom:14px">LABEL &amp; PINTASAN</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px">
+              <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--success-soft);color:var(--success)">Lunas</span>
+              <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--warning-soft);color:var(--warning)">Menunggu</span>
+              <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--danger-soft);color:var(--danger)">Terlambat</span>
+              <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--surface-inset);color:var(--text-secondary)">Draf</span>
+              <span style="font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px;background:var(--accent-soft);color:var(--accent)">Baru</span>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;font-size:13.5px;color:var(--text-secondary);flex-wrap:wrap">
+              Tekan
+              <span style="font-family:'IBM Plex Mono';font-size:12px;padding:3px 8px;border-radius:5px;background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);border:1px solid var(--border-subtle)">⌘</span>
+              <span style="font-family:'IBM Plex Mono';font-size:12px;padding:3px 8px;border-radius:5px;background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);border:1px solid var(--border-subtle)">K</span>
+              untuk mencari apa pun
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <sc-if value="{{ drawerOpen }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ closeDrawer }}" style="position:fixed;inset:0;z-index:85;background:rgba(8,11,16,0.5);backdrop-filter:blur(3px);animation:overlayIn .18s ease">
+          <div onClick="{{ stop }}" style="position:absolute;top:0;right:0;bottom:0;width:min(420px,92vw);background:var(--surface-raised);border-left:1px solid var(--border-subtle);box-shadow:var(--shadow-lg);display:flex;flex-direction:column;animation:dialogIn .26s cubic-bezier(.2,.8,.2,1)">
+            <div style="padding:20px 22px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;gap:12px">
+              <h3 style="font-size:17px;font-weight:600;flex:1">Detail faktur</h3>
+              <button onClick="{{ closeDrawer }}" style="width:32px;height:32px;border-radius:var(--r-sm);border:1px solid var(--border-subtle);background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);cursor:pointer;display:flex;align-items:center;justify-content:center" style-active="box-shadow:var(--press)"><i data-lucide="x" style="font-size:16px"></i></button>
+            </div>
+            <div style="flex:1;padding:22px;display:flex;flex-direction:column;gap:16px;overflow:auto">
+              <div style="display:flex;flex-direction:column;gap:11px">
+                <div style="display:flex;gap:14px;font-size:13.5px"><span style="color:var(--text-muted);width:110px">Nomor</span><span style="font-family:'IBM Plex Mono';font-size:12.5px">INV-2048</span></div>
+                <div style="display:flex;gap:14px;font-size:13.5px"><span style="color:var(--text-muted);width:110px">Klien</span><span>Nusantara Logistik</span></div>
+                <div style="display:flex;gap:14px;font-size:13.5px"><span style="color:var(--text-muted);width:110px">Jatuh tempo</span><span>30 Agustus 2026</span></div>
+                <div style="display:flex;gap:14px;font-size:13.5px"><span style="color:var(--text-muted);width:110px">Nilai</span><span style="font-family:'IBM Plex Mono';font-size:12.5px">Rp 24.850.000</span></div>
+              </div>
+              <p style="font-size:13.5px;color:var(--text-secondary)">Drawer dipakai saat pengguna perlu melihat detail tanpa kehilangan posisi di daftar. Lebar tetap 420px, konten menggulung sendiri.</p>
+            </div>
+            <div style="padding:16px 22px;border-top:1px solid var(--border-subtle);display:flex;gap:10px">
+              <button onClick="{{ closeDrawer }}" style="flex:1;height:var(--control-h);border-radius:var(--r-md);border:1px solid transparent;background:var(--mat-accent);box-shadow:var(--bevel),var(--lift);color:var(--accent-on);font-weight:600;font-size:14px;cursor:pointer" style-active="box-shadow:var(--press);transform:translateY(1px)">Tandai lunas</button>
+              <button onClick="{{ closeDrawer }}" style="height:var(--control-h);padding:0 16px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);font-weight:500;font-size:14px;cursor:pointer" style-active="box-shadow:var(--press);transform:translateY(1px)">Tutup</button>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ cmdOpen }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ closeCmd }}" style="position:fixed;inset:0;z-index:88;background:rgba(8,11,16,0.5);backdrop-filter:blur(3px);display:flex;align-items:flex-start;justify-content:center;padding:14vh 24px 24px;animation:overlayIn .16s ease">
+          <div onClick="{{ stop }}" style="width:100%;max-width:560px;background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--r-xl);box-shadow:var(--shadow-lg);overflow:hidden;animation:dialogIn .2s cubic-bezier(.2,.8,.2,1)">
+            <div style="display:flex;align-items:center;gap:11px;padding:0 16px;height:54px;border-bottom:1px solid var(--border-subtle)">
+              <i data-lucide="search" style="font-size:17px;color:var(--text-muted)"></i>
+              <input value="{{ cmdQuery }}" onChange="{{ onCmd }}" placeholder="Cari perintah, faktur, atau klien…" style="flex:1;border:none;background:transparent;outline:none;font-size:15px" />
+              <span style="font-family:'IBM Plex Mono';font-size:11px;padding:2px 7px;border-radius:5px;background:var(--surface-sunken);box-shadow:var(--well);color:var(--text-muted)">esc</span>
+            </div>
+            <div style="padding:6px;max-height:320px;overflow:auto">
+              <div style="font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:0.09em;color:var(--text-muted);padding:9px 10px 6px">PERINTAH</div>
+              <sc-for list="{{ cmdResults }}" as="cm" hint-placeholder-count="5">
+                <div onClick="{{ closeCmd }}" style="display:flex;align-items:center;gap:11px;padding:9px 10px;border-radius:var(--r-sm);cursor:pointer;font-size:14px;transition:background .14s" style-hover="background:var(--surface-inset)">
+                  <i data-lucide="{{ cm.icon }}" style="font-size:16px;color:var(--text-muted)"></i>
+                  <span style="flex:1">{{ cm.label }}</span>
+                  <span style="font-family:'IBM Plex Mono';font-size:11px;color:var(--text-muted)">{{ cm.hint }}</span>
+                </div>
+              </sc-for>
+              <sc-if value="{{ cmdEmpty }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:22px 10px;text-align:center;font-size:13.5px;color:var(--text-muted)">Tidak ada yang cocok dengan pencarian itu.</div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <section id="layout" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">17 — Pola Layout</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:20px">
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);background:var(--surface-raised);padding:18px">
+            <div style="height:88px;border-radius:var(--r-sm);border:1px solid var(--border-subtle);display:grid;grid-template-columns:26px 1fr;overflow:hidden;margin-bottom:14px">
+              <div style="background:var(--surface-sunken);border-right:1px solid var(--border-subtle)"></div>
+              <div style="display:flex;flex-direction:column"><div style="height:18px;background:var(--surface-sunken);border-bottom:1px solid var(--border-subtle)"></div><div style="flex:1;background:var(--surface)"></div></div>
+            </div>
+            <h4 style="font-size:15px;font-weight:600">Shell aplikasi</h4>
+            <p style="font-size:13.5px;color:var(--text-secondary);margin-top:4px">Sidebar tetap + topbar kaca. Konten maks 1240px.</p>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);background:var(--surface-raised);padding:18px">
+            <div style="height:88px;border-radius:var(--r-sm);border:1px solid var(--border-subtle);display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--border-subtle);overflow:hidden;margin-bottom:14px">
+              <div style="background:var(--surface)"></div><div style="background:var(--surface)"></div><div style="background:var(--surface)"></div>
+            </div>
+            <h4 style="font-size:15px;font-weight:600">Baris metrik</h4>
+            <p style="font-size:13.5px;color:var(--text-secondary);margin-top:4px">Tiga hingga empat card kaca di paling atas dashboard.</p>
+          </div>
+          <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);background:var(--surface-raised);padding:18px">
+            <div style="height:88px;border-radius:var(--r-sm);border:1px solid var(--border-subtle);display:grid;grid-template-columns:1.6fr 1fr;gap:1px;background:var(--border-subtle);overflow:hidden;margin-bottom:14px">
+              <div style="background:var(--surface)"></div><div style="background:var(--surface-sunken)"></div>
+            </div>
+            <h4 style="font-size:15px;font-weight:600">Daftar + panel detail</h4>
+            <p style="font-size:13.5px;color:var(--text-secondary);margin-top:4px">Pola utama internal tools. Panel kanan 380–420px.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="voice" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">18 — Voice &amp; Tone</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Tenang, langsung, tidak menggurui</h3>
+        <div style="border:1px solid var(--border-subtle);border-radius:var(--r-lg);overflow:hidden;margin-top:20px;background:var(--surface-raised)">
+          <div style="display:grid;grid-template-columns:1fr 1fr;background:var(--border-subtle);gap:1px">
+            <div style="background:var(--surface-sunken);padding:11px 18px;font-family:'IBM Plex Mono';font-size:11px;letter-spacing:0.08em;color:var(--success)">TULIS BEGINI</div>
+            <div style="background:var(--surface-sunken);padding:11px 18px;font-family:'IBM Plex Mono';font-size:11px;letter-spacing:0.08em;color:var(--danger)">BUKAN BEGINI</div>
+            <div style="background:var(--surface-raised);padding:15px 18px;font-size:14px">Faktur belum terkirim. Periksa alamat email penagihan.</div>
+            <div style="background:var(--surface-raised);padding:15px 18px;font-size:14px;color:var(--text-muted)">Oops! Ada yang salah 😕</div>
+            <div style="background:var(--surface-raised);padding:15px 18px;font-size:14px">Hapus 3 faktur? Tindakan ini tidak bisa dibatalkan.</div>
+            <div style="background:var(--surface-raised);padding:15px 18px;font-size:14px;color:var(--text-muted)">Apakah Anda benar-benar yakin ingin melanjutkan?</div>
+            <div style="background:var(--surface-raised);padding:15px 18px;font-size:14px">Belum ada data bulan ini.</div>
+            <div style="background:var(--surface-raised);padding:15px 18px;font-size:14px;color:var(--text-muted)">Wah, sepertinya di sini masih kosong nih!</div>
+          </div>
+        </div>
+        <p style="font-size:14px;color:var(--text-secondary);max-width:64ch;margin-top:14px">Bahasa Indonesia formal-ringan. Sapa pengguna dengan kalimat aktif, hindari "Anda" berulang. Angka pakai pemisah ribuan titik, mata uang selalu dengan awalan Rp.</p>
+      </section>
+
+      <section id="tailwind" style="padding:72px 0 0">
+        <h2 style="font-size:13px;font-family:'IBM Plex Mono';font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted)">19 — Serah terima</h2>
+        <h3 style="font-size:30px;font-weight:600;margin:12px 0 10px">Token sebagai Tailwind config</h3>
+        <p style="font-size:15px;color:var(--text-secondary);max-width:64ch;margin-bottom:20px">Warna didefinisikan sekali sebagai CSS variable, lalu dipetakan ke nama semantik di Tailwind. Ganti tema cukup dengan mengubah <span style="font-family:'IBM Plex Mono';font-size:13px">data-theme</span> di elemen html — tidak ada kelas <span style="font-family:'IBM Plex Mono';font-size:13px">dark:</span> yang berserakan.</p>
+        <pre style="margin:0;background:var(--code-bg);color:var(--code-text);border:1px solid var(--border-subtle);border-radius:var(--r-md);padding:18px 20px;font-family:'IBM Plex Mono';font-size:12.5px;line-height:1.75;overflow-x:auto">// tailwind.config.js
+export default {
+  theme: {
+    extend: {
+      colors: {
+        surface: {
+          DEFAULT: 'var(--surface)',
+          raised:  'var(--surface-raised)',
+          sunken:  'var(--surface-sunken)',
+          inset:   'var(--surface-inset)',
+        },
+        border: {
+          subtle: 'var(--border-subtle)',
+          strong: 'var(--border-strong)',
+        },
+        text: {
+          primary:   'var(--text-primary)',
+          secondary: 'var(--text-secondary)',
+          muted:     'var(--text-muted)',
+          inverse:   'var(--text-inverse)',
+        },
+        accent: {
+          DEFAULT: 'var(--accent)',
+          hover:   'var(--accent-hover)',
+          soft:    'var(--accent-soft)',
+          on:      'var(--accent-on)',
+        },
+        success: 'var(--success)', warning: 'var(--warning)',
+        danger:  'var(--danger)',  info:    'var(--info)',
+        chart: {
+          1:'var(--c1)', 2:'var(--c2)', 3:'var(--c3)',
+          4:'var(--c4)', 5:'var(--c5)', 6:'var(--c6)',
+        },
+      },
+      fontFamily: {
+        display: ['Sora', 'system-ui', 'sans-serif'],
+        sans:    ['Space Grotesk', 'system-ui', 'sans-serif'],
+        mono:    ['IBM Plex Mono', 'monospace'],
+      },
+      borderRadius: { sm:'6px', md:'8px', lg:'10px', xl:'14px' },
+      boxShadow: {
+        sm:'var(--shadow-sm)', md:'var(--shadow-md)',
+        lg:'var(--shadow-lg)', glass:'var(--glass-shadow)',
+        bevel:'var(--bevel)', lift:'var(--lift)',
+        press:'var(--press)', well:'var(--well)',
+      },
+      backgroundImage: {
+        'mat-raised':'var(--mat-raised)', 'mat-base':'var(--mat-base)',
+        'mat-accent':'var(--mat-accent)',
+      },
+      transitionTimingFunction: { rizz: 'cubic-bezier(.2,.8,.2,1)' },
+    },
+  },
+}</pre>
+        <p style="font-size:13.5px;color:var(--text-muted);margin-top:12px">Utility kaca dipakai sebagai satu kelas komponen: <span style="font-family:'IBM Plex Mono';font-size:12.5px">.glass { @apply backdrop-blur-[16px] backdrop-saturate-150 bg-[var(--glass-bg)] border border-[var(--glass-border)] shadow-glass; }</span></p>
+      </section>
+
+      <footer style="margin-top:96px;padding-top:28px;border-top:1px solid var(--border-subtle);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--text-muted)">
+        <span>RizzxxUI · fondasi untuk produk bisnis</span>
+        <span style="font-family:'IBM Plex Mono';font-size:12px">Berikutnya: layar bukti — dashboard, landing, internal tool, settings, auth</span>
+      </footer>
+
+    </main>
+  </div>
+
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeModal }}" style="position:fixed;inset:0;z-index:80;background:rgba(8,11,16,0.55);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:24px;animation:overlayIn .18s ease">
+      <div onClick="{{ stop }}" style="width:100%;max-width:440px;background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--r-xl);box-shadow:var(--shadow-lg);padding:26px;animation:dialogIn .24s cubic-bezier(.2,.8,.2,1)">
+        <div style="display:flex;align-items:flex-start;gap:14px">
+          <div style="width:38px;height:38px;border-radius:var(--r-md);background:var(--danger-soft);display:flex;align-items:center;justify-content:center;flex:none"><i data-lucide="trash-2" style="font-size:18px;color:var(--danger)"></i></div>
+          <div style="flex:1">
+            <h3 style="font-size:18px;font-weight:600">Hapus 3 faktur?</h3>
+            <p style="font-size:14px;color:var(--text-secondary);margin-top:6px">Faktur yang sudah terkirim ke klien akan ditarik. Tindakan ini tidak bisa dibatalkan.</p>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:24px">
+          <button onClick="{{ closeModal }}" style="height:var(--control-h);padding:0 16px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--surface);font-weight:500;font-size:14px;cursor:pointer" style-hover="background:var(--surface-inset)">Batal</button>
+          <button onClick="{{ closeModal }}" style="height:var(--control-h);padding:0 16px;border-radius:var(--r-md);border:1px solid transparent;background:var(--danger);color:var(--text-inverse);font-weight:600;font-size:14px;cursor:pointer" style-hover="opacity:.9">Hapus faktur</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ toastOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;right:24px;bottom:24px;z-index:90;display:flex;align-items:center;gap:11px;padding:13px 16px;border-radius:var(--r-lg);background:var(--surface-raised);border:1px solid var(--border-subtle);box-shadow:var(--shadow-lg);animation:toastIn .26s cubic-bezier(.2,.8,.2,1);max-width:340px">
+      <i data-lucide="check-circle-2" style="font-size:18px;color:var(--success)"></i>
+      <div style="flex:1"><div style="font-size:14px;font-weight:600">Perubahan tersimpan</div><div style="font-size:13px;color:var(--text-muted)">Pengaturan penagihan diperbarui.</div></div>
+      <button onClick="{{ hideToast }}" style="border:none;background:transparent;cursor:pointer;color:var(--text-muted);display:flex;padding:2px" style-hover="color:var(--text-primary)"><i data-lucide="x" style="font-size:16px"></i></button>
+    </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#3D5FE0&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Tema&quot;,&quot;options&quot;:[[&quot;#3D5FE0&quot;,&quot;#4F7CFF&quot;],[&quot;#0E7A55&quot;,&quot;#3DD69C&quot;],[&quot;#7A4FE0&quot;,&quot;#A78BFA&quot;],[&quot;#C4611F&quot;,&quot;#F0913C&quot;]]},&quot;glassBlur&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:16,&quot;min&quot;:0,&quot;max&quot;:32,&quot;step&quot;:2,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Kaca&quot;},&quot;controlHeight&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:40,&quot;min&quot;:32,&quot;max&quot;:48,&quot;step&quot;:4,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Kepadatan&quot;},&quot;gridSize&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:32,&quot;min&quot;:16,&quot;max&quot;:64,&quot;step&quot;:8,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Latar&quot;}}">
+class Component extends DCLogic {
+  state = {
+    theme: 'light', checked: true, radio: 'a', switchOn: false,
+    modalOpen: false, toastOpen: false, loading: false,
+    tab: 'semua', nav: 'penagihan', sortAsc: true, page: 1, navCollapsed: false,
+    name: '', query: '', staggerKey: 0, seg: 'bulan', slider: 62,
+    menuOpen: false, tip: false, drawerOpen: false, cmdOpen: false, cmdQuery: '',
+    cbQuery: '', cbOpen: false, tagDraft: '', qty: 12, acc: 0,
+    tagList: ['finance@nusantara.co.id', 'maya@rizzxx.id']
+  };
+
+  componentDidMount() {
+    const saved = localStorage.getItem('rizzxx-theme');
+    if (saved) this.setState({ theme: saved });
+    document.documentElement.setAttribute('data-theme', saved || 'light');
+    this.applyProps();
+    this.drawIcons();
+  }
+  componentDidUpdate() { this.applyProps(); this.drawIcons(); }
+
+  applyProps() {
+    const r = document.documentElement.style;
+    if (this.props.accentColor) r.setProperty('--accent', this.props.accentColor);
+    if (this.props.glassBlur != null) r.setProperty('--glass-blur', this.props.glassBlur + 'px');
+    if (this.props.controlHeight != null) r.setProperty('--control-h', this.props.controlHeight + 'px');
+    if (this.props.gridSize != null) r.setProperty('--grid-size', this.props.gridSize + 'px');
+  }
+
+  drawIcons() {
+    clearTimeout(this._ic);
+    this._ic = setTimeout(() => { try { window.lucide && window.lucide.createIcons(); } catch (e) {} }, 0);
+  }
+
+  toggleTheme = () => {
+    const next = this.state.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('rizzxx-theme', next);
+    this.setState({ theme: next });
+  };
+
+  fireToast = () => {
+    this.setState({ toastOpen: true });
+    clearTimeout(this._t);
+    this._t = setTimeout(() => this.setState({ toastOpen: false }), 3600);
+  };
+
+  fakeLoad = () => {
+    if (this.state.loading) return;
+    this.setState({ loading: true });
+    setTimeout(() => this.setState({ loading: false }), 1600);
+  };
+
+  renderVals() {
+    const s = this.state;
+    const dark = s.theme === 'dark';
+    const acc = 'var(--accent)';
+
+    const allRows = [
+      { id: 'INV-2048', client: 'Nusantara Logistik', status: 'Lunas', amount: 'Rp 24.850.000', tone: 'success' },
+      { id: 'INV-2047', client: 'Sinar Abadi Group', status: 'Menunggu', amount: 'Rp 8.400.000', tone: 'warning' },
+      { id: 'INV-2046', client: 'Kopi Rakyat', status: 'Lunas', amount: 'Rp 3.120.000', tone: 'success' },
+      { id: 'INV-2045', client: 'Delta Manufaktur', status: 'Terlambat', amount: 'Rp 61.900.000', tone: 'danger' },
+      { id: 'INV-2044', client: 'Aksara Studio', status: 'Lunas', amount: 'Rp 12.000.000', tone: 'success' }
+    ];
+    const q = s.query.trim().toLowerCase();
+    let rows = q ? allRows.filter(r => (r.id + r.client).toLowerCase().includes(q)) : allRows.slice();
+    rows.sort((a, b) => s.sortAsc ? a.id.localeCompare(b.id) : b.id.localeCompare(a.id));
+    rows = rows.map(r => ({
+      ...r,
+      statusColor: 'var(--' + r.tone + ')',
+      softBg: 'var(--' + r.tone + '-soft)'
+    }));
+
+    const navDefs = [
+      { key: 'ringkasan', label: 'Ringkasan', icon: 'layout-dashboard' },
+      { key: 'pelanggan', label: 'Pelanggan', icon: 'users' },
+      { key: 'penagihan', label: 'Penagihan', icon: 'receipt' },
+      { key: 'laporan', label: 'Laporan', icon: 'bar-chart-3' },
+      { key: 'pengaturan', label: 'Pengaturan', icon: 'settings' }
+    ];
+    const col = s.navCollapsed;
+    const navItems = navDefs.map(n => {
+      const on = s.nav === n.key;
+      return {
+        ...n,
+        labelText: col ? '' : n.label,
+        justify: col ? 'center' : 'flex-start',
+        bg: on ? 'var(--accent-soft)' : 'transparent',
+        color: on ? 'var(--accent)' : 'var(--text-secondary)',
+        weight: on ? '600' : '400',
+        pick: () => this.setState({ nav: n.key })
+      };
+    });
+
+    const tabDefs = [
+      { key: 'semua', label: 'Semua', body: '5 faktur pada periode ini. Total nilai Rp 110.270.000.' },
+      { key: 'belum', label: 'Belum dibayar', body: '2 faktur menunggu pembayaran, satu di antaranya lewat jatuh tempo.' },
+      { key: 'draf', label: 'Draf', body: 'Tidak ada draf tersimpan.' }
+    ];
+    const tabs = tabDefs.map(t => {
+      const on = s.tab === t.key;
+      return {
+        label: t.label,
+        color: on ? 'var(--text-primary)' : 'var(--text-muted)',
+        weight: on ? '600' : '400',
+        border: on ? acc : 'transparent',
+        pick: () => this.setState({ tab: t.key })
+      };
+    });
+    const tabBody = (tabDefs.find(t => t.key === s.tab) || tabDefs[0]).body;
+
+    const bars = [
+      { label: 'Web', v: 0.92, color: 'var(--c1)' },
+      { label: 'API', v: 0.68, color: 'var(--c2)' },
+      { label: 'Mobile', v: 0.54, color: 'var(--c3)' },
+      { label: 'Mitra', v: 0.41, color: 'var(--c4)' },
+      { label: 'Email', v: 0.28, color: 'var(--c5)' },
+      { label: 'Lain', v: 0.16, color: 'var(--c6)' }
+    ].map(b => ({ ...b, h: Math.round(b.v * 108) + 'px' }));
+
+    const spacing = [
+      { name: 'space-1', px: '4px', w: '4px', use: 'Jarak ikon ke label' },
+      { name: 'space-2', px: '8px', w: '8px', use: 'Antar elemen dalam satu baris' },
+      { name: 'space-3', px: '12px', w: '12px', use: 'Padding kontrol kecil' },
+      { name: 'space-4', px: '16px', w: '16px', use: 'Padding card padat' },
+      { name: 'space-6', px: '24px', w: '24px', use: 'Padding card, gutter grid' },
+      { name: 'space-8', px: '32px', w: '32px', use: 'Jarak antar blok' },
+      { name: 'space-12', px: '48px', w: '48px', use: 'Jarak antar section' },
+      { name: 'space-16', px: '64px', w: '64px', use: 'Ruang halaman besar' }
+    ];
+
+    const icons = ['layout-dashboard','users','receipt','bar-chart-3','settings','search','filter','plus','download','upload','trash-2','pencil','check','x','chevron-down','chevron-right','arrow-up-right','bell','calendar','clock','credit-card','building-2','file-text','folder','link','lock','log-out','mail','more-horizontal','refresh-cw','share-2','star','trending-up','triangle-alert','user-round','zap'];
+
+    const stagger = React.createElement(React.Fragment, { key: s.staggerKey },
+      ['Faktur dibuat', 'Terkirim ke klien', 'Pembayaran diterima', 'Dicatat di buku besar'].map((t, i) =>
+        React.createElement('div', {
+          key: i,
+          style: {
+            display: 'flex', alignItems: 'center', gap: '10px',
+            padding: '10px 12px', borderRadius: 'var(--r-md)',
+            background: 'var(--surface-inset)', fontSize: '13.5px',
+            animation: 'riseIn .32s cubic-bezier(.2,.8,.2,1) both',
+            animationDelay: (i * 40) + 'ms'
+          }
+        },
+          React.createElement('span', { style: { width: '6px', height: '6px', borderRadius: '99px', background: acc } }),
+          t
+        )
+      )
+    );
+
+    const cmdAll = [
+      { label: 'Buat faktur baru', icon: 'plus', hint: '⌘N' },
+      { label: 'Cari klien', icon: 'users', hint: '⌘/' },
+      { label: 'Ekspor laporan bulanan', icon: 'download', hint: '' },
+      { label: 'Kirim pengingat massal', icon: 'bell', hint: '' },
+      { label: 'Buka pengaturan penagihan', icon: 'settings', hint: '⌘,' },
+      { label: 'Ganti tema', icon: 'sun-moon', hint: '⌘J' }
+    ];
+    const cq = s.cmdQuery.trim().toLowerCase();
+    const cmdList = cq ? cmdAll.filter(c => c.label.toLowerCase().includes(cq)) : cmdAll;
+
+    const clients = [
+      { name: 'Nusantara Logistik', initials: 'NL' },
+      { name: 'Sinar Abadi Group', initials: 'SA' },
+      { name: 'Kopi Rakyat', initials: 'KR' },
+      { name: 'Delta Manufaktur', initials: 'DM' },
+      { name: 'Aksara Studio', initials: 'AS' }
+    ];
+    const bq = s.cbQuery.trim().toLowerCase();
+    const cbList = (bq ? clients.filter(c => c.name.toLowerCase().includes(bq)) : clients)
+      .map(c => ({ ...c, pick: () => this.setState({ cbQuery: c.name, cbOpen: false }) }));
+
+    const accDefs = [
+      { q: 'Kapan faktur berulang diterbitkan?', body: 'Pada tanggal 1 setiap periode, pukul 07.00 WIB. Kalau tanggal itu hari libur, faktur tetap terbit — pengingat yang ditunda.' },
+      { q: 'Bagaimana perubahan paket di tengah periode dihitung?', body: 'Prorata harian. Selisihnya muncul sebagai baris terpisah pada faktur berikutnya, bukan sebagai faktur baru.' },
+      { q: 'Apakah faktur yang sudah terkirim bisa ditarik?', body: 'Bisa, selama belum dibayar. Klien menerima pemberitahuan pembatalan dan faktur pengganti sekaligus.' }
+    ];
+    const accList = accDefs.map((a, i) => ({
+      q: a.q,
+      body: a.body,
+      rot: s.acc === i ? '180deg' : '0deg',
+      max: s.acc === i ? '160px' : '0px',
+      toggle: () => this.setState(p => ({ acc: p.acc === i ? -1 : i }))
+    }));
+
+    const perPage = 5;
+    const start = (s.page - 1) * perPage + 1;
+
+    return {
+      themeLabel: dark ? 'Terang' : 'Gelap',
+      toggleTheme: this.toggleTheme,
+
+      spacing, icons, bars, rows, navItems, tabs, tabBody,
+      sidebarW: col ? '68px' : '216px',
+      itemJustify: col ? 'center' : 'flex-start',
+      brandLabel: col ? '' : 'RizzxxUI',
+      sectionLabel: col ? '' : 'WORKSPACE',
+      userName: col ? '' : 'Rizky Ananda',
+      userRole: col ? '' : 'Admin penagihan',
+      collapseRot: col ? '180deg' : '0deg',
+      collapseTitle: col ? 'Bentangkan sidebar' : 'Ciutkan sidebar',
+      toggleCollapse: () => this.setState(p => ({ navCollapsed: !p.navCollapsed })),
+      staggerDemo: stagger,
+      replayStagger: () => this.setState(p => ({ staggerKey: p.staggerKey + 1 })),
+
+      nameVal: s.name,
+      onName: e => this.setState({ name: e.target.value }),
+      query: s.query,
+      onQuery: e => this.setState({ query: e.target.value, page: 1 }),
+
+      checkBg: s.checked ? 'var(--mat-accent)' : 'var(--surface-sunken)',
+      checkBorder: s.checked ? 'var(--accent-hover)' : 'var(--border-subtle)',
+      checkShadow: s.checked ? 'var(--bevel), var(--lift)' : 'var(--well)',
+      segments: [
+        { key: 'minggu', label: 'Minggu' },
+        { key: 'bulan', label: 'Bulan' },
+        { key: 'kuartal', label: 'Kuartal' }
+      ].map(g => {
+        const on = s.seg === g.key;
+        return {
+          label: g.label,
+          bg: on ? 'var(--mat-raised)' : 'transparent',
+          shadow: on ? 'var(--bevel), var(--lift)' : 'none',
+          color: on ? 'var(--text-primary)' : 'var(--text-muted)',
+          weight: on ? '600' : '400',
+          pick: () => this.setState({ seg: g.key })
+        };
+      }),
+      sliderPct: s.slider + '%',
+      sliderLabel: s.slider + '%',
+      setSlider: e => {
+        const r = e.currentTarget.getBoundingClientRect();
+        const p = Math.round(Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100)));
+        this.setState({ slider: p });
+      },
+      checkMark: s.checked ? React.createElement('svg', { width: 11, height: 11, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 3.2, strokeLinecap: 'round', strokeLinejoin: 'round' }, React.createElement('path', { d: 'M20 6 9 17l-5-5' })) : null,
+      toggleCheck: () => this.setState(p => ({ checked: !p.checked })),
+
+      radioABorder: s.radio === 'a' ? acc : 'var(--border-strong)',
+      radioBBorder: s.radio === 'b' ? acc : 'var(--border-strong)',
+      radioADot: s.radio === 'a' ? React.createElement('span', { style: { width: '8px', height: '8px', borderRadius: '99px', background: acc } }) : null,
+      radioBDot: s.radio === 'b' ? React.createElement('span', { style: { width: '8px', height: '8px', borderRadius: '99px', background: acc } }) : null,
+      pickA: () => this.setState({ radio: 'a' }),
+      pickB: () => this.setState({ radio: 'b' }),
+
+      switchBg: s.switchOn ? acc : 'var(--border-strong)',
+      switchJustify: s.switchOn ? 'flex-end' : 'flex-start',
+      toggleSwitch: () => this.setState(p => ({ switchOn: !p.switchOn })),
+
+      loadingLabel: s.loading ? 'Memproses' : 'Dengan loading',
+      loadingIcon: s.loading
+        ? React.createElement('span', { style: { width: '14px', height: '14px', borderRadius: '99px', border: '2px solid var(--border-strong)', borderTopColor: acc, animation: 'spin .7s linear infinite', display: 'block' } })
+        : null,
+      fakeLoad: this.fakeLoad,
+
+      sortArrow: s.sortAsc ? '↑' : '↓',
+      sortBy: () => this.setState(p => ({ sortAsc: !p.sortAsc })),
+      page: s.page,
+      rangeLabel: 'Menampilkan ' + (rows.length ? start : 0) + '–' + (start + rows.length - 1) + ' dari 128 faktur',
+      prevPage: () => this.setState(p => ({ page: Math.max(1, p.page - 1) })),
+      nextPage: () => this.setState(p => ({ page: p.page + 1 })),
+
+      menuOpen: s.menuOpen,
+      toggleMenu: () => this.setState(p => ({ menuOpen: !p.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      tipShown: s.tip,
+      tipOn: () => this.setState({ tip: true }),
+      tipOff: () => this.setState({ tip: false }),
+
+      drawerOpen: s.drawerOpen,
+      openDrawer: () => this.setState({ drawerOpen: true }),
+      closeDrawer: () => this.setState({ drawerOpen: false }),
+
+      cmdOpen: s.cmdOpen,
+      openCmd: () => this.setState({ cmdOpen: true, cmdQuery: '' }),
+      closeCmd: () => this.setState({ cmdOpen: false }),
+      cmdQuery: s.cmdQuery,
+      onCmd: e => this.setState({ cmdQuery: e.target.value }),
+      cmdResults: cmdList,
+      cmdEmpty: cmdList.length === 0,
+
+      cbQuery: s.cbQuery,
+      onCb: e => this.setState({ cbQuery: e.target.value, cbOpen: true }),
+      cbFocus: () => this.setState({ cbOpen: true }),
+      cbOpen: s.cbOpen,
+      cbResults: cbList,
+      cbEmpty: cbList.length === 0,
+
+      tags: s.tagList.map((t, i) => ({
+        label: t,
+        remove: () => this.setState(st => ({ tagList: st.tagList.filter((_, j) => j !== i) }))
+      })),
+      tagDraft: s.tagDraft,
+      onTagDraft: e => this.setState({ tagDraft: e.target.value }),
+      onTagKey: e => {
+        if (e.key === 'Enter' || e.key === ',') {
+          e.preventDefault();
+          const v = s.tagDraft.trim().replace(/,$/, '');
+          if (v) this.setState(st => ({ tagList: st.tagList.concat(v), tagDraft: '' }));
+        } else if (e.key === 'Backspace' && !s.tagDraft) {
+          this.setState(st => ({ tagList: st.tagList.slice(0, -1) }));
+        }
+      },
+
+      qty: s.qty,
+      inc: () => this.setState(p => ({ qty: p.qty + 1 })),
+      dec: () => this.setState(p => ({ qty: Math.max(1, p.qty - 1) })),
+
+      accordion: accList,
+
+      modalOpen: s.modalOpen,
+      openModal: () => this.setState({ modalOpen: true }),
+      closeModal: () => this.setState({ modalOpen: false }),
+      stop: e => e.stopPropagation(),
+      toastOpen: s.toastOpen,
+      fireToast: this.fireToast,
+      hideToast: () => this.setState({ toastOpen: false })
+    };
+  }
+}
+
+</script>
+</body>
+</html>

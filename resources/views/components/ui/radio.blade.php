@@ -10,22 +10,30 @@
     $id = $attributes->get('id', $name.'_'.$value);
 @endphp
 
-<div class="flex items-start gap-2">
+<div class="flex items-start gap-2.5">
     <div class="flex h-5 items-center">
         <input type="radio"
                id="{{ $id }}"
                name="{{ $name }}"
                value="{{ $value }}"
                @checked($checked)
-               {{ $attributes->class('h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:focus:ring-blue-600') }}>
+               {{-- Lingkarannya tetap cekung saat dipilih; titiknya digambar
+                    sebagai background, bukan dengan menebalkan border, supaya
+                    bayangan `well` tidak hilang. --}}
+               {{ $attributes->class([
+                   'size-[18px] shrink-0 cursor-pointer appearance-none rounded-full border border-line-strong bg-surface-sunken shadow-well transition',
+                   'checked:border-accent checked:bg-[radial-gradient(circle,var(--accent)_0_4px,transparent_4.5px)]',
+                   'focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-accent-soft',
+                   'disabled:cursor-not-allowed disabled:opacity-60',
+               ]) }}>
     </div>
 
     @if ($label || $hint)
-        <div class="text-sm">
-            <label for="{{ $id }}" class="font-medium text-gray-900 dark:text-gray-300">{{ $label }}</label>
+        <div>
+            <label for="{{ $id }}" class="cursor-pointer text-sm text-ink">{{ $label }}</label>
 
             @if ($hint)
-                <p class="text-xs font-normal text-gray-500 dark:text-gray-400">{{ $hint }}</p>
+                <p class="text-[12.5px] text-ink-muted">{{ $hint }}</p>
             @endif
         </div>
     @endif

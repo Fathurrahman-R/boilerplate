@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>RizzxxUI — Layar Bukti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/lucide@0.454.0/dist/umd/lucide.min.js"></script>
+<style>
+:root{
+  --surface:#F7F7F8; --surface-raised:#FFFFFF; --surface-sunken:#EDEDF0; --surface-inset:#E4E4E9;
+  --border-subtle:#E3E3E8; --border-strong:#C7C7D0;
+  --text-primary:#15171C; --text-secondary:#494E58; --text-muted:#6C717C; --text-inverse:#FFFFFF;
+  --accent:#3D5FE0; --accent-hover:#3450C4; --accent-soft:#E8EDFD; --accent-on:#FFFFFF;
+  --link:#2F4DC7; --link-hover:#1F3AA8;
+  --success:#0E7A55; --success-soft:#DFF4EC;
+  --warning:#8F5300; --warning-soft:#FBEEDA;
+  --danger:#C0342E;  --danger-soft:#FBE6E5;
+  --info:#3D5FE0;    --info-soft:#E8EDFD;
+  --glass-bg:rgba(255,255,255,0.62); --glass-border:rgba(255,255,255,0.9);
+  --glass-shadow:0 8px 32px rgba(20,24,40,0.10);
+  --shadow-sm:0 1px 2px rgba(16,20,30,0.07);
+  --shadow-md:0 4px 14px rgba(16,20,30,0.08);
+  --shadow-lg:0 18px 44px rgba(16,20,30,0.13);
+  --grid-line:rgba(21,23,28,0.05); --noise-opacity:0.035;
+  --code-bg:#EFEFF3; --code-text:#2A2E37;
+  --c1:#4F7CFF; --c2:#00A98F; --c3:#E0761F; --c4:#8B5CF6; --c5:#D4A017; --c6:#E0526B;
+  --mat-raised:linear-gradient(180deg,#FFFFFF 0%,#EFEFF3 100%);
+  --mat-base:linear-gradient(180deg,#F4F4F7 0%,#E9E9EE 100%);
+  --mat-accent:linear-gradient(180deg,#5B79EA 0%,var(--accent) 100%);
+  --bevel:inset 0 1px 0 rgba(255,255,255,.95), inset 0 -1px 0 rgba(15,18,28,.07);
+  --lift:0 1px 1px rgba(15,18,28,.05), 0 3px 7px rgba(15,18,28,.08);
+  --press:inset 0 2px 5px rgba(15,18,28,.16), inset 0 -1px 0 rgba(255,255,255,.55);
+  --well:inset 0 2px 5px rgba(15,18,28,.13), inset 0 -1px 0 rgba(255,255,255,.7);
+  --control-h:40px; --glass-blur:16px;
+  --r-sm:6px; --r-md:8px; --r-lg:10px; --r-xl:14px;
+}
+html[data-theme="dark"]{
+  --surface:#0B0F14; --surface-raised:#131923; --surface-sunken:#080B10; --surface-inset:#1A212C;
+  --border-subtle:#1F2733; --border-strong:#333E4D;
+  --text-primary:#E9ECF2; --text-secondary:#A8B0BE; --text-muted:#7D8797; --text-inverse:#0B0F14;
+  --accent:#4F7CFF; --accent-hover:#6B90FF; --accent-soft:rgba(79,124,255,0.15); --accent-on:#07101F;
+  --link:#8FAAFF; --link-hover:#B4C6FF;
+  --success:#3DD69C; --success-soft:rgba(61,214,156,0.14);
+  --warning:#F0B23C; --warning-soft:rgba(240,178,60,0.14);
+  --danger:#FF6B63;  --danger-soft:rgba(255,107,99,0.14);
+  --info:#7A9BFF;    --info-soft:rgba(122,155,255,0.14);
+  --glass-bg:rgba(19,25,35,0.58); --glass-border:rgba(255,255,255,0.09);
+  --glass-shadow:0 8px 32px rgba(0,0,0,0.5);
+  --shadow-sm:0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md:0 4px 14px rgba(0,0,0,0.45);
+  --shadow-lg:0 18px 44px rgba(0,0,0,0.55);
+  --grid-line:rgba(255,255,255,0.045); --noise-opacity:0.055;
+  --code-bg:#0E141C; --code-text:#C3CAD6;
+  --c1:#6B90FF; --c2:#2FD1B4; --c3:#F0913C; --c4:#A78BFA; --c5:#EFC64A; --c6:#FF7A90;
+  --mat-raised:linear-gradient(180deg,#1C2431 0%,#121822 100%);
+  --mat-base:linear-gradient(180deg,#111823 0%,#0A0F16 100%);
+  --mat-accent:linear-gradient(180deg,#7396FF 0%,var(--accent) 100%);
+  --bevel:inset 0 1px 0 rgba(255,255,255,.09), inset 0 -1px 0 rgba(0,0,0,.55);
+  --lift:0 1px 1px rgba(0,0,0,.5), 0 4px 10px rgba(0,0,0,.5);
+  --press:inset 0 2px 6px rgba(0,0,0,.65), inset 0 -1px 0 rgba(255,255,255,.06);
+  --well:inset 0 2px 6px rgba(0,0,0,.6), inset 0 -1px 0 rgba(255,255,255,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--surface);color:var(--text-primary);font-family:'Space Grotesk',system-ui,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;text-wrap:pretty}
+a{color:var(--link);text-decoration:none}
+a:hover{color:var(--link-hover)}
+h1,h2,h3,h4{font-family:'Sora',system-ui,sans-serif;margin:0;letter-spacing:-0.02em;line-height:1.15}
+p{margin:0}
+svg[class*="lucide"]{width:1em;height:1em;stroke-width:1.5px;flex:none}
+input,textarea,select,button{font-family:inherit;font-size:inherit;color:inherit}
+::selection{background:var(--accent);color:var(--accent-on)}
+@keyframes riseIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:var(--surface)">
+
+  <header style="position:sticky;top:0;z-index:50;backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);background:var(--glass-bg);border-bottom:1px solid var(--border-subtle)">
+    <div style="max-width:1320px;margin:0 auto;padding:0 28px;height:60px;display:flex;align-items:center;gap:18px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:24px;height:24px;border-radius:var(--r-sm);background:var(--accent);display:flex;align-items:center;justify-content:center;color:var(--accent-on);font-family:'Sora';font-weight:700;font-size:13px">R</div>
+        <span style="font-family:'Sora';font-weight:600;font-size:15px">RizzxxUI</span>
+        <span style="font-size:14px;color:var(--text-muted)">Layar bukti</span>
+      </div>
+      <nav style="display:flex;gap:2px;flex:1;flex-wrap:wrap">
+        <a href="#dashboard" style="color:var(--text-secondary);font-size:13.5px;padding:6px 10px;border-radius:var(--r-sm)" style-hover="background:var(--surface-inset);color:var(--text-primary)">Dashboard</a>
+        <a href="#landing" style="color:var(--text-secondary);font-size:13.5px;padding:6px 10px;border-radius:var(--r-sm)" style-hover="background:var(--surface-inset);color:var(--text-primary)">Landing</a>
+        <a href="#tool" style="color:var(--text-secondary);font-size:13.5px;padding:6px 10px;border-radius:var(--r-sm)" style-hover="background:var(--surface-inset);color:var(--text-primary)">Internal tool</a>
+        <a href="#settings" style="color:var(--text-secondary);font-size:13.5px;padding:6px 10px;border-radius:var(--r-sm)" style-hover="background:var(--surface-inset);color:var(--text-primary)">Settings</a>
+        <a href="#auth" style="color:var(--text-secondary);font-size:13.5px;padding:6px 10px;border-radius:var(--r-sm)" style-hover="background:var(--surface-inset);color:var(--text-primary)">Auth</a>
+      </nav>
+      <a href="RizzxxUI.dc.html" style="font-size:13.5px;color:var(--text-muted)" style-hover="color:var(--text-primary)">← Dokumentasi</a>
+      <button onClick="{{ toggleTheme }}" style="height:32px;padding:0 12px;display:flex;align-items:center;gap:7px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);cursor:pointer;font-size:13px;font-weight:500" style-active="box-shadow:var(--press);transform:translateY(1px)" style-hover="border-color:var(--border-strong)">
+        <i data-lucide="sun-moon" style="font-size:15px"></i><span>{{ themeLabel }}</span>
+      </button>
+    </div>
+  </header>
+
+  <div style="max-width:1320px;margin:0 auto;padding:36px 28px 120px;display:flex;flex-direction:column;gap:64px">
+
+    <section id="dashboard">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:16px">
+        <span style="font-family:'IBM Plex Mono';font-size:11px;letter-spacing:0.12em;color:var(--accent)">01</span>
+        <h2 style="font-size:22px;font-weight:600">Dashboard analitik</h2>
+        <span style="font-size:13.5px;color:var(--text-muted)">Shell aplikasi · sidebar kaca · baris metrik · chart · tabel</span>
+      </div>
+
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-md);background:var(--surface)">
+        <div style="height:36px;background:var(--surface-sunken);border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;gap:8px;padding:0 14px">
+          <span style="width:9px;height:9px;border-radius:99px;background:var(--border-strong)"></span>
+          <span style="width:9px;height:9px;border-radius:99px;background:var(--border-strong)"></span>
+          <span style="width:9px;height:9px;border-radius:99px;background:var(--border-strong)"></span>
+          <span style="font-family:'IBM Plex Mono';font-size:11.5px;color:var(--text-muted);margin-left:12px">app.rizzxx.id/ringkasan</span>
+        </div>
+
+        <div style="position:relative;padding:18px;display:flex;gap:18px;background:radial-gradient(80% 110% at 10% 0%,var(--accent-soft) 0%,transparent 50%),var(--mat-base);min-height:640px">
+          <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);background-size:24px 24px"></div>
+
+          <aside style="position:relative;flex:none;width:{{ sidebarW }};align-self:flex-start;position:sticky;top:18px;backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-xl);box-shadow:var(--glass-shadow);padding:12px 10px;display:flex;flex-direction:column;gap:2px;transition:width .26s cubic-bezier(.2,.8,.2,1)">
+            <button onClick="{{ toggleCollapse }}" title="{{ collapseTitle }}" style="position:absolute;top:18px;right:-13px;width:26px;height:26px;border-radius:99px;border:1px solid var(--border-subtle);background:var(--surface-raised);box-shadow:var(--shadow-md);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-secondary);z-index:2" style-hover="color:var(--text-primary);border-color:var(--border-strong)">
+              <span style="display:flex;transform:rotate({{ collapseRot }});transition:transform .22s cubic-bezier(.2,.8,.2,1)"><i data-lucide="chevron-left" style="font-size:14px"></i></span>
+            </button>
+            <div style="display:flex;align-items:center;gap:9px;padding:4px 6px 12px;justify-content:{{ itemJustify }};overflow:hidden;white-space:nowrap">
+              <div style="width:24px;height:24px;flex:none;border-radius:var(--r-sm);background:var(--accent);display:flex;align-items:center;justify-content:center;color:var(--accent-on);font-family:'Sora';font-weight:700;font-size:13px">R</div>
+              <span style="font-family:'Sora';font-weight:600;font-size:14.5px">{{ brandLabel }}</span>
+            </div>
+            <span style="font-family:'IBM Plex Mono';font-size:10px;letter-spacing:0.1em;color:var(--text-muted);padding:0 10px 6px;height:16px;overflow:hidden;white-space:nowrap">{{ sectionLabel }}</span>
+            <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="6">
+              <div onClick="{{ n.pick }}" title="{{ n.label }}" style="display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--r-md);cursor:pointer;font-size:14px;background:{{ n.bg }};color:{{ n.color }};font-weight:{{ n.weight }};transition:background .16s,color .16s;overflow:hidden;white-space:nowrap;justify-content:{{ n.justify }}" style-hover="background:var(--surface-inset)">
+                <i data-lucide="{{ n.icon }}" style="font-size:17px;flex:none"></i>{{ n.labelText }}
+              </div>
+            </sc-for>
+            <div style="height:1px;background:var(--border-subtle);margin:10px 4px"></div>
+            <div style="display:flex;align-items:center;gap:10px;padding:6px 10px;overflow:hidden;white-space:nowrap;justify-content:{{ itemJustify }}">
+              <div style="width:26px;height:26px;flex:none;border-radius:99px;background:var(--surface-inset);border:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--text-secondary)">RA</div>
+              <div style="min-width:0">
+                <div style="font-size:13px;font-weight:600">{{ userName }}</div>
+                <div style="font-size:11.5px;color:var(--text-muted)">{{ userRole }}</div>
+              </div>
+            </div>
+          </aside>
+
+          <main style="position:relative;flex:1;min-width:0;display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+              <div style="flex:1;min-width:200px">
+                <h1 style="font-size:26px;font-weight:600">Ringkasan</h1>
+                <p style="font-size:13.5px;color:var(--text-muted);margin-top:2px">1–31 Agustus 2026 · dibanding periode sebelumnya</p>
+              </div>
+              <button style="height:36px;padding:0 13px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);cursor:pointer;font-size:13.5px;display:flex;align-items:center;gap:7px" style-active="box-shadow:var(--press);transform:translateY(1px)" style-hover="background:var(--surface-inset)"><i data-lucide="calendar" style="font-size:15px"></i>Agustus 2026</button>
+              <button style="height:36px;padding:0 15px;border-radius:var(--r-md);border:1px solid transparent;background:var(--mat-accent);color:var(--accent-on);font-weight:600;box-shadow:var(--bevel),var(--lift);cursor:pointer;font-size:13.5px;display:flex;align-items:center;gap:7px" style-active="box-shadow:var(--press);transform:translateY(1px)" style-hover="background:var(--accent-hover)"><i data-lucide="download" style="font-size:15px"></i>Ekspor</button>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px">
+              <sc-for list="{{ metrics }}" as="m" hint-placeholder-count="4">
+                <div style="backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-lg);box-shadow:var(--glass-shadow);padding:18px">
+                  <div style="font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:0.09em;color:var(--text-muted)">{{ m.label }}</div>
+                  <div style="font-family:'Sora';font-size:27px;font-weight:600;margin-top:7px;font-variant-numeric:tabular-nums">{{ m.value }}</div>
+                  <div style="display:flex;align-items:center;gap:5px;font-size:12.5px;margin-top:3px;color:{{ m.color }}"><i data-lucide="{{ m.icon }}" style="font-size:14px"></i>{{ m.delta }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:16px">
+              <div style="background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--r-lg);padding:20px">
+                <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap">
+                  <h3 style="font-size:16px;font-weight:600">Pendapatan per minggu</h3>
+                  <div style="display:flex;gap:14px;font-size:12px;color:var(--text-muted)">
+                    <span style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:2px;background:var(--c1)"></span>Langganan</span>
+                    <span style="display:flex;align-items:center;gap:6px"><span style="width:8px;height:8px;border-radius:2px;background:var(--c2)"></span>Sekali bayar</span>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:flex-end;gap:14px;height:186px;margin-top:22px">
+                  <sc-for list="{{ revBars }}" as="b" hint-placeholder-count="8">
+                    <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:9px;height:100%;justify-content:flex-end">
+                      <div style="width:100%;display:flex;flex-direction:column;gap:2px;justify-content:flex-end">
+                        <div style="width:100%;border-radius:4px 4px 0 0;background:var(--c2);height:{{ b.h2 }}"></div>
+                        <div style="width:100%;border-radius:0 0 3px 3px;background:var(--c1);height:{{ b.h1 }}"></div>
+                      </div>
+                      <span style="font-family:'IBM Plex Mono';font-size:10.5px;color:var(--text-muted)">{{ b.label }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+
+              <div style="background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--r-lg);padding:20px;display:flex;flex-direction:column;gap:16px">
+                <h3 style="font-size:16px;font-weight:600">Sumber pelanggan</h3>
+                <div style="display:flex;height:11px;border-radius:99px;overflow:hidden;gap:2px">
+                  <div style="width:38%;background:var(--c1)"></div>
+                  <div style="width:24%;background:var(--c2)"></div>
+                  <div style="width:18%;background:var(--c3)"></div>
+                  <div style="width:12%;background:var(--c4)"></div>
+                  <div style="width:8%;background:var(--c5)"></div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:11px">
+                  <sc-for list="{{ sources }}" as="src" hint-placeholder-count="5">
+                    <div style="display:flex;align-items:center;gap:10px;font-size:13.5px">
+                      <span style="width:9px;height:9px;border-radius:3px;background:{{ src.color }};flex:none"></span>
+                      <span style="flex:1;color:var(--text-secondary)">{{ src.label }}</span>
+                      <span style="font-family:'IBM Plex Mono';font-size:12.5px;font-variant-numeric:tabular-nums">{{ src.pct }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+
+            <div style="background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--r-lg);overflow:hidden">
+              <div style="padding:15px 20px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;gap:12px">
+                <h3 style="font-size:16px;font-weight:600;flex:1">Transaksi terakhir</h3>
+                <a href="#dashboard" style="font-size:13.5px;display:flex;align-items:center;gap:5px">Lihat semua<i data-lucide="arrow-up-right" style="font-size:14px"></i></a>
+              </div>
+              <table style="width:100%;border-collapse:collapse;font-size:13.5px">
+                <thead>
+                  <tr style="background:var(--surface-sunken)">
+                    <th style="text-align:left;padding:10px 20px;font-size:11.5px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-muted)">Faktur</th>
+                    <th style="text-align:left;padding:10px 20px;font-size:11.5px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-muted)">Klien</th>
+                    <th style="text-align:left;padding:10px 20px;font-size:11.5px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-muted)">Status</th>
+                    <th style="text-align:right;padding:10px 20px;font-size:11.5px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-muted)">Nilai</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <sc-for list="{{ rows }}" as="r" hint-placeholder-count="5">
+                    <tr style="border-top:1px solid var(--border-subtle);transition:background .14s" style-hover="background:var(--surface-inset)">
+                      <td style="padding:12px 20px;font-family:'IBM Plex Mono';font-size:12.5px">{{ r.id }}</td>
+                      <td style="padding:12px 20px;color:var(--text-secondary)">{{ r.client }}</td>
+                      <td style="padding:12px 20px"><span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:{{ r.softBg }};color:{{ r.statusColor }}"><span style="width:5px;height:5px;border-radius:99px;background:{{ r.statusColor }}"></span>{{ r.status }}</span></td>
+                      <td style="padding:12px 20px;text-align:right;font-family:'IBM Plex Mono';font-size:12.5px;font-variant-numeric:tabular-nums">{{ r.amount }}</td>
+                    </tr>
+                  </sc-for>
+                </tbody>
+              </table>
+            </div>
+          </main>
+        </div>
+      </div>
+    </section>
+
+    <section id="landing">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:16px">
+        <span style="font-family:'IBM Plex Mono';font-size:11px;letter-spacing:0.12em;color:var(--accent)">02</span>
+        <h2 style="font-size:22px;font-weight:600">SaaS landing page</h2>
+        <span style="font-size:13.5px;color:var(--text-muted)">Hero kaca · fitur · harga · penutup</span>
+      </div>
+
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-md);background:var(--surface)">
+        <div style="position:relative;padding:0 0 72px;background:radial-gradient(70% 90% at 50% -10%,var(--accent-soft) 0%,transparent 55%),var(--surface)">
+          <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);background-size:32px 32px"></div>
+
+          <div style="position:relative;max-width:1120px;margin:0 auto;padding:20px 32px 0">
+            <div style="backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:99px;box-shadow:var(--glass-shadow);height:56px;display:flex;align-items:center;gap:20px;padding:0 10px 0 20px">
+              <div style="display:flex;align-items:center;gap:9px">
+                <div style="width:22px;height:22px;border-radius:var(--r-sm);background:var(--accent);display:flex;align-items:center;justify-content:center;color:var(--accent-on);font-family:'Sora';font-weight:700;font-size:12px">R</div>
+                <span style="font-family:'Sora';font-weight:600;font-size:15px">RizzxxUI</span>
+              </div>
+              <div style="flex:1;display:flex;gap:4px">
+                <a href="#landing" style="font-size:13.5px;color:var(--text-secondary);padding:6px 11px;border-radius:99px" style-hover="background:var(--surface-inset);color:var(--text-primary)">Produk</a>
+                <a href="#landing" style="font-size:13.5px;color:var(--text-secondary);padding:6px 11px;border-radius:99px" style-hover="background:var(--surface-inset);color:var(--text-primary)">Harga</a>
+                <a href="#landing" style="font-size:13.5px;color:var(--text-secondary);padding:6px 11px;border-radius:99px" style-hover="background:var(--surface-inset);color:var(--text-primary)">Dokumentasi</a>
+                <a href="#landing" style="font-size:13.5px;color:var(--text-secondary);padding:6px 11px;border-radius:99px" style-hover="background:var(--surface-inset);color:var(--text-primary)">Pelanggan</a>
+              </div>
+              <a href="#auth" style="font-size:13.5px;color:var(--text-secondary);padding:0 6px">Masuk</a>
+              <a href="#auth" style="height:36px;padding:0 17px;border-radius:99px;background:var(--mat-accent);color:var(--accent-on);font-weight:600;box-shadow:var(--bevel),var(--lift);font-size:13.5px;display:flex;align-items:center" style-hover="background:var(--accent-hover);color:var(--accent-on)">Coba gratis</a>
+            </div>
+
+            <div style="text-align:center;padding:76px 0 0;max-width:760px;margin:0 auto">
+              <span style="display:inline-flex;align-items:center;gap:7px;font-size:12.5px;padding:5px 13px;border-radius:99px;border:1px solid var(--border-subtle);background:var(--surface-raised);color:var(--text-secondary)"><span style="width:6px;height:6px;border-radius:99px;background:var(--success)"></span>Penagihan otomatis kini mendukung QRIS</span>
+              <h1 style="font-size:56px;font-weight:600;letter-spacing:-0.035em;line-height:1.05;margin:22px 0 18px">Penagihan yang berhenti memakan hari Senin Anda.</h1>
+              <p style="font-size:18px;color:var(--text-secondary);max-width:56ch;margin:0 auto">Faktur, pengingat, dan rekonsiliasi berjalan sendiri. Tim keuangan tinggal menyetujui — bukan menyalin nomor dari satu tab ke tab lain.</p>
+              <div style="display:flex;gap:12px;justify-content:center;margin-top:30px;flex-wrap:wrap">
+                <a href="#auth" style="height:48px;padding:0 24px;border-radius:var(--r-md);background:var(--mat-accent);color:var(--accent-on);font-weight:600;box-shadow:var(--bevel),var(--lift);font-size:15px;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-md)" style-hover="background:var(--accent-hover);color:var(--accent-on)">Mulai 14 hari gratis<i data-lucide="arrow-up-right" style="font-size:17px"></i></a>
+                <a href="#dashboard" style="height:48px;padding:0 22px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);color:var(--text-primary);font-weight:500;font-size:15px;display:flex;align-items:center;gap:8px" style-hover="background:var(--surface-inset);color:var(--text-primary)"><i data-lucide="play" style="font-size:16px"></i>Lihat demo</a>
+              </div>
+              <p style="font-size:12.5px;color:var(--text-muted);margin-top:14px">Tanpa kartu kredit · Migrasi data dibantu</p>
+            </div>
+
+            <div style="margin-top:56px;backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-xl);box-shadow:var(--glass-shadow);padding:14px">
+              <div style="border-radius:var(--r-lg);border:1px solid var(--border-subtle);height:300px;background-image:repeating-linear-gradient(135deg,var(--surface-inset) 0px,var(--surface-inset) 10px,var(--surface-sunken) 10px,var(--surface-sunken) 20px);display:flex;align-items:center;justify-content:center">
+                <span style="font-family:'IBM Plex Mono';font-size:12.5px;color:var(--text-muted);background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--r-sm);padding:7px 13px">tangkapan layar produk — 1440 × 900</span>
+              </div>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:center;gap:36px;margin-top:44px;flex-wrap:wrap;opacity:.72">
+              <span style="font-family:'Sora';font-weight:600;font-size:17px;color:var(--text-muted)">Nusantara</span>
+              <span style="font-family:'Sora';font-weight:600;font-size:17px;color:var(--text-muted)">Sinar Abadi</span>
+              <span style="font-family:'Sora';font-weight:600;font-size:17px;color:var(--text-muted)">Delta</span>
+              <span style="font-family:'Sora';font-weight:600;font-size:17px;color:var(--text-muted)">Aksara</span>
+              <span style="font-family:'Sora';font-weight:600;font-size:17px;color:var(--text-muted)">Kopi Rakyat</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="background:var(--surface-raised);border-top:1px solid var(--border-subtle);padding:76px 32px">
+          <div style="max-width:1120px;margin:0 auto">
+            <h2 style="font-size:36px;font-weight:600;max-width:20ch;letter-spacing:-0.03em">Semua yang biasanya dikerjakan manual, dikerjakan sistem.</h2>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1px;background:var(--border-subtle);border:1px solid var(--border-subtle);border-radius:var(--r-lg);overflow:hidden;margin-top:38px">
+              <div style="background:var(--surface-raised);padding:26px">
+                <i data-lucide="repeat" style="font-size:20px;color:var(--accent)"></i>
+                <h3 style="font-size:17px;font-weight:600;margin:14px 0 8px">Faktur berulang</h3>
+                <p style="font-size:14px;color:var(--text-secondary)">Atur sekali, terbit tiap periode. Perubahan paket di tengah jalan dihitung prorata otomatis.</p>
+              </div>
+              <div style="background:var(--surface-raised);padding:26px">
+                <i data-lucide="bell-ring" style="font-size:20px;color:var(--accent)"></i>
+                <h3 style="font-size:17px;font-weight:600;margin:14px 0 8px">Pengingat berjenjang</h3>
+                <p style="font-size:14px;color:var(--text-secondary)">Tiga tingkat pengingat dengan nada berbeda — sopan di awal, tegas menjelang jatuh tempo.</p>
+              </div>
+              <div style="background:var(--surface-raised);padding:26px">
+                <i data-lucide="git-compare" style="font-size:20px;color:var(--accent)"></i>
+                <h3 style="font-size:17px;font-weight:600;margin:14px 0 8px">Rekonsiliasi bank</h3>
+                <p style="font-size:14px;color:var(--text-secondary)">Mutasi masuk dicocokkan ke faktur berdasarkan nominal dan berita transfer.</p>
+              </div>
+              <div style="background:var(--surface-raised);padding:26px">
+                <i data-lucide="shield-check" style="font-size:20px;color:var(--accent)"></i>
+                <h3 style="font-size:17px;font-weight:600;margin:14px 0 8px">Jejak audit</h3>
+                <p style="font-size:14px;color:var(--text-secondary)">Setiap perubahan tercatat lengkap dengan pelaku dan waktunya. Bisa diekspor untuk auditor.</p>
+              </div>
+              <div style="background:var(--surface-raised);padding:26px">
+                <i data-lucide="plug" style="font-size:20px;color:var(--accent)"></i>
+                <h3 style="font-size:17px;font-weight:600;margin:14px 0 8px">Integrasi akuntansi</h3>
+                <p style="font-size:14px;color:var(--text-secondary)">Jurnal terkirim ke sistem pembukuan Anda tanpa ekspor CSV tengah malam.</p>
+              </div>
+              <div style="background:var(--surface-raised);padding:26px">
+                <i data-lucide="users" style="font-size:20px;color:var(--accent)"></i>
+                <h3 style="font-size:17px;font-weight:600;margin:14px 0 8px">Peran &amp; persetujuan</h3>
+                <p style="font-size:14px;color:var(--text-secondary)">Batas nominal per peran. Faktur besar butuh persetujuan sebelum terkirim.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding:76px 32px;background:var(--surface);border-top:1px solid var(--border-subtle)">
+          <div style="max-width:1120px;margin:0 auto">
+            <div style="text-align:center;margin-bottom:40px">
+              <h2 style="font-size:36px;font-weight:600;letter-spacing:-0.03em">Harga yang tidak perlu ditanyakan</h2>
+              <p style="font-size:16px;color:var(--text-secondary);margin-top:10px">Semua paket termasuk pengguna tanpa batas.</p>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:18px;align-items:start">
+              <div style="background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--r-xl);padding:28px">
+                <h3 style="font-size:17px;font-weight:600">Starter</h3>
+                <p style="font-size:13.5px;color:var(--text-muted);margin-top:4px">Untuk tim yang baru rapi-rapi</p>
+                <div style="font-family:'Sora';font-size:38px;font-weight:600;margin:20px 0 4px">Rp 490rb<span style="font-size:15px;font-weight:400;color:var(--text-muted)">/bln</span></div>
+                <div style="display:flex;flex-direction:column;gap:10px;margin:22px 0 26px;font-size:14px;color:var(--text-secondary)">
+                  <span style="display:flex;gap:9px"><i data-lucide="check" style="font-size:16px;color:var(--success)"></i>200 faktur per bulan</span>
+                  <span style="display:flex;gap:9px"><i data-lucide="check" style="font-size:16px;color:var(--success)"></i>Pengingat otomatis</span>
+                  <span style="display:flex;gap:9px"><i data-lucide="check" style="font-size:16px;color:var(--success)"></i>Ekspor CSV</span>
+                </div>
+                <a href="#auth" style="height:42px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);color:var(--text-primary);font-weight:500;display:flex;align-items:center;justify-content:center" style-hover="background:var(--surface-inset);color:var(--text-primary)">Pilih Starter</a>
+              </div>
+
+              <div style="position:relative;backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);background:var(--glass-bg);border:1px solid var(--accent);border-radius:var(--r-xl);padding:28px;box-shadow:var(--glass-shadow)">
+                <span style="position:absolute;top:-11px;left:28px;font-size:11.5px;font-weight:600;padding:3px 11px;border-radius:99px;background:var(--accent);color:var(--accent-on)">PALING DIPILIH</span>
+                <h3 style="font-size:17px;font-weight:600">Growth</h3>
+                <p style="font-size:13.5px;color:var(--text-muted);margin-top:4px">Untuk tim keuangan yang sibuk</p>
+                <div style="font-family:'Sora';font-size:38px;font-weight:600;margin:20px 0 4px">Rp 1,8jt<span style="font-size:15px;font-weight:400;color:var(--text-muted)">/bln</span></div>
+                <div style="display:flex;flex-direction:column;gap:10px;margin:22px 0 26px;font-size:14px;color:var(--text-secondary)">
+                  <span style="display:flex;gap:9px"><i data-lucide="check" style="font-size:16px;color:var(--success)"></i>Faktur tanpa batas</span>
+                  <span style="display:flex;gap:9px"><i data-lucide="check" style="font-size:16px;color:var(--success)"></i>Rekonsiliasi bank</span>
+                  <span style="display:flex;gap:9px"><i data-lucide="check" style="font-size:16px;color:var(--success)"></i>Alur persetujuan</span>
+                  <span style="display:flex;gap:9px"><i data-lucide="check" style="font-size:16px;color:var(--success)"></i>Integrasi akuntansi</span>
+                </div>
+                <a href="#auth" style="height:42px;border-radius:var(--r-md);background:var(--mat-accent);color:var(--accent-on);font-weight:600;box-shadow:var(--bevel),var(--lift);display:flex;align-items:center;justify-content:center" style-hover="background:var(--accent-hover);color:var(--accent-on)">Pilih Growth</a>
+              </div>
+
+              <div style="background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--r-xl);padding:28px">
+                <h3 style="font-size:17px;font-weight:600">Enterprise</h3>
+                <p style="font-size:13.5px;color:var(--text-muted);margin-top:4px">Untuk grup usaha multi-entitas</p>
+                <div style="font-family:'Sora';font-size:38px;font-weight:600;margin:20px 0 4px">Hubungi</div>
+                <div style="display:flex;flex-direction:column;gap:10px;margin:22px 0 26px;font-size:14px;color:var(--text-secondary)">
+                  <span style="display:flex;gap:9px"><i data-lucide="check" style="font-size:16px;color:var(--success)"></i>Multi-entitas &amp; mata uang</span>
+                  <span style="display:flex;gap:9px"><i data-lucide="check" style="font-size:16px;color:var(--success)"></i>SSO &amp; SLA 99,9%</span>
+                  <span style="display:flex;gap:9px"><i data-lucide="check" style="font-size:16px;color:var(--success)"></i>Manajer akun khusus</span>
+                </div>
+                <a href="#auth" style="height:42px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);color:var(--text-primary);font-weight:500;display:flex;align-items:center;justify-content:center" style-hover="background:var(--surface-inset);color:var(--text-primary)">Jadwalkan demo</a>
+              </div>
+            </div>
+
+            <div style="margin-top:64px;border-top:1px solid var(--border-subtle);padding-top:36px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:13.5px;color:var(--text-muted)">
+              <span>© 2026 RizzxxUI</span>
+              <div style="display:flex;gap:22px">
+                <a href="#landing">Keamanan</a><a href="#landing">Status</a><a href="#landing">Ketentuan</a><a href="#landing">Kontak</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tool">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:16px">
+        <span style="font-family:'IBM Plex Mono';font-size:11px;letter-spacing:0.12em;color:var(--accent)">03</span>
+        <h2 style="font-size:22px;font-weight:600">Internal tool</h2>
+        <span style="font-size:13.5px;color:var(--text-muted)">Daftar + panel detail · permukaan solid, tanpa kaca</span>
+      </div>
+
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-md);background:var(--surface-raised);display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);min-height:560px">
+        <div style="border-right:1px solid var(--border-subtle);display:flex;flex-direction:column">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--border-subtle);display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <h3 style="font-size:16px;font-weight:600;flex:1">Antrean verifikasi</h3>
+            <span style="font-size:12px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--warning-soft);color:var(--warning)">6 menunggu</span>
+          </div>
+          <div style="padding:12px 20px;border-bottom:1px solid var(--border-subtle);display:flex;gap:8px;flex-wrap:wrap">
+            <sc-for list="{{ filters }}" as="f" hint-placeholder-count="4">
+              <div onClick="{{ f.pick }}" style="font-size:13px;padding:5px 12px;border-radius:99px;cursor:pointer;border:1px solid {{ f.border }};background:{{ f.bg }};color:{{ f.color }};font-weight:{{ f.weight }};transition:all .16s">{{ f.label }}</div>
+            </sc-for>
+          </div>
+          <div style="flex:1;overflow:auto">
+            <sc-for list="{{ queue }}" as="q" hint-placeholder-count="6">
+              <div onClick="{{ q.pick }}" style="padding:14px 20px;border-bottom:1px solid var(--border-subtle);cursor:pointer;display:flex;gap:13px;align-items:center;background:{{ q.bg }};border-left:2px solid {{ q.mark }};transition:background .14s" style-hover="background:var(--surface-inset)">
+                <div style="width:34px;height:34px;border-radius:99px;background:var(--surface-inset);border:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--text-secondary);flex:none">{{ q.initials }}</div>
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ q.name }}</div>
+                  <div style="font-size:12.5px;color:var(--text-muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ q.meta }}</div>
+                </div>
+                <span style="font-family:'IBM Plex Mono';font-size:12px;color:var(--text-secondary);font-variant-numeric:tabular-nums">{{ q.amount }}</span>
+                <span style="font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:99px;background:{{ q.softBg }};color:{{ q.statusColor }}">{{ q.status }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;background:var(--surface-sunken)">
+          <div style="padding:20px;border-bottom:1px solid var(--border-subtle);background:var(--surface-raised)">
+            <div style="display:flex;align-items:flex-start;gap:13px">
+              <div style="width:42px;height:42px;border-radius:99px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;color:var(--accent);flex:none">{{ detail.initials }}</div>
+              <div style="flex:1;min-width:0">
+                <h3 style="font-size:18px;font-weight:600">{{ detail.name }}</h3>
+                <p style="font-size:13px;color:var(--text-muted);margin-top:2px">{{ detail.meta }}</p>
+              </div>
+              <button style="width:32px;height:32px;border-radius:var(--r-sm);border:1px solid var(--border-subtle);background:var(--mat-raised);box-shadow:var(--bevel),var(--lift);cursor:pointer;display:flex;align-items:center;justify-content:center;flex:none" style-hover="background:var(--surface-inset)"><i data-lucide="more-horizontal" style="font-size:16px"></i></button>
+            </div>
+          </div>
+          <div style="flex:1;padding:20px;display:flex;flex-direction:column;gap:18px;overflow:auto">
+            <div style="background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--r-lg);overflow:hidden">
+              <sc-for list="{{ detail.fields }}" as="f" hint-placeholder-count="5">
+                <div style="display:flex;gap:14px;padding:11px 16px;border-bottom:1px solid var(--border-subtle);font-size:13.5px">
+                  <span style="color:var(--text-muted);width:118px;flex:none">{{ f.k }}</span>
+                  <span style="font-family:'IBM Plex Mono';font-size:12.5px;flex:1;word-break:break-word">{{ f.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+            <div>
+              <div style="font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:0.09em;color:var(--text-muted);margin-bottom:11px">DOKUMEN</div>
+              <div style="border-radius:var(--r-md);border:1px solid var(--border-subtle);height:132px;background-image:repeating-linear-gradient(135deg,var(--surface-inset) 0px,var(--surface-inset) 9px,var(--surface-sunken) 9px,var(--surface-sunken) 18px);display:flex;align-items:center;justify-content:center">
+                <span style="font-family:'IBM Plex Mono';font-size:12px;color:var(--text-muted);background:var(--surface-raised);border:1px solid var(--border-subtle);border-radius:var(--r-sm);padding:6px 11px">scan NPWP</span>
+              </div>
+            </div>
+            <div>
+              <div style="font-family:'IBM Plex Mono';font-size:10.5px;letter-spacing:0.09em;color:var(--text-muted);margin-bottom:11px">RIWAYAT</div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="display:flex;gap:11px;font-size:13px"><span style="width:7px;height:7px;border-radius:99px;background:var(--accent);margin-top:6px;flex:none"></span><div><div>Dokumen diunggah</div><div style="color:var(--text-muted);font-size:12px">14 Agu 2026 · 09:12</div></div></div>
+                <div style="display:flex;gap:11px;font-size:13px"><span style="width:7px;height:7px;border-radius:99px;background:var(--border-strong);margin-top:6px;flex:none"></span><div><div>Masuk antrean verifikasi</div><div style="color:var(--text-muted);font-size:12px">14 Agu 2026 · 09:12</div></div></div>
+                <div style="display:flex;gap:11px;font-size:13px"><span style="width:7px;height:7px;border-radius:99px;background:var(--border-strong);margin-top:6px;flex:none"></span><div><div>Akun dibuat</div><div style="color:var(--text-muted);font-size:12px">11 Agu 2026 · 16:40</div></div></div>
+              </div>
+            </div>
+          </div>
+          <div style="padding:16px 20px;border-top:1px solid var(--border-subtle);background:var(--surface-raised);display:flex;gap:10px">
+            <button style="flex:1;height:var(--control-h);border-radius:var(--r-md);border:1px solid transparent;background:var(--mat-accent);color:var(--accent-on);font-weight:600;box-shadow:var(--bevel),var(--lift);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px" style-active="box-shadow:var(--press);transform:translateY(1px)" style-hover="background:var(--accent-hover)"><i data-lucide="check" style="font-size:16px"></i>Setujui</button>
+            <button style="height:var(--control-h);padding:0 16px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--mat-raised);font-weight:500;font-size:14px;cursor:pointer;box-shadow:var(--bevel),var(--lift)" style-hover="background:var(--surface-inset)">Tolak</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="settings">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:16px">
+        <span style="font-family:'IBM Plex Mono';font-size:11px;letter-spacing:0.12em;color:var(--accent)">04</span>
+        <h2 style="font-size:22px;font-weight:600">Settings</h2>
+        <span style="font-size:13.5px;color:var(--text-muted)">Form panjang · label di atas · aksi menempel di bawah</span>
+      </div>
+
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-md);background:var(--surface-raised);display:grid;grid-template-columns:220px minmax(0,1fr)">
+        <div style="background:var(--surface-sunken);border-right:1px solid var(--border-subtle);padding:20px 12px;display:flex;flex-direction:column;gap:2px">
+          <span style="font-family:'IBM Plex Mono';font-size:10px;letter-spacing:0.1em;color:var(--text-muted);padding:0 10px 10px">PENGATURAN</span>
+          <sc-for list="{{ setNav }}" as="sn" hint-placeholder-count="6">
+            <div onClick="{{ sn.pick }}" style="padding:8px 10px;border-radius:var(--r-sm);cursor:pointer;font-size:14px;background:{{ sn.bg }};color:{{ sn.color }};font-weight:{{ sn.weight }};transition:background .16s" style-hover="background:var(--surface-inset)">{{ sn.label }}</div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;flex-direction:column;min-width:0">
+          <div style="flex:1;padding:32px;display:flex;flex-direction:column;gap:34px;max-width:720px">
+            <div>
+              <h3 style="font-size:20px;font-weight:600">Penagihan</h3>
+              <p style="font-size:14px;color:var(--text-secondary);margin-top:5px">Mengatur bagaimana faktur dibuat dan dikirim ke klien.</p>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px">
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <label style="font-size:13px;font-weight:600">Nama badan usaha</label>
+                <input value="PT Rizzxx Teknologi Nusantara" style="height:var(--control-h);padding:0 12px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none" style-focus="box-shadow:var(--well),0 0 0 3px var(--accent-soft)" readonly="readonly" />
+                <span style="font-size:12.5px;color:var(--text-muted)">Tercetak pada seluruh faktur.</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <label style="font-size:13px;font-weight:600">NPWP</label>
+                <input value="01.234.567.8-901.000" style="height:var(--control-h);padding:0 12px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none;font-family:'IBM Plex Mono';font-size:13.5px" readonly="readonly" />
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <label style="font-size:13px;font-weight:600">Mata uang</label>
+                <select style="height:var(--control-h);padding:0 12px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none;cursor:pointer"><option>IDR — Rupiah</option><option>USD — Dolar AS</option><option>SGD — Dolar Singapura</option></select>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <label style="font-size:13px;font-weight:600">Termin pembayaran</label>
+                <select style="height:var(--control-h);padding:0 12px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none;cursor:pointer"><option>Net 14</option><option>Net 30</option><option>Net 45</option></select>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px;grid-column:1/-1">
+                <label style="font-size:13px;font-weight:600">Catatan kaki faktur</label>
+                <textarea rows="3" style="padding:10px 12px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none;resize:vertical;line-height:1.5" style-focus="box-shadow:var(--well),0 0 0 3px var(--accent-soft)">Pembayaran ditujukan ke rekening perusahaan. Cantumkan nomor faktur pada berita transfer.</textarea>
+              </div>
+            </div>
+
+            <div style="border-top:1px solid var(--border-subtle);padding-top:28px">
+              <h4 style="font-size:16px;font-weight:600;margin-bottom:4px">Otomatisasi</h4>
+              <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:18px">Berlaku untuk seluruh klien kecuali yang diatur khusus.</p>
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <sc-for list="{{ prefs }}" as="p" hint-placeholder-count="4">
+                  <div onClick="{{ p.toggle }}" style="display:flex;align-items:center;gap:16px;padding:14px 4px;border-bottom:1px solid var(--border-subtle);cursor:pointer">
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:14.5px;font-weight:500">{{ p.title }}</div>
+                      <div style="font-size:13px;color:var(--text-muted);margin-top:2px">{{ p.desc }}</div>
+                    </div>
+                    <span style="width:38px;height:22px;border-radius:99px;background:{{ p.bg }};box-shadow:var(--well);padding:2px;display:flex;justify-content:{{ p.justify }};transition:background .2s;flex:none">
+                      <span style="width:18px;height:18px;border-radius:99px;background:var(--mat-raised);border:1px solid var(--border-strong);box-shadow:var(--bevel),var(--lift)"></span>
+                    </span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="border-top:1px solid var(--border-subtle);padding-top:28px">
+              <h4 style="font-size:16px;font-weight:600;margin-bottom:4px">Zona berbahaya</h4>
+              <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:16px">Menutup akun menghentikan seluruh faktur berjalan.</p>
+              <button style="height:var(--control-h);padding:0 16px;border-radius:var(--r-md);border:1px solid var(--danger);background:transparent;color:var(--danger);font-weight:600;font-size:14px;cursor:pointer" style-hover="background:var(--danger-soft)">Tutup akun</button>
+            </div>
+          </div>
+
+          <div style="position:sticky;bottom:0;padding:14px 32px;border-top:1px solid var(--border-subtle);background:var(--surface-raised);display:flex;align-items:center;gap:12px">
+            <span style="font-size:13px;color:var(--text-muted);flex:1">{{ dirtyLabel }}</span>
+            <button style="height:36px;padding:0 15px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--mat-raised);font-weight:500;font-size:14px;cursor:pointer;box-shadow:var(--bevel),var(--lift)" style-hover="background:var(--surface-inset)">Batalkan</button>
+            <button style="height:36px;padding:0 17px;border-radius:var(--r-md);border:1px solid transparent;background:var(--mat-accent);color:var(--accent-on);font-weight:600;box-shadow:var(--bevel),var(--lift);font-size:14px;cursor:pointer" style-active="box-shadow:var(--press);transform:translateY(1px)" style-hover="background:var(--accent-hover)">Simpan</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="auth">
+      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:16px">
+        <span style="font-family:'IBM Plex Mono';font-size:11px;letter-spacing:0.12em;color:var(--accent)">05</span>
+        <h2 style="font-size:22px;font-weight:600">Auth</h2>
+        <span style="font-size:13.5px;color:var(--text-muted)">Split · form solid di kiri, panel kaca di kanan</span>
+      </div>
+
+      <div style="border:1px solid var(--border-subtle);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-md);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:560px">
+        <div style="background:var(--surface-raised);padding:56px 48px;display:flex;flex-direction:column;justify-content:center">
+          <div style="max-width:360px;width:100%;margin:0 auto">
+            <div style="display:flex;align-items:center;gap:9px;margin-bottom:36px">
+              <div style="width:26px;height:26px;border-radius:var(--r-sm);background:var(--accent);display:flex;align-items:center;justify-content:center;color:var(--accent-on);font-family:'Sora';font-weight:700;font-size:14px">R</div>
+              <span style="font-family:'Sora';font-weight:600;font-size:16px">RizzxxUI</span>
+            </div>
+            <h1 style="font-size:28px;font-weight:600">Masuk ke workspace</h1>
+            <p style="font-size:14.5px;color:var(--text-secondary);margin-top:8px">Belum punya akun? <a href="#auth">Daftar gratis</a></p>
+
+            <div style="display:flex;flex-direction:column;gap:16px;margin-top:30px">
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <label style="font-size:13px;font-weight:600">Email kerja</label>
+                <input placeholder="nama@perusahaan.co.id" style="height:44px;padding:0 13px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none" style-focus="box-shadow:var(--well),0 0 0 3px var(--accent-soft)" />
+              </div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline">
+                  <label style="font-size:13px;font-weight:600">Kata sandi</label>
+                  <a href="#auth" style="font-size:12.5px">Lupa?</a>
+                </div>
+                <input type="password" value="rahasia123" style="height:44px;padding:0 13px;border-radius:var(--r-md);border:1px solid var(--border-subtle);background:var(--surface-sunken);box-shadow:var(--well);outline:none" style-focus="box-shadow:var(--well),0 0 0 3px var(--accent-soft)" readonly="readonly" />
+              </div>
+              <label onClick="{{ toggleRemember }}" style="display:flex;align-items:center;gap:9px;cursor:pointer;font-size:13.5px;color:var(--text-secondary)">
+                <span style="width:18px;height:18px;border-radius:5px;border:1px solid {{ rememberBorder }};background:{{ rememberBg }};box-shadow:{{ rememberShadow }};display:flex;align-items:center;justify-content:center;color:var(--accent-on);flex:none">{{ rememberMark }}</span>
+                Ingat perangkat ini selama 30 hari
+              </label>
+              <button style="height:46px;border-radius:var(--r-md);border:1px solid transparent;background:var(--mat-accent);color:var(--accent-on);font-weight:600;box-shadow:var(--bevel),var(--lift);font-size:15px;cursor:pointer;margin-top:4px" style-active="box-shadow:var(--press);transform:translateY(1px)" style-hover="background:var(--accent-hover)">Masuk</button>
+              <div style="display:flex;align-items:center;gap:12px;color:var(--text-muted);font-size:12.5px;margin:4px 0">
+                <span style="flex:1;height:1px;background:var(--border-subtle)"></span>atau<span style="flex:1;height:1px;background:var(--border-subtle)"></span>
+              </div>
+              <button style="height:44px;border-radius:var(--r-md);border:1px solid var(--border-strong);background:var(--mat-raised);font-weight:500;font-size:14px;cursor:pointer;box-shadow:var(--bevel),var(--lift);display:flex;align-items:center;justify-content:center;gap:9px" style-hover="background:var(--surface-inset)"><i data-lucide="key-round" style="font-size:16px"></i>Lanjutkan dengan SSO</button>
+            </div>
+            <p style="font-size:12px;color:var(--text-muted);margin-top:28px">Dengan masuk, Anda menyetujui <a href="#auth">Ketentuan Layanan</a> dan <a href="#auth">Kebijakan Privasi</a>.</p>
+          </div>
+        </div>
+
+        <div style="position:relative;padding:48px;display:flex;flex-direction:column;justify-content:flex-end;background:radial-gradient(90% 90% at 70% 10%,var(--accent-soft) 0%,transparent 55%),var(--mat-base)">
+          <div style="position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);background-size:28px 28px"></div>
+          <div style="position:relative;backdrop-filter:blur(var(--glass-blur)) saturate(160%);-webkit-backdrop-filter:blur(var(--glass-blur)) saturate(160%);background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:var(--r-xl);box-shadow:var(--glass-shadow);padding:28px">
+            <i data-lucide="quote" style="font-size:22px;color:var(--accent)"></i>
+            <p style="font-size:18px;line-height:1.5;margin-top:14px;font-family:'Sora';font-weight:500;letter-spacing:-0.015em">Penutupan buku yang dulu tiga hari sekarang selesai sebelum makan siang.</p>
+            <div style="display:flex;align-items:center;gap:11px;margin-top:22px">
+              <div style="width:36px;height:36px;border-radius:99px;background:var(--surface-inset);border:1px solid var(--border-subtle);display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;color:var(--text-secondary)">MW</div>
+              <div>
+                <div style="font-size:14px;font-weight:600">Maya Wardhani</div>
+                <div style="font-size:12.5px;color:var(--text-muted)">Finance Lead · Nusantara Logistik</div>
+              </div>
+            </div>
+          </div>
+          <div style="position:relative;display:flex;gap:28px;margin-top:26px;flex-wrap:wrap">
+            <div><div style="font-family:'Sora';font-size:24px;font-weight:600">2.400+</div><div style="font-size:12.5px;color:var(--text-muted)">tim keuangan</div></div>
+            <div><div style="font-family:'Sora';font-size:24px;font-weight:600">Rp 4,1T</div><div style="font-size:12.5px;color:var(--text-muted)">tagihan diproses</div></div>
+            <div><div style="font-family:'Sora';font-size:24px;font-weight:600">99,9%</div><div style="font-size:12.5px;color:var(--text-muted)">uptime</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#3D5FE0&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Tema&quot;,&quot;options&quot;:[[&quot;#3D5FE0&quot;,&quot;#4F7CFF&quot;],[&quot;#0E7A55&quot;,&quot;#3DD69C&quot;],[&quot;#7A4FE0&quot;,&quot;#A78BFA&quot;],[&quot;#C4611F&quot;,&quot;#F0913C&quot;]]},&quot;glassBlur&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:16,&quot;min&quot;:0,&quot;max&quot;:32,&quot;step&quot;:2,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Kaca&quot;}}">
+class Component extends DCLogic {
+  state = {
+    theme: 'light', navCollapsed: false, nav: 'ringkasan',
+    filter: 'menunggu', selected: 0, setNav: 'penagihan',
+    prefs: { kirim: true, ingat: true, prorata: false, lampir: true },
+    remember: true
+  };
+
+  componentDidMount() {
+    const saved = localStorage.getItem('rizzxx-theme');
+    if (saved) this.setState({ theme: saved });
+    document.documentElement.setAttribute('data-theme', saved || 'light');
+    this.applyProps();
+    this.drawIcons();
+  }
+  componentDidUpdate() { this.applyProps(); this.drawIcons(); }
+
+  applyProps() {
+    const r = document.documentElement.style;
+    if (this.props.accentColor) r.setProperty('--accent', this.props.accentColor);
+    if (this.props.glassBlur != null) r.setProperty('--glass-blur', this.props.glassBlur + 'px');
+  }
+
+  drawIcons() {
+    clearTimeout(this._ic);
+    this._ic = setTimeout(() => { try { window.lucide && window.lucide.createIcons(); } catch (e) {} }, 0);
+  }
+
+  toggleTheme = () => {
+    const next = this.state.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('rizzxx-theme', next);
+    this.setState({ theme: next });
+  };
+
+  renderVals() {
+    const s = this.state;
+    const col = s.navCollapsed;
+    const acc = 'var(--accent)';
+
+    const navDefs = [
+      { key: 'ringkasan', label: 'Ringkasan', icon: 'layout-dashboard' },
+      { key: 'pelanggan', label: 'Pelanggan', icon: 'users' },
+      { key: 'penagihan', label: 'Penagihan', icon: 'receipt' },
+      { key: 'laporan', label: 'Laporan', icon: 'bar-chart-3' },
+      { key: 'integrasi', label: 'Integrasi', icon: 'plug' },
+      { key: 'pengaturan', label: 'Pengaturan', icon: 'settings' }
+    ];
+    const navItems = navDefs.map(n => {
+      const on = s.nav === n.key;
+      return {
+        ...n,
+        labelText: col ? '' : n.label,
+        justify: col ? 'center' : 'flex-start',
+        bg: on ? 'var(--accent-soft)' : 'transparent',
+        color: on ? acc : 'var(--text-secondary)',
+        weight: on ? '600' : '400',
+        pick: () => this.setState({ nav: n.key })
+      };
+    });
+
+    const metrics = [
+      { label: 'PENDAPATAN', value: 'Rp 412jt', delta: '+12,4% vs Juli', icon: 'trending-up', color: 'var(--success)' },
+      { label: 'FAKTUR TERBIT', value: '318', delta: '+24 faktur', icon: 'trending-up', color: 'var(--success)' },
+      { label: 'RATA-RATA BAYAR', value: '11 hari', delta: '−2 hari', icon: 'trending-down', color: 'var(--success)' },
+      { label: 'TERLAMBAT', value: 'Rp 61,9jt', delta: '+0,3% dari total', icon: 'trending-up', color: 'var(--danger)' }
+    ];
+
+    const revBars = [
+      { label: 'W1', a: 0.52, b: 0.18 }, { label: 'W2', a: 0.61, b: 0.12 },
+      { label: 'W3', a: 0.48, b: 0.26 }, { label: 'W4', a: 0.72, b: 0.15 },
+      { label: 'W5', a: 0.66, b: 0.22 }, { label: 'W6', a: 0.81, b: 0.11 },
+      { label: 'W7', a: 0.74, b: 0.19 }, { label: 'W8', a: 0.88, b: 0.24 }
+    ].map(b => ({ label: b.label, h1: Math.round(b.a * 120) + 'px', h2: Math.round(b.b * 120) + 'px' }));
+
+    const sources = [
+      { label: 'Pencarian organik', pct: '38%', color: 'var(--c1)' },
+      { label: 'Rujukan mitra', pct: '24%', color: 'var(--c2)' },
+      { label: 'Kampanye berbayar', pct: '18%', color: 'var(--c3)' },
+      { label: 'Acara & webinar', pct: '12%', color: 'var(--c4)' },
+      { label: 'Lainnya', pct: '8%', color: 'var(--c5)' }
+    ];
+
+    const rows = [
+      { id: 'INV-2048', client: 'Nusantara Logistik', status: 'Lunas', amount: 'Rp 24.850.000', tone: 'success' },
+      { id: 'INV-2047', client: 'Sinar Abadi Group', status: 'Menunggu', amount: 'Rp 8.400.000', tone: 'warning' },
+      { id: 'INV-2046', client: 'Kopi Rakyat', status: 'Lunas', amount: 'Rp 3.120.000', tone: 'success' },
+      { id: 'INV-2045', client: 'Delta Manufaktur', status: 'Terlambat', amount: 'Rp 61.900.000', tone: 'danger' },
+      { id: 'INV-2044', client: 'Aksara Studio', status: 'Lunas', amount: 'Rp 12.000.000', tone: 'success' }
+    ].map(r => ({ ...r, statusColor: 'var(--' + r.tone + ')', softBg: 'var(--' + r.tone + '-soft)' }));
+
+    const filterDefs = [
+      { key: 'menunggu', label: 'Menunggu · 6' },
+      { key: 'ditinjau', label: 'Sedang ditinjau · 2' },
+      { key: 'selesai', label: 'Selesai · 41' },
+      { key: 'ditolak', label: 'Ditolak · 3' }
+    ];
+    const filters = filterDefs.map(f => {
+      const on = s.filter === f.key;
+      return {
+        label: f.label,
+        bg: on ? 'var(--accent-soft)' : 'var(--surface)',
+        border: on ? acc : 'var(--border-subtle)',
+        color: on ? acc : 'var(--text-secondary)',
+        weight: on ? '600' : '400',
+        pick: () => this.setState({ filter: f.key })
+      };
+    });
+
+    const queueDefs = [
+      { initials: 'NL', name: 'Nusantara Logistik', meta: 'PT · Jakarta Utara · diajukan 2 jam lalu', amount: 'Rp 24,8jt', status: 'Baru', tone: 'info' },
+      { initials: 'SA', name: 'Sinar Abadi Group', meta: 'PT · Surabaya · diajukan 5 jam lalu', amount: 'Rp 8,4jt', status: 'Baru', tone: 'info' },
+      { initials: 'KR', name: 'Kopi Rakyat', meta: 'CV · Bandung · diajukan kemarin', amount: 'Rp 3,1jt', status: 'Ditinjau', tone: 'warning' },
+      { initials: 'DM', name: 'Delta Manufaktur', meta: 'PT · Bekasi · diajukan kemarin', amount: 'Rp 61,9jt', status: 'Eskalasi', tone: 'danger' },
+      { initials: 'AS', name: 'Aksara Studio', meta: 'CV · Yogyakarta · 2 hari lalu', amount: 'Rp 12,0jt', status: 'Ditinjau', tone: 'warning' },
+      { initials: 'PT', name: 'Pelita Tani Sejahtera', meta: 'Koperasi · Malang · 3 hari lalu', amount: 'Rp 5,6jt', status: 'Baru', tone: 'info' }
+    ];
+    const queue = queueDefs.map((q, i) => ({
+      ...q,
+      bg: s.selected === i ? 'var(--accent-soft)' : 'transparent',
+      mark: s.selected === i ? acc : 'transparent',
+      statusColor: 'var(--' + q.tone + ')',
+      softBg: 'var(--' + q.tone + '-soft)',
+      pick: () => this.setState({ selected: i })
+    }));
+    const cur = queueDefs[s.selected] || queueDefs[0];
+    const detail = {
+      initials: cur.initials,
+      name: cur.name,
+      meta: cur.meta,
+      fields: [
+        { k: 'ID pengajuan', v: 'REQ-' + (7420 + s.selected) },
+        { k: 'NPWP', v: '0' + (1 + s.selected) + '.234.567.8-901.000' },
+        { k: 'Kontak', v: 'finance@' + cur.name.split(' ')[0].toLowerCase() + '.co.id' },
+        { k: 'Nilai kontrak', v: cur.amount },
+        { k: 'Termin', v: 'Net 30' },
+        { k: 'Penanggung jawab', v: 'Rizky Ananda' }
+      ]
+    };
+
+    const setNavDefs = [
+      { key: 'profil', label: 'Profil' }, { key: 'tim', label: 'Tim & peran' },
+      { key: 'penagihan', label: 'Penagihan' }, { key: 'notifikasi', label: 'Notifikasi' },
+      { key: 'integrasi', label: 'Integrasi' }, { key: 'keamanan', label: 'Keamanan' }
+    ];
+    const setNav = setNavDefs.map(n => {
+      const on = s.setNav === n.key;
+      return {
+        label: n.label,
+        bg: on ? 'var(--accent-soft)' : 'transparent',
+        color: on ? acc : 'var(--text-secondary)',
+        weight: on ? '600' : '400',
+        pick: () => this.setState({ setNav: n.key })
+      };
+    });
+
+    const prefDefs = [
+      { key: 'kirim', title: 'Kirim faktur otomatis', desc: 'Faktur terkirim tepat saat periode berakhir.' },
+      { key: 'ingat', title: 'Pengingat berjenjang', desc: 'H-3, hari jatuh tempo, lalu H+7.' },
+      { key: 'prorata', title: 'Hitung prorata', desc: 'Perubahan paket di tengah periode dihitung proporsional.' },
+      { key: 'lampir', title: 'Lampirkan rincian pemakaian', desc: 'PDF rincian ikut terkirim bersama faktur.' }
+    ];
+    const prefs = prefDefs.map(p => {
+      const on = s.prefs[p.key];
+      return {
+        title: p.title, desc: p.desc,
+        bg: on ? 'var(--mat-accent)' : 'var(--surface-sunken)',
+        justify: on ? 'flex-end' : 'flex-start',
+        toggle: () => this.setState(st => ({ prefs: { ...st.prefs, [p.key]: !st.prefs[p.key] } }))
+      };
+    });
+    const dirty = prefDefs.some(p => s.prefs[p.key] !== ({ kirim: true, ingat: true, prorata: false, lampir: true })[p.key]);
+
+    const tick = React.createElement('svg', { width: 11, height: 11, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 3.2, strokeLinecap: 'round', strokeLinejoin: 'round' }, React.createElement('path', { d: 'M20 6 9 17l-5-5' }));
+
+    return {
+      themeLabel: s.theme === 'dark' ? 'Terang' : 'Gelap',
+      toggleTheme: this.toggleTheme,
+
+      navItems, metrics, revBars, sources, rows,
+      sidebarW: col ? '68px' : '212px',
+      itemJustify: col ? 'center' : 'flex-start',
+      brandLabel: col ? '' : 'RizzxxUI',
+      sectionLabel: col ? '' : 'WORKSPACE',
+      userName: col ? '' : 'Rizky Ananda',
+      userRole: col ? '' : 'Admin penagihan',
+      collapseRot: col ? '180deg' : '0deg',
+      collapseTitle: col ? 'Bentangkan sidebar' : 'Ciutkan sidebar',
+      toggleCollapse: () => this.setState(p => ({ navCollapsed: !p.navCollapsed })),
+
+      filters, queue, detail,
+      setNav, prefs,
+      dirtyLabel: dirty ? 'Ada perubahan belum disimpan' : 'Semua perubahan tersimpan',
+
+      rememberBg: s.remember ? 'var(--mat-accent)' : 'var(--surface-sunken)',
+      rememberBorder: s.remember ? 'var(--accent-hover)' : 'var(--border-subtle)',
+      rememberShadow: s.remember ? 'var(--bevel), var(--lift)' : 'var(--well)',
+      rememberMark: s.remember ? tick : null,
+      toggleRemember: () => this.setState(p => ({ remember: !p.remember }))
+    };
+  }
+}
+
+</script>
+</body>
+</html>
