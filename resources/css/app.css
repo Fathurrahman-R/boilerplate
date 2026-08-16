@@ -402,8 +402,8 @@
 /* Kaca: hanya untuk lapisan yang mengambang di atas latar bertekstur —
    sidebar, topbar, hero, kartu metrik. Tidak pernah untuk tabel atau form. */
 @utility glass {
-    backdrop-filter: blur(var(--glass-blur)) saturate(160%);
     -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(160%);
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     box-shadow: var(--glass-shadow);
