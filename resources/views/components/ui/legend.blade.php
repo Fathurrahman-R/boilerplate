@@ -16,7 +16,7 @@
             <span class="{{ $layout === 'stack' ? 'flex-1' : '' }} text-ink-secondary">{{ $item['label'] }}</span>
 
             @if ($item['value'] ?? null)
-                <span class="num text-sm2 text-ink">{{ $item['value'] }}</span>
+                <span class="num text-sm text-ink">{{ $item['value'] }}</span>
             @endif
         </div>
     @endforeach

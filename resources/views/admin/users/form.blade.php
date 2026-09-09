@@ -4,46 +4,65 @@
     $isEdit = $user !== null;
 @endphp
 
-<x-ui.card :padding="false">
-    <div class="grid gap-5 p-[26px] [grid-template-columns:repeat(auto-fit,minmax(250px,1fr))]">
-        <x-ui.input name="name" label="Nama lengkap" :value="$user?->name" required />
+{{--
+    Form sebagai grup daftar, bukan grid field di dalam kartu.
 
-        <x-ui.input name="email" type="email" label="Email" :value="$user?->email" required />
+    Field yang berdiri berdampingan dalam kolom-kolom memaksa mata berpindah
+    arah dua kali per baris. Satu kolom dengan label di kiri dibaca lurus ke
+    bawah, dan penjelasan tinggal sekali di kaki grup alih-alih berulang di
+    bawah tiap kotak.
+--}}
 
-        <x-ui.input name="password" type="password" label="Kata sandi"
-                    :required="! $isEdit"
-                    autocomplete="new-password"
-                    :hint="$isEdit ? 'Kosongkan bila tidak ingin mengubah kata sandi.' : 'Minimal 8 karakter.'" />
+<div class="measure flex flex-col gap-7">
+    <x-ui.list title="Identitas">
+        <x-ui.form-row label="Nama lengkap" for="name" required>
+            <x-ui.input name="name" id="name" required :value="$user?->name" aria-label="Nama lengkap" />
+        </x-ui.form-row>
 
-        <x-ui.input name="password_confirmation" type="password" label="Ulangi kata sandi"
-                    :required="! $isEdit" autocomplete="new-password" />
-    </div>
+        <x-ui.form-row label="Email" for="email" required>
+            <x-ui.input name="email" id="email" type="email" required :value="$user?->email" aria-label="Email" />
+        </x-ui.form-row>
+    </x-ui.list>
 
-    <div class="px-[26px] pb-[26px]">
-        <h3 class="text-lg2 font-semibold text-ink">Status &amp; peran</h3>
-        <p class="mt-0.5 text-base2 text-ink-secondary">Peran menentukan permission yang dimiliki pengguna.</p>
+    <x-ui.list title="Kata sandi"
+               :hint="$isEdit ? 'Kosongkan bila tidak ingin mengubah kata sandi.' : 'Minimal 8 karakter.'">
+        <x-ui.form-row label="Kata sandi" for="password" :required="! $isEdit">
+            <x-ui.input name="password" id="password" type="password" :required="! $isEdit"
+                        autocomplete="new-password" aria-label="Kata sandi" />
+        </x-ui.form-row>
 
-        <div class="mt-2 flex items-center justify-between gap-4 border-b border-line py-[13px]">
-            <div>
-                <div class="text-[14.5px] font-medium text-ink">Akun aktif</div>
-                <div class="text-sm2 text-ink-muted">Akun nonaktif tidak bisa masuk dan sesinya langsung diakhiri.</div>
-            </div>
-            <x-ui.toggle name="is_active" :checked="old('is_active', $user?->is_active ?? true)" class="shrink-0" />
-        </div>
+        <x-ui.form-row label="Ulangi kata sandi" for="password_confirmation" :required="! $isEdit">
+            <x-ui.input name="password_confirmation" id="password_confirmation" type="password"
+                        :required="! $isEdit" autocomplete="new-password" aria-label="Ulangi kata sandi" />
+        </x-ui.form-row>
+    </x-ui.list>
 
-        <div class="mt-3.5 flex flex-wrap gap-x-6 gap-y-3">
-            @foreach ($roles as $role)
-                <x-ui.checkbox name="roles[]"
-                               :value="$role->name"
-                               :label="$role->displayName()"
-                               :hint="$role->description"
-                               :id="'role_'.$role->id"
-                               :checked="in_array($role->name, old('roles', $user?->roles->pluck('name')->all() ?? []), true)" />
-            @endforeach
-        </div>
+    <x-ui.list title="Status">
+        <x-ui.list-row label="Akun aktif"
+                       sublabel="Akun nonaktif tidak bisa masuk dan sesinya langsung diakhiri.">
+            <x-slot:trailing>
+                <x-ui.toggle name="is_active" :checked="old('is_active', $user?->is_active ?? true)" />
+            </x-slot:trailing>
+        </x-ui.list-row>
+    </x-ui.list>
 
-        @error('roles')
-            <p class="mt-2 text-sm2 text-danger">{{ $message }}</p>
-        @enderror
-    </div>
-</x-ui.card>
+    <x-ui.list title="Peran" hint="Peran menentukan permission yang dimiliki pengguna.">
+        @foreach ($roles as $role)
+            <x-ui.list-row :label="$role->displayName()" :sublabel="$role->description">
+                <x-slot:trailing>
+                    <input type="checkbox"
+                           name="roles[]"
+                           value="{{ $role->name }}"
+                           id="role_{{ $role->id }}"
+                           class="form-check"
+                           aria-label="{{ $role->displayName() }}"
+                           @checked(in_array($role->name, old('roles', $user?->roles->pluck('name')->all() ?? []), true))>
+                </x-slot:trailing>
+            </x-ui.list-row>
+        @endforeach
+    </x-ui.list>
+
+    @error('roles')
+        <p class="px-4 text-sm text-danger">{{ $message }}</p>
+    @enderror
+</div>

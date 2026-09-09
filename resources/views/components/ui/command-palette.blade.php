@@ -65,17 +65,18 @@
              role="dialog" aria-modal="true" aria-label="Cari menu">
 
             <div x-show="open"
-                 x-transition:enter="transition duration-180 ease-out"
-                 x-transition:enter-start="opacity-0"
+                 x-spring="{ from: { opacity: 0 }, to: { opacity: 1 }, token: 'overlay' }"
                  x-on:click="open = false"
-                 class="absolute inset-0 bg-[rgb(8_11_16/0.55)] backdrop-blur-[3px]"></div>
+                 class="absolute inset-0 bg-scrim backdrop-blur-[var(--scrim-blur)]"></div>
 
             <div x-show="open"
-                 x-transition:enter="transition duration-240 ease-rizz"
-                 x-transition:enter-start="translate-y-2.5 scale-[0.98] opacity-0"
-                 class="relative w-full max-w-lg overflow-hidden rounded-xl border border-line bg-surface-raised shadow-lg">
+                 x-spring="{ from: { opacity: 0, y: 16, scale: 0.96, filter: 'blur(10px)' },
+                             to:   { opacity: 1, y: 0,  scale: 1,    filter: 'blur(0px)' },
+                             token: 'sheet', origin: 'top center' }"
+                 data-mat="thick"
+                 class="material relative w-full max-w-lg overflow-hidden rounded-2xl">
 
-                <div class="flex items-center gap-3 border-b border-line px-4">
+                <div class="flex items-center gap-3 px-4">
                     <x-ui.icon name="search" class="size-4 shrink-0 text-ink-muted" />
 
                     <input type="text" x-ref="search" x-model="query"
@@ -84,23 +85,25 @@
                            x-on:keydown.arrow-up.prevent="move(-1)"
                            x-on:keydown.enter.prevent="go()"
                            placeholder="Cari halaman…"
-                           class="h-12 flex-1 border-0 bg-transparent text-sm text-ink outline-none placeholder:text-ink-muted">
+                           class="h-12 flex-1 border-0 bg-transparent text-body text-ink outline-none placeholder:text-ink-quaternary">
 
-                    <kbd class="rounded-[4px] bg-surface-sunken px-1.5 py-0.5 font-mono text-[11px] text-ink-muted shadow-well">Esc</kbd>
+                    <kbd class="rounded-sm bg-fill-3 px-1.5 py-0.5 text-2xs text-ink-muted">Esc</kbd>
                 </div>
 
-                <div class="max-h-80 overflow-y-auto p-1.5">
+                <div x-data="scrollEdge()" x-init="init()"
+                     class="scroll-edge max-h-80 overflow-y-auto p-1.5"
+                     style="--_edge-bg: var(--surface-raised)">
                     <template x-for="(command, index) in results" :key="command.url">
                         <a :href="command.url"
                            x-on:mouseenter="active = index"
-                           class="flex items-center gap-2.5 rounded-sm px-2.5 py-2.5 text-sm transition"
-                           :class="index === active ? 'bg-surface-inset text-ink' : 'text-ink-secondary'">
+                           class="flex items-center gap-2.5 rounded-md px-2.5 py-2.5 text-base transition-colors duration-[--dur-fast]"
+                           :class="index === active ? 'bg-fill-3 text-ink' : 'text-ink-secondary'">
                             <span class="flex-1" x-text="command.label"></span>
-                            <span class="font-mono text-[11px] text-ink-muted" x-text="command.group"></span>
+                            <span class="text-xs text-ink-quaternary" x-text="command.group"></span>
                         </a>
                     </template>
 
-                    <p x-show="results.length === 0" class="px-2.5 py-3 text-[13.5px] text-ink-muted">
+                    <p x-show="results.length === 0" class="px-2.5 py-3 text-base text-ink-muted">
                         Tidak ada menu yang cocok.
                     </p>
                 </div>

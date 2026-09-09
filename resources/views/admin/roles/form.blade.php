@@ -4,28 +4,38 @@
     $selected = array_map('strval', $selected);
 @endphp
 
-<div class="space-y-6">
-    <x-ui.card title="Identitas role">
-        <div class="grid gap-4 sm:grid-cols-2">
-            <x-ui.input name="name" label="Nama sistem" :value="$role?->name" required
-                        hint="Huruf kecil tanpa spasi, mis. editor_konten. Dipakai di kode." />
+<div class="flex flex-col gap-7">
+    <x-ui.list title="Identitas role" class="measure"
+               hint="Nama sistem ditulis huruf kecil tanpa spasi (mis. editor_konten) dan dipakai di kode; label adalah nama yang dilihat pengguna.">
+        <x-ui.form-row label="Nama sistem" for="name" required>
+            <x-ui.input name="name" id="name" required :value="$role?->name" aria-label="Nama sistem" />
+        </x-ui.form-row>
 
-            <x-ui.input name="label" label="Label tampilan" :value="$role?->label"
-                        hint="Nama yang dilihat pengguna, mis. Editor Konten." />
+        <x-ui.form-row label="Label tampilan" for="label">
+            <x-ui.input name="label" id="label" :value="$role?->label" aria-label="Label tampilan" />
+        </x-ui.form-row>
 
-            <div class="sm:col-span-2">
-                <x-ui.textarea name="description" label="Deskripsi" :value="$role?->description" rows="2" />
-            </div>
-        </div>
-    </x-ui.card>
+        <x-ui.form-row label="Deskripsi" for="description" stacked>
+            <x-ui.textarea name="description" id="description" :value="$role?->description" rows="2"
+                           aria-label="Deskripsi" />
+        </x-ui.form-row>
+    </x-ui.list>
 
-    <x-ui.card title="Permission"
-               subtitle="Baris adalah resource, kolom adalah aksi. Centang berarti role ini boleh melakukannya.">
-        <div class="space-y-6">
+    {{--
+        Matriks izin tetap matriks: ini tabel keputusan, dan bentuknya memang
+        benar. Yang berubah cuma wadahnya — tiap resource jadi satu grup
+        daftar dengan tombol centang-semua sebagai baris terakhirnya, bukan
+        tombol kecil yang menempel di judul.
+    --}}
+    <x-ui.list title="Permission"
+               hint="Baris adalah resource, kolom adalah aksi. Centang berarti role ini boleh melakukannya.">
+        <div class="flex flex-col">
             @forelse ($resources as $resource)
-                <div>
-                    <div class="mb-2 flex flex-wrap items-center gap-2">
-                        <h3 class="text-sm font-semibold text-ink">{{ $resource->label }}</h3>
+                <div class="relative px-4 py-3
+                            not-first:before:absolute not-first:before:inset-x-4 not-first:before:top-0
+                            not-first:before:h-px not-first:before:bg-line not-first:before:content-['']">
+                    <div class="mb-2.5 flex flex-wrap items-center gap-2">
+                        <h3 class="text-base font-semibold text-ink">{{ $resource->label }}</h3>
                         <code class="rounded-sm bg-code px-1.5 py-0.5 font-mono text-xs text-code-ink">{{ $resource->key }}</code>
 
                         @if ($resource->group)
@@ -33,16 +43,16 @@
                         @endif
 
                         <button type="button"
-                                class="ms-auto text-xs font-medium text-link hover:underline"
+                                class="ms-auto text-sm font-medium text-link hover:underline"
                                 data-check-group="resource-{{ $resource->id }}">
                             Centang / lepas semua
                         </button>
                     </div>
 
-                    <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="grid gap-1.5 sm:grid-cols-2 lg:grid-cols-3">
                         @foreach ($resource->mappings->sortBy(fn ($m) => $m->action->value) as $mapping)
                             @if ($mapping->isMapped())
-                                <label class="flex items-start gap-2 rounded-lg border border-line p-3 text-sm">
+                                <label class="flex cursor-pointer items-start gap-2.5 rounded-md bg-fill-4 p-2.5 text-base transition-colors duration-[--dur-fast] hover:bg-fill-3">
                                     <input type="checkbox"
                                            name="permissions[]"
                                            value="{{ $mapping->permission_id }}"
@@ -50,14 +60,14 @@
                                            @checked(in_array((string) $mapping->permission_id, $selected, true))
                                            class="form-check mt-0.5">
 
-                                    <span>
+                                    <span class="min-w-0">
                                         <span class="block font-medium text-ink">{{ $mapping->action->label() }}</span>
-                                        <span class="block text-xs text-ink-muted">{{ $mapping->permission->name }}</span>
+                                        <span class="block truncate text-xs text-ink-muted">{{ $mapping->permission->name }}</span>
                                     </span>
                                 </label>
                             @else
-                                <div class="flex items-start gap-2 rounded-lg border border-dashed border-danger p-3 text-sm">
-                                    <span>
+                                <div class="flex items-start gap-2.5 rounded-md border border-dashed border-danger p-2.5 text-base">
+                                    <span class="min-w-0">
                                         <span class="block font-medium text-ink-muted line-through">{{ $mapping->action->label() }}</span>
                                         <span class="block text-xs text-danger">belum dipetakan ke permission</span>
                                     </span>
@@ -72,15 +82,16 @@
             @endforelse
 
             @if ($loosePermissions->isNotEmpty())
-                <div>
-                    <h3 class="mb-2 text-sm font-semibold text-ink">
+                <div class="relative px-4 py-3
+                            before:absolute before:inset-x-4 before:top-0 before:h-px before:bg-line before:content-['']">
+                    <h3 class="mb-2.5 text-base font-semibold text-ink">
                         Permission lepas
                         <span class="font-normal text-ink-muted">— tidak dipakai resource key mana pun</span>
                     </h3>
 
-                    <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="grid gap-1.5 sm:grid-cols-2 lg:grid-cols-3">
                         @foreach ($loosePermissions as $permission)
-                            <label class="flex items-start gap-2 rounded-lg border border-line p-3 text-sm">
+                            <label class="flex cursor-pointer items-start gap-2.5 rounded-md bg-fill-4 p-2.5 text-base transition-colors duration-[--dur-fast] hover:bg-fill-3">
                                 <input type="checkbox" name="permissions[]" value="{{ $permission->id }}"
                                        @checked(in_array((string) $permission->id, $selected, true))
                                        class="form-check mt-0.5">
@@ -91,7 +102,7 @@
                 </div>
             @endif
         </div>
-    </x-ui.card>
+    </x-ui.list>
 </div>
 
 @push('scripts')

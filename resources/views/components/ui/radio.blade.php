@@ -13,17 +13,17 @@
 <div class="flex items-start gap-2.5">
     <div class="flex h-5 items-center">
         <input type="radio"
-               id="{{ $id }}"
-               name="{{ $name }}"
-               value="{{ $value }}"
+ id="{{ $id }}"
+ name="{{ $name }}"
+ value="{{ $value }}"
                @checked($checked)
                {{-- Lingkarannya tetap cekung saat dipilih; titiknya digambar
-                    sebagai background, bukan dengan menebalkan border, supaya
-                    bayangan `well` tidak hilang. --}}
+ sebagai background, bukan dengan menebalkan border, supaya
+ bayangan `well` tidak hilang. --}}
                {{ $attributes->class([
-                   'size-[18px] shrink-0 cursor-pointer appearance-none rounded-full border border-line-strong bg-surface-sunken shadow-well transition',
+                   'size-[18px] shrink-0 cursor-pointer appearance-none rounded-full border-[0.5px] border-line bg-fill-4 transition',
                    'checked:border-accent checked:bg-[radial-gradient(circle,var(--accent)_0_4px,transparent_4.5px)]',
-                   'focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-accent-soft',
+                   'focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
                    'disabled:cursor-not-allowed disabled:opacity-60',
                ]) }}>
     </div>

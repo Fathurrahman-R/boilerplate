@@ -2,7 +2,7 @@
     Ringkasan error validasi untuk form auth.
 
     Field-nya sendiri sudah menampilkan pesan masing-masing, tapi kegagalan
-    login datang tanpa terikat field tertentu, jadi tetap perlu tempat tampil.
+ login datang tanpa terikat field tertentu, jadi tetap perlu tempat tampil.
 --}}
 
 @if ($errors->any())

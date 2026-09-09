@@ -1,5 +1,5 @@
 <x-layouts.guest heading="Verifikasi email Anda"
-                 description="Kami sudah mengirim tautan verifikasi ke email Anda. Klik tautan itu untuk melanjutkan.">
+ description="Kami sudah mengirim tautan verifikasi ke email Anda. Klik tautan itu untuk melanjutkan.">
     @if (session('status') === 'verification-link-sent')
         <x-ui.alert variant="success">Tautan verifikasi baru sudah dikirim.</x-ui.alert>
     @endif

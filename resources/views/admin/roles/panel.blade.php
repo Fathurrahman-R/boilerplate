@@ -2,7 +2,7 @@
 
 <div class="flex flex-col gap-5">
     <div class="flex items-center gap-2">
-        <h4 class="font-display text-base font-semibold text-ink">{{ $role->name }}</h4>
+        <h4 class="text-base font-semibold text-ink">{{ $role->name }}</h4>
 
         @if ($role->isSuperAdmin())
             <x-ui.badge variant="purple" pill>super admin</x-ui.badge>
@@ -14,10 +14,10 @@
     </div>
 
     @if ($role->label)
-        <p class="text-base2 text-ink-secondary">{{ $role->label }}</p>
+        <p class="text-base text-ink-secondary">{{ $role->label }}</p>
     @endif
 
-    <dl class="flex flex-col gap-3.5 text-base2">
+    <dl class="flex flex-col gap-3.5 text-base">
         <div class="flex gap-3.5">
             <dt class="w-[110px] shrink-0 text-ink-muted">Permission</dt>
             <dd class="text-ink">{{ $role->isSuperAdmin() ? 'Semua' : $role->permissions->count() }}</dd>
@@ -34,7 +34,7 @@
             @forelse ($role->permissions as $permission)
                 <code class="rounded-sm bg-code px-1.5 py-0.5 font-mono text-xs text-code-ink">{{ $permission->name }}</code>
             @empty
-                <span class="text-sm2 text-ink-muted">Belum ada permission.</span>
+                <span class="text-sm text-ink-muted">Belum ada permission.</span>
             @endforelse
         </div>
     @endunless

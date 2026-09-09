@@ -2,15 +2,15 @@
 
 <div class="flex flex-col gap-5">
     <div class="flex items-start justify-between gap-3">
-        <h4 class="font-display text-base font-semibold text-ink">{{ $post->title }}</h4>
+        <h4 class="text-base font-semibold text-ink">{{ $post->title }}</h4>
         <x-ui.badge :variant="$post->status->variant()">{{ $post->status->label() }}</x-ui.badge>
     </div>
 
     @if ($post->excerpt)
-        <p class="text-base2 text-ink-secondary">{{ $post->excerpt }}</p>
+        <p class="text-base text-ink-secondary">{{ $post->excerpt }}</p>
     @endif
 
-    <dl class="flex flex-col gap-3.5 text-base2">
+    <dl class="flex flex-col gap-3.5 text-base">
         <div class="flex gap-3.5">
             <dt class="w-[110px] shrink-0 text-ink-muted">Penulis</dt>
             <dd class="text-ink">{{ $post->author?->name ?? '—' }}</dd>

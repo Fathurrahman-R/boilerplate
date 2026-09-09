@@ -1,31 +1,38 @@
 @php($permission ??= null)
 
-<x-ui.card title="Data permission">
-    <div class="grid gap-4 sm:grid-cols-2">
-        <x-ui.input name="name" label="Nama" :value="$permission?->name" required
-                    hint="Dipakai saat pengecekan izin, mis. laporan.export atau akses-keuangan." />
+<div class="measure flex flex-col gap-7">
+    <x-ui.list title="Data permission"
+               hint="Nama dipakai saat pengecekan izin (mis. laporan.export); label dan grup hanya mengatur tampilannya di daftar.">
+        <x-ui.form-row label="Nama" for="name" required>
+            <x-ui.input name="name" id="name" required :value="$permission?->name" aria-label="Nama" />
+        </x-ui.form-row>
 
-        <x-ui.input name="label" label="Label tampilan" :value="$permission?->label"
-                    hint="Nama yang enak dibaca di daftar permission." />
+        <x-ui.form-row label="Label tampilan" for="label">
+            <x-ui.input name="label" id="label" :value="$permission?->label" aria-label="Label tampilan" />
+        </x-ui.form-row>
 
-        <x-ui.input name="group" label="Grup" :value="$permission?->group"
-                    hint="Untuk mengelompokkan permission di UI." />
+        <x-ui.form-row label="Grup" for="group">
+            <x-ui.input name="group" id="group" :value="$permission?->group" aria-label="Grup" />
+        </x-ui.form-row>
 
-        <div class="sm:col-span-2">
-            <x-ui.textarea name="description" label="Deskripsi" :value="$permission?->description" rows="2" />
-        </div>
-    </div>
-</x-ui.card>
+        <x-ui.form-row label="Deskripsi" for="description" stacked>
+            <x-ui.textarea name="description" id="description" :value="$permission?->description" rows="2"
+                           aria-label="Deskripsi" />
+        </x-ui.form-row>
+    </x-ui.list>
 
-@if ($permission && $permission->mappings->isNotEmpty())
-    <x-ui.card title="Dipakai resource key" subtitle="Mengganti nama permission tidak memutus pemetaan ini." class="mt-6">
-        <ul class="space-y-2 text-sm">
+    @if ($permission && $permission->mappings->isNotEmpty())
+        <x-ui.list title="Dipakai resource key"
+                   hint="Mengganti nama permission tidak memutus pemetaan ini.">
             @foreach ($permission->mappings as $mapping)
-                <li class="flex items-center gap-2">
-                    <x-ui.icon name="link" class="h-4 w-4 text-ink-muted" />
-                    <code>{{ $mapping->key() }}</code>
-                </li>
+                <x-ui.list-row>
+                    <x-slot:leading>
+                        <x-ui.icon name="link" class="size-4" />
+                    </x-slot:leading>
+
+                    <code class="font-mono text-sm text-ink">{{ $mapping->key() }}</code>
+                </x-ui.list-row>
             @endforeach
-        </ul>
-    </x-ui.card>
-@endif
+        </x-ui.list>
+    @endif
+</div>

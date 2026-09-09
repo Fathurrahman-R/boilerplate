@@ -287,12 +287,12 @@
 <x-layouts.docs title="Komponen" :nav="$nav">
     <div class="pb-4">
         <span class="eyebrow text-accent!">Komponen</span>
-        <h1 class="mt-3.5 max-w-[18ch] font-display text-[36px] leading-[1.05] font-semibold tracking-[-0.03em] text-ink sm:text-[44px]">
+        <h1 class="mt-3.5 max-w-[18ch] text-4xl leading-[1.05] font-semibold tracking-[-0.03em] text-ink sm:text-5xl">
             Semuanya dirender dari komponen yang sesungguhnya.
         </h1>
-        <p class="mt-4 max-w-[62ch] text-[17px] text-ink-secondary">
+        <p class="mt-4 max-w-[62ch] text-lg text-ink-secondary">
             Tidak ada tangkapan layar dan tidak ada salinan markup. Setiap contoh di halaman ini memanggil berkas yang
-            sama di <code class="font-mono text-[15px]">resources/views/components/ui/</code> dengan yang dipakai
+            sama di <code class="font-mono text-body">resources/views/components/ui/</code> dengan yang dipakai
             aplikasi — jadi kalau komponennya berubah, halaman ini ikut berubah.
         </p>
     </div>
@@ -410,7 +410,7 @@
                 <x-ui.stepper name="ds_seats" label="Stepper — jumlah lisensi" :value="12" :min="1" :max="99" />
 
                 <div>
-                    <span class="mb-1.5 block text-[13px] font-semibold text-ink">Segmented — periode</span>
+                    <span class="mb-1.5 block text-sm font-semibold text-ink">Segmented — periode</span>
                     <x-ui.segmented :options="['minggu' => 'Minggu', 'bulan' => 'Bulan', 'tahun' => 'Tahun']" selected="bulan" />
                 </div>
             </div>
@@ -424,7 +424,7 @@
         <x-ui.table :headers="['Faktur', 'Klien', 'Status', 'Nilai']">
             @foreach ($rows as $row)
                 <x-ui.table.row>
-                    <x-ui.table.cell class="num text-[12.5px]">{{ $row['id'] }}</x-ui.table.cell>
+                    <x-ui.table.cell class="num text-sm">{{ $row['id'] }}</x-ui.table.cell>
                     <x-ui.table.cell>{{ $row['client'] }}</x-ui.table.cell>
                     <x-ui.table.cell>
                         <x-ui.badge :variant="$row['variant']" pill dot>{{ $row['status'] }}</x-ui.badge>
@@ -435,19 +435,19 @@
         </x-ui.table>
 
         <h4 class="eyebrow mt-6 mb-3">Bisa dipilih, aksi per baris</h4>
-        <p class="mb-3 max-w-[64ch] text-[13.5px] text-ink-secondary">
-            Kolom centang muncul lewat prop <code class="font-mono text-[12.5px]">selectable</code> di
-            <code class="font-mono text-[12.5px]">x-ui.table</code> (daftar id yang boleh dipilih). Baris yang
-            terkunci tetap memberi <code class="font-mono text-[12.5px]">selectable</code> ke
-            <code class="font-mono text-[12.5px]">x-ui.table.row</code> meski <code class="font-mono text-[12.5px]">id</code>-nya
-            <code class="font-mono text-[12.5px]">null</code> — sel kosong tetap digambar supaya jumlah kolom sama
-            dengan baris lain. Aksi per baris memakai <code class="font-mono text-[12.5px]">variant="secondary" size="xs"</code>,
-            bukan <code class="font-mono text-[12.5px]">ghost</code>: tombol raised sesuai spesifikasi material, ghost hanya untuk aksi di dalam permukaan yang sudah punya kedalaman sendiri (toolbar, dropdown).
+        <p class="mb-3 max-w-[64ch] text-base text-ink-secondary">
+            Kolom centang muncul lewat prop <code class="font-mono text-sm">selectable</code> di
+            <code class="font-mono text-sm">x-ui.table</code> (daftar id yang boleh dipilih). Baris yang
+            terkunci tetap memberi <code class="font-mono text-sm">selectable</code> ke
+            <code class="font-mono text-sm">x-ui.table.row</code> meski <code class="font-mono text-sm">id</code>-nya
+            <code class="font-mono text-sm">null</code> — sel kosong tetap digambar supaya jumlah kolom sama
+            dengan baris lain. Aksi per baris memakai <code class="font-mono text-sm">variant="secondary" size="xs"</code>,
+            bukan <code class="font-mono text-sm">ghost</code>: tombol raised sesuai spesifikasi material, ghost hanya untuk aksi di dalam permukaan yang sudah punya kedalaman sendiri (toolbar, dropdown).
         </p>
 
         <x-ui.table :headers="['Faktur', 'Klien', '']" :selectable="[1, 2]">
             <x-ui.table.row :id="1">
-                <x-ui.table.cell class="num text-[12.5px]">INV-2048</x-ui.table.cell>
+                <x-ui.table.cell class="num text-sm">INV-2048</x-ui.table.cell>
                 <x-ui.table.cell>PT Nusantara Jaya</x-ui.table.cell>
                 <x-ui.table.cell align="right">
                     <div class="flex justify-end gap-1">
@@ -461,10 +461,10 @@
                 </x-ui.table.cell>
             </x-ui.table.row>
             <x-ui.table.row :id="null" selectable>
-                <x-ui.table.cell class="num text-[12.5px]">INV-2047</x-ui.table.cell>
+                <x-ui.table.cell class="num text-sm">INV-2047</x-ui.table.cell>
                 <x-ui.table.cell>
                     Sinar Abadi
-                    <span class="ms-1.5 text-xs2 text-ink-muted">(terkunci)</span>
+                    <span class="ms-1.5 text-xs text-ink-muted">(terkunci)</span>
                 </x-ui.table.cell>
                 <x-ui.table.cell align="right">
                     <div class="flex justify-end gap-1">
@@ -487,7 +487,7 @@
                 <div class="mb-2.5 inline-flex items-center gap-1.5 text-xs font-semibold text-danger">
                     <x-ui.icon name="x" class="size-3.5" />HINDARI
                 </div>
-                <p class="text-sm text-ink-secondary">Merender kolom centang hanya kalau baris itu punya <code class="font-mono text-[12.5px]">id</code> — baris lain ikut bergeser.</p>
+                <p class="text-sm text-ink-secondary">Merender kolom centang hanya kalau baris itu punya <code class="font-mono text-sm">id</code> — baris lain ikut bergeser.</p>
             </div>
         </div>
 
@@ -654,9 +654,9 @@
                     lead="Semua layout membungkus x-layouts.base — pilih berdasarkan konteks halaman, bukan selera. Masing-masing sudah membawa keputusan tentang tekstur latar dan lebar konten, jadi tidak perlu diulang di setiap halaman.">
 
         <div class="overflow-x-auto rounded-md border border-line">
-            <table class="w-full text-left text-[13.5px]">
+            <table class="w-full text-left text-base">
                 <thead>
-                    <tr class="border-b border-line bg-surface-sunken text-[11.5px] tracking-[0.05em] text-ink-muted uppercase">
+                    <tr class="border-b border-line bg-surface-sunken text-xs tracking-[0.05em] text-ink-muted uppercase">
                         <th class="px-4 py-2.5 font-semibold">Layout</th>
                         <th class="px-4 py-2.5 font-semibold">Dipakai untuk</th>
                         <th class="px-4 py-2.5 font-semibold">Props &amp; slot</th>
@@ -664,29 +664,29 @@
                 </thead>
                 <tbody class="divide-y divide-line">
                     <tr>
-                        <td class="px-4 py-3 font-mono text-[12.5px] text-ink">x-layouts.base</td>
-                        <td class="px-4 py-3 text-ink-secondary">Fondasi <code class="font-mono text-[12.5px]">&lt;html&gt;</code>/<code class="font-mono text-[12.5px]">&lt;body&gt;</code> untuk semua layout lain. Jarang dipakai langsung.</td>
-                        <td class="px-4 py-3 text-ink-secondary"><code class="font-mono text-[12.5px]">backdrop</code> (page/shell), <code class="font-mono text-[12.5px]">texture</code></td>
+                        <td class="px-4 py-3 font-mono text-sm text-ink">x-layouts.base</td>
+                        <td class="px-4 py-3 text-ink-secondary">Fondasi <code class="font-mono text-sm">&lt;html&gt;</code>/<code class="font-mono text-sm">&lt;body&gt;</code> untuk semua layout lain. Jarang dipakai langsung.</td>
+                        <td class="px-4 py-3 text-ink-secondary"><code class="font-mono text-sm">backdrop</code> (page/shell)</td>
                     </tr>
                     <tr>
-                        <td class="px-4 py-3 font-mono text-[12.5px] text-ink">x-layouts.admin</td>
+                        <td class="px-4 py-3 font-mono text-sm text-ink">x-layouts.admin</td>
                         <td class="px-4 py-3 text-ink-secondary">Semua halaman di dalam aplikasi — sidebar dan topbar kaca mengambang.</td>
-                        <td class="px-4 py-3 text-ink-secondary"><code class="font-mono text-[12.5px]">heading</code>, <code class="font-mono text-[12.5px]">description</code>, <code class="font-mono text-[12.5px]">breadcrumb</code>, slot <code class="font-mono text-[12.5px]">actions</code></td>
+                        <td class="px-4 py-3 text-ink-secondary"><code class="font-mono text-sm">heading</code>, <code class="font-mono text-sm">description</code>, <code class="font-mono text-sm">breadcrumb</code>, slot <code class="font-mono text-sm">actions</code></td>
                     </tr>
                     <tr>
-                        <td class="px-4 py-3 font-mono text-[12.5px] text-ink">x-layouts.guest-split</td>
-                        <td class="px-4 py-3 text-ink-secondary">Masuk &amp; Daftar. Form solid di kiri, panel kepercayaan kaca di kanan (hilang di bawah <code class="font-mono text-[12.5px]">lg</code>), penuh viewport.</td>
-                        <td class="px-4 py-3 text-ink-secondary"><code class="font-mono text-[12.5px]">heading</code>, <code class="font-mono text-[12.5px]">description</code>, slot <code class="font-mono text-[12.5px]">aside</code></td>
+                        <td class="px-4 py-3 font-mono text-sm text-ink">x-layouts.guest-split</td>
+                        <td class="px-4 py-3 text-ink-secondary">Masuk &amp; Daftar. Form solid di kiri, panel kepercayaan kaca di kanan (hilang di bawah <code class="font-mono text-sm">lg</code>), penuh viewport.</td>
+                        <td class="px-4 py-3 text-ink-secondary"><code class="font-mono text-sm">heading</code>, <code class="font-mono text-sm">description</code>, slot <code class="font-mono text-sm">aside</code></td>
                     </tr>
                     <tr>
-                        <td class="px-4 py-3 font-mono text-[12.5px] text-ink">x-layouts.guest</td>
+                        <td class="px-4 py-3 font-mono text-sm text-ink">x-layouts.guest</td>
                         <td class="px-4 py-3 text-ink-secondary">Flow pendek &amp; sensitif — 2FA, reset/konfirmasi kata sandi, verifikasi email. Kartu tunggal, tanpa dekorasi.</td>
-                        <td class="px-4 py-3 text-ink-secondary"><code class="font-mono text-[12.5px]">heading</code>, <code class="font-mono text-[12.5px]">description</code></td>
+                        <td class="px-4 py-3 text-ink-secondary"><code class="font-mono text-sm">heading</code>, <code class="font-mono text-sm">description</code></td>
                     </tr>
                     <tr>
-                        <td class="px-4 py-3 font-mono text-[12.5px] text-ink">x-layouts.docs</td>
+                        <td class="px-4 py-3 font-mono text-sm text-ink">x-layouts.docs</td>
                         <td class="px-4 py-3 text-ink-secondary">Halaman /design-system ini sendiri — topbar + daftar isi sticky, bisa dibuka tanpa login.</td>
-                        <td class="px-4 py-3 text-ink-secondary"><code class="font-mono text-[12.5px]">title</code>, <code class="font-mono text-[12.5px]">nav</code></td>
+                        <td class="px-4 py-3 text-ink-secondary"><code class="font-mono text-sm">title</code>, <code class="font-mono text-sm">nav</code></td>
                     </tr>
                 </tbody>
             </table>
@@ -694,17 +694,16 @@
 
         <h4 class="eyebrow mt-6 mb-3">Auth split, dengan panel kepercayaan</h4>
         <div class="overflow-hidden rounded-md border border-line">
-            <pre class="overflow-x-auto bg-code p-5 font-mono text-[12.5px] leading-relaxed text-code-ink"><code>{{ trim($code['layout-guest-split']) }}</code></pre>
+            <pre class="overflow-x-auto bg-code p-5 font-mono text-sm leading-relaxed text-code-ink"><code>{{ trim($code['layout-guest-split']) }}</code></pre>
         </div>
-        <p class="mt-3 max-w-[64ch] text-[13.5px] text-ink-secondary">
-            Slot <code class="font-mono text-[12.5px]">aside</code> hanya dirender di layar <code class="font-mono text-[12.5px]">lg</code> ke atas — isinya biasanya
-            <code class="font-mono text-[12.5px]">x-auth.trust-panel</code> di bawah ini. Kutipan dan angkanya contoh, ganti sebelum rilis.
+        <p class="mt-3 max-w-[64ch] text-base text-ink-secondary">
+            Slot <code class="font-mono text-sm">aside</code> hanya dirender di layar <code class="font-mono text-sm">lg</code> ke atas — isinya biasanya
+            <code class="font-mono text-sm">x-auth.trust-panel</code> di bawah ini. Kutipan dan angkanya contoh, ganti sebelum rilis.
         </p>
 
         <x-docs.example title="x-auth.trust-panel" class="mt-4" :code="$code['trust-panel']">
             <div class="relative w-full max-w-sm overflow-hidden rounded-lg p-7"
-                 style="background-image: radial-gradient(90% 90% at 70% 10%, var(--accent-soft) 0%, transparent 55%), var(--mat-base)">
-                <div class="bg-grid pointer-events-none absolute inset-0" aria-hidden="true"></div>
+                 style="background-image: radial-gradient(90% 90% at 70% 10%, var(--accent-soft) 0%, transparent 55%), linear-gradient(var(--surface-sunken), var(--surface-sunken))">
 
                 <x-auth.trust-panel
                     quote="Penutupan buku yang dulu tiga hari sekarang selesai sebelum makan siang."
@@ -721,13 +720,13 @@
                 <div class="mb-2.5 inline-flex items-center gap-1.5 text-xs font-semibold text-success">
                     <x-ui.icon name="check" class="size-3.5" />LAKUKAN
                 </div>
-                <p class="text-sm text-ink-secondary">Pakai <code class="font-mono text-[12.5px]">guest-split</code> hanya untuk Masuk/Daftar — dua pintu masuk utama yang layak diberi ruang meyakinkan.</p>
+                <p class="text-sm text-ink-secondary">Pakai <code class="font-mono text-sm">guest-split</code> hanya untuk Masuk/Daftar — dua pintu masuk utama yang layak diberi ruang meyakinkan.</p>
             </div>
             <div class="rounded-md border border-line bg-surface-raised p-4">
                 <div class="mb-2.5 inline-flex items-center gap-1.5 text-xs font-semibold text-danger">
                     <x-ui.icon name="x" class="size-3.5" />HINDARI
                 </div>
-                <p class="text-sm text-ink-secondary">Memakai panel kepercayaan di 2FA atau reset kata sandi — perhatian pengguna harus tetap di langkah keamanannya, pakai <code class="font-mono text-[12.5px]">x-layouts.guest</code>.</p>
+                <p class="text-sm text-ink-secondary">Memakai panel kepercayaan di 2FA atau reset kata sandi — perhatian pengguna harus tetap di langkah keamanannya, pakai <code class="font-mono text-sm">x-layouts.guest</code>.</p>
             </div>
         </div>
     </x-docs.section>
@@ -768,11 +767,11 @@
             </div>
         </x-docs.example>
 
-        <p class="mt-4 max-w-[64ch] text-[13.5px] text-ink-secondary">
-            <code class="font-mono text-[12.5px]">x-ui.bar-chart</code> dirender <a href="https://apexcharts.com" class="text-link hover:underline" target="_blank" rel="noopener">ApexCharts</a>,
-            diimpor dinamis (bukan di bundle utama) lewat <code class="font-mono text-[12.5px]">Alpine.data('apexBarChart', …)</code>
-            di <code class="font-mono text-[12.5px]">resources/js/app.js</code> — halaman yang tidak menampilkan grafik tidak ikut menanggung beratnya.
-            Warna dan tema tooltip dibaca ulang dari token CSS setiap <code class="font-mono text-[12.5px]">theme:changed</code>, jadi ganti tema tidak perlu memuat ulang halaman.
+        <p class="mt-4 max-w-[64ch] text-base text-ink-secondary">
+            <code class="font-mono text-sm">x-ui.bar-chart</code> dirender <a href="https://apexcharts.com" class="text-link hover:underline" target="_blank" rel="noopener">ApexCharts</a>,
+            diimpor dinamis (bukan di bundle utama) lewat <code class="font-mono text-sm">Alpine.data('apexBarChart', …)</code>
+            di <code class="font-mono text-sm">resources/js/app.js</code> — halaman yang tidak menampilkan grafik tidak ikut menanggung beratnya.
+            Warna dan tema tooltip dibaca ulang dari token CSS setiap <code class="font-mono text-sm">theme:changed</code>, jadi ganti tema tidak perlu memuat ulang halaman.
         </p>
 
         <x-docs.example title="Slider" class="mt-4" :code="$code['slider']">
@@ -792,7 +791,7 @@
                 <div class="mb-2.5 inline-flex items-center gap-1.5 text-xs font-semibold text-danger">
                     <x-ui.icon name="x" class="size-3.5" />HINDARI
                 </div>
-                <p class="text-sm text-ink-secondary">Menulis warna hex langsung di <code class="font-mono text-[12.5px]">tones</code> — pakai nama token <code class="font-mono text-[12.5px]">chart-1..6</code> supaya ikut berganti tema.</p>
+                <p class="text-sm text-ink-secondary">Menulis warna hex langsung di <code class="font-mono text-sm">tones</code> — pakai nama token <code class="font-mono text-sm">chart-1..6</code> supaya ikut berganti tema.</p>
             </div>
         </div>
     </x-docs.section>
@@ -853,13 +852,13 @@
                 <div class="mb-2.5 inline-flex items-center gap-1.5 text-xs font-semibold text-success">
                     <x-ui.icon name="check" class="size-3.5" />LAKUKAN
                 </div>
-                <p class="text-sm text-ink-secondary">Item pertama <code class="font-mono text-[12.5px]">x-ui.timeline</code> dianggap yang terbaru — urutkan datanya dari baru ke lama.</p>
+                <p class="text-sm text-ink-secondary">Item pertama <code class="font-mono text-sm">x-ui.timeline</code> dianggap yang terbaru — urutkan datanya dari baru ke lama.</p>
             </div>
             <div class="rounded-md border border-line bg-surface-raised p-4">
                 <div class="mb-2.5 inline-flex items-center gap-1.5 text-xs font-semibold text-danger">
                     <x-ui.icon name="x" class="size-3.5" />HINDARI
                 </div>
-                <p class="text-sm text-ink-secondary">Dua <code class="font-mono text-[12.5px]">x-ui.accordion</code> terpisah untuk satu daftar — panel yang seharusnya saling eksklusif jadi bisa terbuka bersamaan.</p>
+                <p class="text-sm text-ink-secondary">Dua <code class="font-mono text-sm">x-ui.accordion</code> terpisah untuk satu daftar — panel yang seharusnya saling eksklusif jadi bisa terbuka bersamaan.</p>
             </div>
         </div>
     </x-docs.section>
@@ -894,8 +893,8 @@
             <x-ui.drawer-remote title="Detail entitas" />
         </x-docs.example>
 
-        <p class="mt-4 max-w-[64ch] text-[13.5px] text-ink-secondary">
-            Tombol di atas sungguhan — klik untuk melihat bagaimana <code class="font-mono text-[12.5px]">x-ui.drawer-remote</code> menangani URL yang gagal
+        <p class="mt-4 max-w-[64ch] text-base text-ink-secondary">
+            Tombol di atas sungguhan — klik untuk melihat bagaimana <code class="font-mono text-sm">x-ui.drawer-remote</code> menangani URL yang gagal
             (404) langsung di dalam panel, bukan membiarkan halaman berpindah diam-diam.
         </p>
 
@@ -904,13 +903,13 @@
                 <div class="mb-2.5 inline-flex items-center gap-1.5 text-xs font-semibold text-success">
                     <x-ui.icon name="check" class="size-3.5" />LAKUKAN
                 </div>
-                <p class="text-sm text-ink-secondary"><code class="font-mono text-[12.5px]">x-ui.filter-chips</code> untuk filter dengan ≤4 pilihan yang harus terbaca sekaligus. Pilihan lebih banyak tetap pakai <code class="font-mono text-[12.5px]">x-ui.select</code>.</p>
+                <p class="text-sm text-ink-secondary"><code class="font-mono text-sm">x-ui.filter-chips</code> untuk filter dengan ≤4 pilihan yang harus terbaca sekaligus. Pilihan lebih banyak tetap pakai <code class="font-mono text-sm">x-ui.select</code>.</p>
             </div>
             <div class="rounded-md border border-line bg-surface-raised p-4">
                 <div class="mb-2.5 inline-flex items-center gap-1.5 text-xs font-semibold text-danger">
                     <x-ui.icon name="x" class="size-3.5" />HINDARI
                 </div>
-                <p class="text-sm text-ink-secondary">Menanam satu <code class="font-mono text-[12.5px]">x-ui.drawer-remote</code> per baris tabel — satu instans per halaman sudah cukup, baris hanya mengirim URL lewat event.</p>
+                <p class="text-sm text-ink-secondary">Menanam satu <code class="font-mono text-sm">x-ui.drawer-remote</code> per baris tabel — satu instans per halaman sudah cukup, baris hanya mengirim URL lewat event.</p>
             </div>
         </div>
     </x-docs.section>

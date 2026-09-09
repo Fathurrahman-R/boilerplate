@@ -1,13 +1,13 @@
 <x-layouts.guest-split heading="Buat akun baru"
-                       description="Mulai kelola workspace tim Anda dalam beberapa menit.">
+ description="Mulai kelola workspace tim Anda dalam beberapa menit.">
     <x-slot:aside>
         <x-auth.trust-panel
-            quote="Penutupan buku yang dulu tiga hari sekarang selesai sebelum makan siang."
-            name="Maya Wardhani" role="Finance Lead · Nusantara Logistik" initials="MW"
+ quote="Penutupan buku yang dulu tiga hari sekarang selesai sebelum makan siang."
+ name="Maya Wardhani" role="Finance Lead · Nusantara Logistik" initials="MW"
             :stats="[
-                ['value' => '2.400+', 'label' => 'tim keuangan'],
-                ['value' => 'Rp 4,1T', 'label' => 'tagihan diproses'],
-                ['value' => '99,9%', 'label' => 'uptime'],
+ ['value' => '2.400+', 'label' => 'tim keuangan'],
+ ['value' => 'Rp 4,1T', 'label' => 'tagihan diproses'],
+ ['value' => '99,9%', 'label' => 'uptime'],
             ]" />
     </x-slot:aside>
 
@@ -21,7 +21,7 @@
         <x-ui.input name="email" type="email" label="Email kerja" placeholder="nama@perusahaan.com" required autocomplete="username" />
 
         <x-ui.input name="password" type="password" label="Kata sandi" placeholder="••••••••" required autocomplete="new-password"
-                    hint="Minimal 8 karakter." />
+ hint="Minimal 8 karakter." />
 
         <x-ui.input name="password_confirmation" type="password" label="Ulangi kata sandi" placeholder="••••••••" required autocomplete="new-password" />
 

@@ -16,8 +16,8 @@
         <li class="flex items-center gap-2 {{ $loop->last ? '' : 'flex-1' }}">
             <span @class([
                 'flex size-6 shrink-0 items-center justify-center rounded-full text-[12px] font-semibold',
-                'bg-[image:var(--mat-accent)] text-accent-on shadow-lift' => $done || $active,
-                'bg-surface-sunken text-ink-muted shadow-well' => ! $done && ! $active,
+                'bg-accent text-accent-on shadow-sm' => $done || $active,
+                'bg-fill-4 text-ink-muted ' => ! $done && ! $active,
             ])>
                 @if ($done)
                     <x-ui.icon name="check" class="size-3.5" />
@@ -27,7 +27,7 @@
             </span>
 
             <span @class([
-                'text-base2 whitespace-nowrap',
+                'text-base whitespace-nowrap',
                 'font-semibold text-ink' => $active,
                 'text-ink-secondary' => $done,
                 'text-ink-muted' => ! $done && ! $active,

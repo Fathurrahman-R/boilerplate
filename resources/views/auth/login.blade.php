@@ -1,13 +1,13 @@
 <x-layouts.guest-split heading="Masuk ke workspace"
-                       description="Pakai akun kerja Anda untuk melanjutkan.">
+ description="Pakai akun kerja Anda untuk melanjutkan.">
     <x-slot:aside>
         <x-auth.trust-panel
-            quote="Penutupan buku yang dulu tiga hari sekarang selesai sebelum makan siang."
-            name="Maya Wardhani" role="Finance Lead · Nusantara Logistik" initials="MW"
+ quote="Penutupan buku yang dulu tiga hari sekarang selesai sebelum makan siang."
+ name="Maya Wardhani" role="Finance Lead · Nusantara Logistik" initials="MW"
             :stats="[
-                ['value' => '2.400+', 'label' => 'tim keuangan'],
-                ['value' => 'Rp 4,1T', 'label' => 'tagihan diproses'],
-                ['value' => '99,9%', 'label' => 'uptime'],
+ ['value' => '2.400+', 'label' => 'tim keuangan'],
+ ['value' => 'Rp 4,1T', 'label' => 'tagihan diproses'],
+ ['value' => '99,9%', 'label' => 'uptime'],
             ]" />
     </x-slot:aside>
 

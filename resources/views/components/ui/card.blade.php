@@ -8,24 +8,25 @@
 
 {{--
     Card biasa duduk di permukaan solid. Varian `glass` hanya untuk card yang
-    berdiri di atas latar bertekstur — kartu metrik, hero, panel ringkasan.
+ berdiri di atas latar bertekstur — kartu metrik, hero, panel ringkasan.
     Jangan dipakai membungkus tabel, form, atau teks panjang.
 
     Varian `material` adalah bidang yang menampung kontrol — kelompok tombol,
-    tuas, slider. Bukan untuk teks panjang atau tabel.
+ tuas, slider. Bukan untuk teks panjang atau tabel.
 --}}
 
-<div {{ $attributes->class([
-    'rounded-lg',
-    'glass' => $glass,
-    'mat-panel' => $material && ! $glass,
-    'border border-line bg-surface-raised shadow-lift' => ! $glass && ! $material,
-]) }}>
+<div @if ($glass) data-mat="thin" @endif
+     {{ $attributes->class([
+         'rounded-xl',
+         'material' => $glass,
+         'border-[0.5px] border-line bg-surface-raised shadow-sm' => ! $glass,
+     ]) }}>
     @if ($title || $subtitle || isset($header))
-        <div class="flex items-start justify-between gap-4 border-b border-line px-5 py-4">
+        <div class="relative flex items-start justify-between gap-4 px-5 py-4
+                    after:absolute after:inset-x-5 after:bottom-0 after:h-px after:bg-line after:content-['']">
             <div>
                 @if ($title)
-                    <h2 class="font-display text-base font-semibold text-ink">{{ $title }}</h2>
+                    <h2 class="text-lg font-semibold text-ink">{{ $title }}</h2>
                 @endif
 
                 @if ($subtitle)
@@ -46,6 +47,7 @@
     </div>
 
     @isset($footer)
-        <div class="border-t border-line px-5 py-4">{{ $footer }}</div>
+        <div class="relative px-5 py-4
+                    before:absolute before:inset-x-5 before:top-0 before:h-px before:bg-line before:content-['']">{{ $footer }}</div>
     @endisset
 </div>

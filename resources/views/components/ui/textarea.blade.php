@@ -24,9 +24,9 @@
               @required($required)
               @if ($invalid) aria-invalid="true" aria-describedby="{{ $id }}-error" @endif
               {{ $attributes->class([
-                  'block w-full resize-y rounded-md border bg-surface-sunken px-3 py-2.5 text-sm leading-relaxed text-ink shadow-well',
-                  'outline-none transition placeholder:text-ink-muted',
-                  'focus:border-accent focus:ring-3 focus:ring-accent-soft',
+                  'block w-full resize-y rounded-md border-[0.5px] bg-fill-4 px-3 py-2.5 text-base leading-relaxed text-ink',
+                  'outline-none transition-colors duration-[--dur-fast] placeholder:text-ink-quaternary',
+                  'focus:bg-surface-raised focus:shadow-[var(--focus-ring)]',
                   'border-line' => ! $invalid,
                   'border-danger' => $invalid,
               ]) }}>{{ old($errorKey, $value) }}</textarea>

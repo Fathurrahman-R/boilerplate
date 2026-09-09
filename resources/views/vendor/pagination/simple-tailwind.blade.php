@@ -1,8 +1,8 @@
 {{-- Versi tanpa nomor halaman, untuk daftar yang tidak dihitung totalnya. --}}
 
 @php
-    $tombol = 'inline-flex h-[30px] items-center gap-1.5 rounded-sm border border-line-strong bg-[image:var(--mat-raised)] px-3 text-[13px] text-ink-secondary shadow-[var(--bevel),var(--lift)] transition hover:brightness-95 active:translate-y-px active:shadow-press';
-    $mati = 'inline-flex h-[30px] cursor-not-allowed items-center gap-1.5 rounded-sm border border-line bg-surface-sunken px-3 text-[13px] text-ink-muted shadow-well';
+    $tombol = 'inline-flex h-[30px] items-center gap-1.5 rounded-sm border-[0.5px] border-line bg-fill-3 px-3 text-sm text-ink-secondary shadow-sm transition hover:bg-fill-2 ';
+    $mati = 'inline-flex h-[30px] cursor-not-allowed items-center gap-1.5 rounded-sm border border-line bg-surface-sunken px-3 text-sm text-ink-muted ';
 @endphp
 
 @if ($paginator->hasPages())

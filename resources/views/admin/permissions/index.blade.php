@@ -1,7 +1,7 @@
 @php use App\Enums\ResourceAction; @endphp
 
 <x-layouts.admin heading="Permission"
-                 description="Izin mentah yang dibagikan ke role. Resource key menunjuk ke sini lewat pemetaan."
+ description="Izin mentah yang dibagikan ke role. Resource key menunjuk ke sini lewat pemetaan."
                  :breadcrumb="['Permission' => null]">
     <x-slot:actions>
         <x-can :resource="rk('permissions', ResourceAction::Create)">
@@ -91,37 +91,10 @@
                         @unless ($permission->is_locked)
                             <x-can :resource="rk('permissions', ResourceAction::Delete)">
                                 <x-ui.button type="button" variant="secondary" size="xs" title="Hapus"
-                                             x-on:click="$dispatch('modal-open', 'hapus-permission-{{ $permission->id }}')">
+ x-on:click="$dispatch('confirm-delete', { url: '{{ route('admin.permissions.destroy', $permission) }}', name: {{ Js::from($permission->name) }} })">
                                     <x-ui.icon name="trash-2" class="h-4 w-4 text-danger" />
                                 </x-ui.button>
 
-                                <x-ui.modal :id="'hapus-permission-'.$permission->id" title="Hapus permission">
-                                    <p>Yakin menghapus <code>{{ $permission->name }}</code>?</p>
-
-                                    @if ($permission->mappings_count > 0)
-                                        <x-ui.alert variant="warning">
-                                            {{ $permission->mappings_count }} resource key menunjuk permission ini.
-                                            Key-nya tidak ikut terhapus, tapi berubah jadi tak terpetakan — dan aksesnya
-                                            langsung tertutup untuk semua orang kecuali super admin.
-                                        </x-ui.alert>
-                                    @endif
-
-                                    @if ($permission->roles_count > 0)
-                                        <p class="text-ink-muted">
-                                            {{ $permission->roles_count }} role kehilangan izin ini.
-                                        </p>
-                                    @endif
-
-                                    <x-slot:footer>
-                                        <x-ui.button variant="secondary" type="button" x-on:click="$dispatch('modal-close', 'hapus-permission-{{ $permission->id }}')">Batal</x-ui.button>
-
-                                        <form method="POST" action="{{ route('admin.permissions.destroy', $permission) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <x-ui.button variant="danger" type="submit">Hapus</x-ui.button>
-                                        </form>
-                                    </x-slot:footer>
-                                </x-ui.modal>
                             </x-can>
                         @endunless
                     </div>
@@ -136,4 +109,5 @@
         @endforelse
         <x-slot:footer>{{ $permissions->links() }}</x-slot:footer>
     </x-ui.table>
+    <x-ui.confirm-delete />
 </x-layouts.admin>

@@ -1,7 +1,7 @@
 @php use App\Enums\ResourceAction; @endphp
 
 <x-layouts.admin heading="Pengguna"
-                 description="Kelola akun dan role yang dimilikinya."
+ description="Kelola akun dan role yang dimilikinya."
                  :breadcrumb="['Pengguna' => null]">
     <x-slot:actions>
         <x-can :resource="rk('users', ResourceAction::Export)">
@@ -21,7 +21,7 @@
 
     <x-ui.table :table="$table"
                 :selectable="$users->pluck('id')->all()"
-                openable
+ openable
                 :headers="['name' => 'Nama', 'email' => 'Email', 0 => 'Role', 1 => 'Status', 'created_at' => 'Dibuat', 2 => '']">
         <x-slot:toolbar>
             <x-ui.table.toolbar :table="$table" placeholder="Cari nama atau email…">
@@ -36,7 +36,7 @@
 
                 <x-slot:chips>
                     <x-ui.filter-chips param="status"
-                                       all="Semua status"
+ all="Semua status"
                                        :options="['aktif' => 'Aktif', 'nonaktif' => 'Nonaktif']" />
                 </x-slot:chips>
 
@@ -49,7 +49,7 @@
                             </template>
 
                             <x-ui.button type="submit" variant="secondary" size="sm"
-                                         class="border-danger text-danger">
+ class="border-danger text-danger">
                                 <x-ui.icon name="trash-2" class="size-4" />
                                 Hapus terpilih
                             </x-ui.button>
@@ -98,23 +98,10 @@
 
                         <x-can :resource="rk('users', ResourceAction::Delete)">
                             <x-ui.button type="button" variant="secondary" size="xs" title="Hapus"
-                                         x-on:click="$dispatch('modal-open', 'hapus-user-{{ $user->id }}')">
+ x-on:click="$dispatch('confirm-delete', { url: '{{ route('admin.users.destroy', $user) }}', name: {{ Js::from($user->name) }} })">
                                 <x-ui.icon name="trash-2" class="h-4 w-4 text-danger" />
                             </x-ui.button>
 
-                            <x-ui.modal :id="'hapus-user-'.$user->id" title="Hapus pengguna" size="sm">
-                                Yakin menghapus <strong>{{ $user->name }}</strong>? Tindakan ini tidak bisa dibatalkan.
-
-                                <x-slot:footer>
-                                    <x-ui.button variant="secondary" type="button" x-on:click="$dispatch('modal-close', 'hapus-user-{{ $user->id }}')">Batal</x-ui.button>
-
-                                    <form method="POST" action="{{ route('admin.users.destroy', $user) }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <x-ui.button variant="danger" type="submit">Hapus</x-ui.button>
-                                    </form>
-                                </x-slot:footer>
-                            </x-ui.modal>
                         </x-can>
                     </div>
                 </x-ui.table.cell>
@@ -129,5 +116,5 @@
         <x-slot:footer>{{ $users->links() }}</x-slot:footer>
     </x-ui.table>
 
-    <x-ui.drawer-remote title="Detail pengguna" />
+    <x-ui.confirm-delete />
 </x-layouts.admin>

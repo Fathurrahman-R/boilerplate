@@ -1,5 +1,5 @@
 <x-layouts.guest heading="Lupa kata sandi"
-                 description="Masukkan email Anda, kami kirimkan tautan untuk membuat kata sandi baru.">
+ description="Masukkan email Anda, kami kirimkan tautan untuk membuat kata sandi baru.">
     <x-auth.errors />
 
     @if (session('status'))

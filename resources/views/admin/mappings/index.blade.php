@@ -1,7 +1,7 @@
 @php use App\Enums\ResourceAction; @endphp
 
 <x-layouts.admin heading="Pemetaan resource key"
-                 description="Menentukan permission mana yang berada di balik tiap resource key. Mengubahnya berlaku seketika di route, tampilan, policy, dan menu — tanpa menyentuh kode."
+ description="Menentukan permission mana yang berada di balik tiap resource key. Mengubahnya berlaku seketika di route, tampilan, policy, dan menu — tanpa menyentuh kode."
                  :breadcrumb="['Pemetaan Key' => null]">
     <x-slot:actions>
         <x-can :resource="rk('mappings', ResourceAction::Update)">
@@ -20,7 +20,7 @@
     @if ($unmappedCount > 0)
         <x-ui.alert variant="warning" class="mb-4">
             {{ $unmappedCount }} key belum menunjuk permission mana pun. Selama masih kosong, aksesnya tertutup untuk
-            semua orang kecuali super admin.
+ semua orang kecuali super admin.
         </x-ui.alert>
     @endif
 
@@ -52,7 +52,7 @@
                             @method('PUT')
 
                             <select name="permission_id"
-                                    class="form-select w-full max-w-xs">
+ class="form-select w-full max-w-xs">
                                 <option value="">— tidak dipetakan (akses tertutup) —</option>
                                 @foreach ($permissions as $id => $name)
                                     <option value="{{ $id }}" @selected($mapping->permission_id === $id)>{{ $name }}</option>
@@ -91,7 +91,7 @@
             <tr>
                 <td colspan="4">
                     <x-ui.empty-state title="Belum ada pemetaan"
-                                      description="Pemetaan dibuat otomatis saat Anda membuat resource." />
+ description="Pemetaan dibuat otomatis saat Anda membuat resource." />
                 </td>
             </tr>
         @endforelse

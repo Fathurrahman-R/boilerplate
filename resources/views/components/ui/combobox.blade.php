@@ -80,23 +80,26 @@
            role="combobox" aria-autocomplete="list" :aria-expanded="open"
            @if ($invalid) aria-invalid="true" @endif
            {{ $attributes->class([
-               'block h-control w-full rounded-md border bg-surface-sunken px-3 text-sm text-ink shadow-well',
-               'outline-none transition placeholder:text-ink-muted focus:border-accent focus:ring-3 focus:ring-accent-soft',
+               'block h-control w-full rounded-md border-[0.5px] bg-fill-4 px-3 text-base text-ink',
+               'outline-none transition-colors duration-[--dur-fast] placeholder:text-ink-quaternary',
+               'focus:bg-surface-raised focus:shadow-[var(--focus-ring)]',
                'border-line' => ! $invalid,
                'border-danger' => $invalid,
            ]) }}>
 
     <div x-show="open" x-cloak
-         x-transition:enter="transition duration-140 ease-out"
-         x-transition:enter-start="translate-y-1 opacity-0"
-         class="absolute inset-x-0 z-50 mt-1.5 max-h-52 overflow-y-auto rounded-md border border-line bg-surface-raised p-1.5 shadow-lg"
+         x-spring="{ from: { opacity: 0, scale: 0.97, y: -4 },
+                     to:   { opacity: 1, scale: 1,    y: 0 },
+                     token: 'sheet', exitToken: 'overlay', origin: 'bottom-start' }"
+         data-mat="thin"
+         class="material absolute inset-x-0 z-50 mt-1.5 max-h-52 overflow-y-auto rounded-lg p-1.5"
          role="listbox">
         <template x-for="(item, index) in results" :key="item.value">
             <button type="button"
                     x-on:click="choose(item)"
                     x-on:mouseenter="active = index"
-                    class="flex w-full items-center gap-2.5 rounded-sm px-2.5 py-2 text-left text-sm transition"
-                    :class="index === active ? 'bg-surface-inset text-ink' : 'text-ink-secondary'"
+                    class="flex w-full items-center gap-2.5 rounded-sm px-2.5 py-2 text-left text-base transition-colors duration-[--dur-fast]"
+                    :class="index === active ? 'bg-fill-3 text-ink' : 'text-ink-secondary'"
                     :aria-selected="item.value === picked" role="option">
                 <span x-text="item.label"></span>
             </button>

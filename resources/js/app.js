@@ -1,6 +1,8 @@
 import Alpine from 'alpinejs';
 
 import './theme';
+import { installMotion } from './motion';
+import { installInteractions } from './interactions';
 
 /**
  * Warna deret data dibaca dari token CSS saat render (bukan ditulis literal),
@@ -45,8 +47,25 @@ Alpine.store('shell', {
     sidebarOpen: false,
     collapsed: document.documentElement.dataset.sidebar === 'collapsed',
 
+    // Ditulis 1:1 oleh seretan sidebar dan dibaca opacity scrim, supaya
+    // peredupnya mengikuti jari selama gerakan — bukan menyala dan padam di
+    // ujung-ujungnya saja.
+    sidebarProgress: 0,
+    sidebarDragging: false,
+
+    // Panel detail: kolom di layar lebar, drawer di layar sempit.
+    inspectorOpen: false,
+
     toggleSidebar() {
         this.sidebarOpen = ! this.sidebarOpen;
+    },
+
+    openSidebar() {
+        this.sidebarOpen = true;
+    },
+
+    closeSidebar() {
+        this.sidebarOpen = false;
     },
 
     toggleCollapsed() {
@@ -153,6 +172,9 @@ Alpine.data('apexBarChart', ({ categories, data, tones, stacked, max }) => ({
         };
     },
 }));
+
+installMotion(Alpine);
+installInteractions(Alpine);
 
 window.Alpine = Alpine;
 Alpine.start();

@@ -1,5 +1,5 @@
 <x-layouts.guest heading="Konfirmasi kata sandi"
-                 description="Bagian ini butuh konfirmasi identitas. Masukkan kembali kata sandi Anda.">
+ description="Bagian ini butuh konfirmasi identitas. Masukkan kembali kata sandi Anda.">
     <x-auth.errors />
 
     <form method="POST" action="{{ route('password.confirm') }}" class="space-y-4">

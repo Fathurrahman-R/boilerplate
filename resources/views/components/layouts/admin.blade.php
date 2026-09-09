@@ -2,43 +2,49 @@
     'title' => null,
     'heading' => null,
     'description' => null,
+    // Dipertahankan supaya 45 halaman pemanggil tidak perlu diubah. Sidebar
+    // sudah menandai lokasi dan judul halaman mengulanginya; jejak ketiga di
+    // pita permanen tidak menambah apa pun. Halaman yang memang bertingkat
+    // tiga masih bisa memasang komponen breadcrumb sendiri di dalam kontennya.
     'breadcrumb' => [],
 ])
 
 {{--
-    Shell aplikasi: satu bidang berpadding dengan dua panel kaca yang mengambang
-    di atasnya. Sidebar dan topbar tidak pernah menempel ke tepi viewport —
-    jarak 16px di semua sisi dan 16px antar panel yang membuat kacanya terbaca
-    sebagai lapisan, bukan sebagai bagian dari halaman.
+    Shell aplikasi: tiga kolom.
+
+        [ sidebar ] [ toolbar + judul + konten ] [ panel detail ]
+
+    Satu pita chrome, bukan tiga. Judulnya mulai besar di dalam konten lalu
+    menciut ke toolbar saat digulir, jadi ia tetap terbaca setelah tergulir
+    pergi. Aksi utama tinggal di ujung toolbar — di situlah tangan sudah
+    berada, dan tempatnya tidak berpindah dari halaman ke halaman.
+
+    Kolom kontennya berhenti melebar di --page-max. Tanpa batas itu, tabel dan
+    paragraf melar sampai ujung monitor dan mata kehilangan awal baris
+    berikutnya.
 --}}
 
 <x-layouts.base :title="$title ?? $heading" backdrop="shell">
-    <div class="relative flex min-h-screen items-start gap-[var(--shell-gap)] p-[var(--shell-pad)]">
+    <div class="relative flex min-h-screen items-start gap-[var(--shell-gap)]"
+         style="padding: calc(var(--shell-pad) + var(--safe-t)) calc(var(--shell-pad) + var(--safe-r)) calc(var(--shell-pad) + var(--safe-b)) calc(var(--shell-pad) + var(--safe-l))">
+
         @include('layouts.partials.sidebar')
 
-        <main class="flex min-w-0 flex-1 flex-col gap-[var(--shell-gap)]">
-            @include('layouts.partials.topbar', ['breadcrumb' => $breadcrumb, 'heading' => $heading])
+        <main x-data="largeTitle()" x-init="titleInit()"
+              class="flex min-w-0 flex-1 flex-col gap-[var(--shell-gap)]">
 
-            @if ($heading || isset($actions))
-                <div class="flex flex-wrap items-end gap-3">
-                    <div class="min-w-[200px] flex-1">
-                        @if ($heading)
-                            <h1 class="font-display text-[27px] font-semibold text-ink">{{ $heading }}</h1>
-                        @endif
+            <x-partials.toolbar :heading="$heading" :actions="$actions ?? null" />
 
-                        @if ($description)
-                            <p class="mt-0.5 max-w-[64ch] text-base2 text-ink-muted">{{ $description }}</p>
-                        @endif
-                    </div>
+            <div class="flex w-full max-w-[var(--page-max)] flex-col gap-4">
+                @if ($heading || $description)
+                    <x-ui.page-header :heading="$heading" :description="$description" />
+                @endif
 
-                    @isset($actions)
-                        <div class="flex flex-wrap items-center gap-2">{{ $actions }}</div>
-                    @endisset
-                </div>
-            @endif
-
-            {{ $slot }}
+                {{ $slot }}
+            </div>
         </main>
+
+        <x-ui.inspector />
     </div>
 
     <x-ui.command-palette />

@@ -1,7 +1,7 @@
 @php use App\Enums\ResourceAction; @endphp
 
 <x-layouts.admin heading="Resource"
-                 description="Setiap resource menghasilkan resource key berbentuk {resource}.{aksi} yang dipakai di route, tampilan, dan menu."
+ description="Setiap resource menghasilkan resource key berbentuk {resource}.{aksi} yang dipakai di route, tampilan, dan menu."
                  :breadcrumb="['Resource' => null]">
     <x-slot:actions>
         <x-can :resource="rk('resources', ResourceAction::Create)">
@@ -88,28 +88,14 @@
                         @unless ($resource->is_locked)
                             <x-can :resource="rk('resources', ResourceAction::Delete)">
                                 <x-ui.button type="button" variant="secondary" size="xs" title="Hapus"
-                                             x-on:click="$dispatch('modal-open', 'hapus-resource-{{ $resource->id }}')">
+ x-on:click="$dispatch('confirm-delete', {
+                                            url: '{{ route('admin.resources.destroy', $resource) }}',
+                                            name: {{ Js::from($resource->key) }},
+                                            note: {{ Js::from($resource->mappings_count.' pemetaannya ikut terhapus.') }},
+                                        })">
                                     <x-ui.icon name="trash-2" class="h-4 w-4 text-danger" />
                                 </x-ui.button>
 
-                                <x-ui.modal :id="'hapus-resource-'.$resource->id" title="Hapus resource">
-                                    <p>Yakin menghapus <code>{{ $resource->key }}</code> beserta {{ $resource->mappings_count }} pemetaannya?</p>
-
-                                    <x-ui.alert variant="warning">
-                                        Permission-nya tidak ikut dihapus — bisa jadi masih dipakai key lain. Cek daftar
-                                        permission setelah ini kalau ingin membersihkannya.
-                                    </x-ui.alert>
-
-                                    <x-slot:footer>
-                                        <x-ui.button variant="secondary" type="button" x-on:click="$dispatch('modal-close', 'hapus-resource-{{ $resource->id }}')">Batal</x-ui.button>
-
-                                        <form method="POST" action="{{ route('admin.resources.destroy', $resource) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <x-ui.button variant="danger" type="submit">Hapus</x-ui.button>
-                                        </form>
-                                    </x-slot:footer>
-                                </x-ui.modal>
                             </x-can>
                         @endunless
                     </div>
@@ -119,10 +105,11 @@
             <tr>
                 <td colspan="6">
                     <x-ui.empty-state title="Belum ada resource"
-                                      description="Buat resource pertama untuk mulai memakai resource key." />
+ description="Buat resource pertama untuk mulai memakai resource key." />
                 </td>
             </tr>
         @endforelse
         <x-slot:footer>{{ $resources->links() }}</x-slot:footer>
     </x-ui.table>
+    <x-ui.confirm-delete />
 </x-layouts.admin>

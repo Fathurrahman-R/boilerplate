@@ -21,7 +21,7 @@
 
 <div role="alert"
      @if ($dismissible) x-data="{ show: true }" x-show="show" x-cloak @endif
-     {{ $attributes->class(['flex items-start gap-3 rounded-md border border-line px-4 py-3.5 text-sm text-ink', $style['bg']]) }}>
+     {{ $attributes->class(['flex items-start gap-3 rounded-md border-[0.5px] border-line px-4 py-3.5 text-sm text-ink', $style['bg']]) }}>
     <x-ui.icon :name="$style['icon']" class="mt-0.5 size-[18px] shrink-0 {{ $style['fg'] }}" />
 
     <div class="flex-1">

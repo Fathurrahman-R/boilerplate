@@ -14,13 +14,13 @@
     @endif
 
     @if ($title)
-        <h3 class="mt-3 font-display text-[26px] leading-tight font-semibold tracking-[-0.02em] text-ink sm:text-[30px]">
+        <h3 class="mt-3 text-2xl leading-tight font-semibold tracking-[-0.02em] text-ink sm:text-3xl">
             {{ $title }}
         </h3>
     @endif
 
     @if ($lead)
-        <p class="mt-2.5 max-w-[64ch] text-[15px] text-ink-secondary">{{ $lead }}</p>
+        <p class="mt-2.5 max-w-[64ch] text-body text-ink-secondary">{{ $lead }}</p>
     @endif
 
     <div @class(['mt-6' => $title || $lead || $eyebrow])>

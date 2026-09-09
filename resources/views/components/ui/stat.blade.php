@@ -9,11 +9,11 @@
 
 {{--
     Kartu metrik: label mono huruf besar, angka besar dengan digit tabular,
-    lalu perubahannya. Versi kaca hanya masuk akal di atas latar bertekstur —
-    setel :glass="false" kalau ditaruh di dalam card biasa.
+ lalu perubahannya. Versi kaca hanya masuk akal di atas latar bertekstur —
+ setel :glass="false" kalau ditaruh di dalam card biasa.
 
     $trend: 'up' | 'down' | 'flat'. Warna hanya dipakai kalau arahnya memang
-    punya arti; 'flat' sengaja abu-abu.
+ punya arti; 'flat' sengaja abu-abu.
 --}}
 
 @php
@@ -26,11 +26,12 @@
     $style = $trends[$trend] ?? null;
 @endphp
 
-<div {{ $attributes->class([
-    'rounded-lg p-[18px]',
-    'glass' => $glass,
-    'border border-line bg-surface-raised shadow-lift' => ! $glass,
-]) }}>
+<div @if ($glass) data-mat="thin" @endif
+     {{ $attributes->class([
+         'rounded-xl p-4',
+         'material' => $glass,
+         'border-[0.5px] border-line bg-surface-raised shadow-sm' => ! $glass,
+     ]) }}>
     <div class="flex items-start justify-between gap-3">
         <span class="eyebrow">{{ $label }}</span>
 
@@ -39,10 +40,10 @@
         @endif
     </div>
 
-    <div class="mt-[7px] font-display text-[26px] leading-tight font-semibold tabular-nums text-ink">{{ $value }}</div>
+    <div class="num mt-1.5 text-3xl font-semibold text-ink">{{ $value }}</div>
 
     @if ($delta)
-        <div class="mt-[3px] flex items-center gap-1.5 text-sm2 {{ $style['fg'] ?? 'text-ink-muted' }}">
+        <div class="mt-1 flex items-center gap-1.5 text-sm {{ $style['fg'] ?? 'text-ink-muted' }}">
             @if ($style)
                 <x-ui.icon :name="$style['icon']" class="size-3.5" />
             @endif

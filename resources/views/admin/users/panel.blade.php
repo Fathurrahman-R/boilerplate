@@ -2,7 +2,7 @@
 
 {{--
     Fragmen panel detail. Dikembalikan tanpa layout dan disisipkan drawer, jadi
-    di sini tidak boleh ada <x-layouts.*>, <head>, atau skrip.
+ di sini tidak boleh ada <x-layouts.*>, <head>, atau skrip.
 --}}
 
 <div class="flex flex-col gap-5">
@@ -13,8 +13,8 @@
         </span>
 
         <div class="min-w-0 flex-1">
-            <div class="truncate font-display text-base font-semibold text-ink">{{ $user->name }}</div>
-            <div class="truncate text-sm2 text-ink-muted">{{ $user->email }}</div>
+            <div class="truncate text-base font-semibold text-ink">{{ $user->name }}</div>
+            <div class="truncate text-sm text-ink-muted">{{ $user->email }}</div>
         </div>
 
         <x-ui.badge :variant="$user->is_active ? 'success' : 'danger'" dot>
@@ -22,7 +22,7 @@
         </x-ui.badge>
     </div>
 
-    <dl class="flex flex-col gap-3.5 text-base2">
+    <dl class="flex flex-col gap-3.5 text-base">
         <div class="flex gap-3.5">
             <dt class="w-[120px] shrink-0 text-ink-muted">Role</dt>
             <dd class="flex flex-wrap gap-1">

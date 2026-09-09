@@ -35,11 +35,11 @@ return [
     'screens' => [
         'dashboard' => [
             'title' => 'Dashboard analitik',
-            'summary' => 'Shell aplikasi · sidebar kaca · baris metrik · tabel',
+            'summary' => 'Shell aplikasi · sidebar · toolbar · baris metrik · tabel',
         ],
         'landing' => [
             'title' => 'SaaS landing page',
-            'summary' => 'Hero kaca · fitur · harga · penutup',
+            'summary' => 'Hero · fitur · harga · penutup',
         ],
         'internal-tool' => [
             'title' => 'Internal tool',

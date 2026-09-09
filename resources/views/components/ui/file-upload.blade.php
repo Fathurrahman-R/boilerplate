@@ -17,15 +17,15 @@
     @endif
 
     {{-- Tombol dan nama berkas dipisah supaya keduanya tetap terbaca; tampilan
-         bawaan browser berbeda-beda dan sering terpotong. --}}
+ bawaan browser berbeda-beda dan sering terpotong. --}}
     <label for="{{ $id }}"
            @class([
-               'flex h-control cursor-pointer items-center gap-3 rounded-md border bg-surface-sunken pe-3 text-sm shadow-well transition',
-               'focus-within:border-accent focus-within:ring-3 focus-within:ring-accent-soft',
+               'flex h-control cursor-pointer items-center gap-3 rounded-md border bg-fill-4 pe-3 text-sm transition',
+               'focus-within:border-accent focus-within:shadow-[var(--focus-ring)]',
                'border-line' => ! $invalid,
                'border-danger' => $invalid,
            ])>
-        <span class="flex h-full shrink-0 items-center gap-2 rounded-s-md border-e border-line bg-[image:var(--mat-raised)] px-3.5 font-medium whitespace-nowrap text-ink shadow-[var(--bevel)]">
+        <span class="flex h-full shrink-0 items-center gap-2 rounded-s-md border-e border-line bg-fill-3 px-3.5 font-medium whitespace-nowrap text-ink ">
             <x-ui.icon name="upload" class="size-4 shrink-0" />
             Pilih berkas
         </span>
@@ -33,10 +33,10 @@
         <span class="min-w-0 flex-1 truncate text-ink-muted" x-text="fileName || 'Belum ada berkas dipilih'"></span>
 
         <input type="file"
-               id="{{ $id }}"
-               name="{{ $name }}"
-               class="sr-only"
-               x-on:change="fileName = $event.target.files[0]?.name ?? ''"
+ id="{{ $id }}"
+ name="{{ $name }}"
+ class="sr-only"
+ x-on:change="fileName = $event.target.files[0]?.name ?? ''"
                @if ($accept) accept="{{ $accept }}" @endif
                @if ($invalid) aria-invalid="true" aria-describedby="{{ $id }}-error" @endif
                {{ $attributes }}>

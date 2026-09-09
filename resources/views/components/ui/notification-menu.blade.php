@@ -22,7 +22,8 @@
 
     <button type="button" x-ref="trigger" x-on:click="open = !open"
             :aria-expanded="open" aria-haspopup="menu"
-            class="relative inline-flex size-[34px] items-center justify-center rounded-md border border-line-strong bg-[image:var(--mat-raised)] text-ink-secondary shadow-[var(--bevel),var(--lift)] transition hover:brightness-95 active:translate-y-px active:shadow-press focus-visible:ring-3 focus-visible:ring-accent-soft focus-visible:outline-none">
+            x-data="pressable()" x-bind="pressBind"
+            class="relative inline-flex size-9 items-center justify-center rounded-md bg-fill-3 text-ink-secondary outline-none focus-visible:shadow-[var(--focus-ring)]">
         <span class="sr-only">Notifikasi</span>
         <x-ui.icon name="bell" class="size-[17px]" />
 
@@ -33,30 +34,34 @@
     </button>
 
     <div role="menu" x-show="open" x-cloak
-         x-transition:enter="transition duration-160 ease-out"
-         x-transition:enter-start="translate-y-2 opacity-0"
-         class="absolute end-0 top-full z-50 mt-1.5 w-[320px] overflow-hidden rounded-lg border border-line bg-surface-raised shadow-lg">
+         x-spring="{ from: { opacity: 0, scale: 0.94, y: -4, filter: 'blur(8px)' },
+                     to:   { opacity: 1, scale: 1,    y: 0,  filter: 'blur(0px)' },
+                     token: 'sheet', exitToken: 'overlay', origin: 'bottom-end' }"
+         data-mat="thin"
+         class="material absolute end-0 top-full z-50 mt-1.5 w-[320px] overflow-hidden rounded-lg">
 
-        <div class="border-b border-line px-3.5 py-3 text-base2 font-semibold text-ink">Notifikasi</div>
+        <div class="vibrant px-3.5 py-3 text-base font-semibold">Notifikasi</div>
 
         @forelse ($items as $item)
             <a @if ($item['url'] ?? null) href="{{ $item['url'] }}" @endif
-               class="flex gap-2.5 border-b border-line px-3.5 py-3 transition hover:bg-surface-inset">
+               class="relative flex gap-2.5 px-3.5 py-3 transition-colors duration-[--dur-fast] hover:bg-fill-3
+                      not-first:before:absolute not-first:before:inset-x-3.5 not-first:before:top-0
+                      not-first:before:h-px not-first:before:bg-line not-first:before:content-['']">
                 <x-ui.icon :name="$item['icon'] ?? 'info'"
                            class="mt-px size-4 shrink-0 {{ $tones[$item['tone'] ?? 'muted'] ?? $tones['muted'] }}" />
                 <div class="min-w-0 flex-1">
-                    <div class="text-base2 text-ink">{{ $item['text'] }}</div>
+                    <div class="text-base text-ink">{{ $item['text'] }}</div>
                     @if ($item['time'] ?? null)
-                        <div class="mt-0.5 text-xs2 text-ink-muted">{{ $item['time'] }}</div>
+                        <div class="mt-0.5 text-xs text-ink-muted">{{ $item['time'] }}</div>
                     @endif
                 </div>
             </a>
         @empty
-            <p class="px-3.5 py-6 text-center text-base2 text-ink-muted">Belum ada notifikasi.</p>
+            <p class="px-3.5 py-6 text-center text-base text-ink-muted">Belum ada notifikasi.</p>
         @endforelse
 
         @if ($url)
-            <a href="{{ $url }}" class="block px-3.5 py-2.5 text-center text-base2 font-medium text-accent transition hover:bg-surface-inset">
+            <a href="{{ $url }}" class="block px-3.5 py-2.5 text-center text-base font-medium text-accent transition hover:bg-fill-3">
                 Lihat semua
             </a>
         @endif

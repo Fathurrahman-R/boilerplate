@@ -10,7 +10,7 @@
             <span class="mt-[7px] size-2 shrink-0 rounded-full {{ $loop->first ? 'bg-accent' : 'bg-line-strong' }}"></span>
 
             <div class="min-w-0 flex-1">
-                <p class="text-base2 text-ink">{{ $item['text'] }}</p>
+                <p class="text-base text-ink">{{ $item['text'] }}</p>
 
                 @if ($item['time'] ?? null)
                     <p class="mt-0.5 text-xs text-ink-muted">{{ $item['time'] }}</p>

@@ -19,13 +19,13 @@
 --}}
 
 <tr @if ($panel)
-        x-on:click="$event.target.closest('[data-row-action]') || $dispatch('drawer-remote-open', @js($panel))"
+        x-on:click="$event.target.closest('[data-row-action]') || $dispatch('inspector-open', @js($panel))"
     @endif
     @if ($id !== null)
         :class="has(@js($id)) && 'bg-accent-soft'"
     @endif
     {{ $attributes->class([
-        'border-t border-line transition-colors duration-140 first:border-t-0 hover:bg-surface-inset',
+        'border-t-[0.5px] border-line transition-colors duration-[--dur-fast] first:border-t-0 hover:bg-fill-4',
         'cursor-pointer' => (bool) $panel,
     ]) }}>
 

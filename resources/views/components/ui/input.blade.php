@@ -35,10 +35,10 @@
                @required($required)
                @if ($invalid) aria-invalid="true" aria-describedby="{{ $id }}-error" @endif
                {{ $attributes->class([
-                   'block h-control w-full rounded-md border bg-surface-sunken px-3 text-sm text-ink shadow-well',
-                   'outline-none transition placeholder:text-ink-muted',
-                   'focus:border-accent focus:ring-3 focus:ring-accent-soft',
-                   'disabled:cursor-not-allowed disabled:opacity-60',
+                   'block h-control w-full rounded-md border-[0.5px] bg-fill-4 px-3 text-base text-ink',
+                   'outline-none transition-colors duration-[--dur-fast] placeholder:text-ink-quaternary',
+                   'focus:bg-surface-raised focus:shadow-[var(--focus-ring)]',
+                   'disabled:cursor-not-allowed disabled:opacity-50',
                    'ps-10' => (bool) $prefix,
                    'border-line' => ! $invalid,
                    'border-danger' => $invalid,

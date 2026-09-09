@@ -1,4 +1,4 @@
-# Laravel Boilerplate — Auth + RBAC Resource Key + RizzxxUI
+# Laravel Boilerplate — Auth + RBAC Resource Key + UI
 
 Titik awal untuk project Laravel baru: autentikasi lengkap, kontrol akses berbasis peran yang bisa diatur dari UI, dan design system sendiri yang dokumentasinya hidup di dalam aplikasi.
 
@@ -182,11 +182,11 @@ return $table->download(fn (Laporan $item): array => [
 
 ## Design system
 
-Lapisan visualnya bernama **RizzxxUI**. Dokumentasinya bukan berkas terpisah yang bisa basi — ia halaman di dalam aplikasi ini, dirender dari komponen yang sama dengan yang dipakai panel admin:
+Dokumentasinya bukan berkas terpisah yang bisa basi — ia halaman di dalam aplikasi ini, dirender dari komponen yang sama dengan yang dipakai panel admin:
 
 | URL | Isi |
 |---|---|
-| `/design-system` | Prinsip, warna, tipografi, spacing, permukaan & kaca, material, motion, ikon |
+| `/design-system` | Prinsip, warna, tipografi, spacing, permukaan, material, motion, gesture, ikon |
 | `/design-system/komponen` | Seluruh komponen beserta varian dan potongan kode pemakaiannya |
 | `/design-system/pola` | Pola layout, voice & tone, dan panduan token untuk developer |
 | `/design-system/layar/…` | Lima layar bukti: dashboard, landing, internal tool, settings, auth |
@@ -204,8 +204,8 @@ Prototipe asalnya ada di `document/design-system/` sebagai rujukan; yang berlaku
 Semua warna hidup sebagai CSS variable di `resources/css/app.css`, lalu dipetakan ke nama Tailwind di blok `@theme`. Tema berganti lewat atribut `data-theme` di `<html>` — **tidak ada satu pun kelas `dark:`** di seluruh view.
 
 ```css
-:root            { --surface-raised: #FFFFFF; --accent: #3D5FE0; }
-:root[data-theme='dark'] { --surface-raised: #131923; --accent: #4F7CFF; }
+:root            { --surface-raised: #ffffff; --accent: #0a66d6; }
+:root[data-theme='dark'] { --surface-raised: #1c1c1e; --accent: #0a84ff; }
 
 @theme inline {
     --color-surface-raised: var(--surface-raised);
@@ -213,22 +213,28 @@ Semua warna hidup sebagai CSS variable di `resources/css/app.css`, lalu dipetaka
 }
 ```
 
-Menyesuaikan tema untuk satu klien biasanya cukup mengganti `--accent`, `--accent-hover`, `--accent-soft`, `--accent-on`, dan `--mat-accent` di kedua blok.
+Menyesuaikan tema untuk satu klien biasanya cukup mengganti `--accent`, `--accent-vivid`, `--accent-hover`, `--accent-soft`, dan `--accent-on` di kedua blok.
 
-Utility yang perlu diingat: `glass` · `mat-raised` `mat-base` `mat-panel` `mat-well` `mat-press` · `bg-shell` `bg-grid` `bg-grid-tight` `bg-noise` `bg-glow` · `num` · `eyebrow` · `form-check` `form-select` · `skeleton-line`.
+Fontnya stack sistem platform, tanpa satu pun font web: font sistem sudah membawa optical sizing dan tabel tracking-nya sendiri. Skala ukurannya ditulis dalam `rem` dan setiap ukuran membawa tracking serta leading-nya masing-masing — teks besar bertracking negatif, teks kecil sedikit positif.
 
-**Aturan kaca.** Blur hanya untuk lapisan yang mengambang di atas latar bertekstur — sidebar, topbar, hero, kartu metrik. Tabel, form, dan teks panjang selalu di permukaan solid. Kaca di atas warna rata cuma jadi kotak abu-abu, jadi latar bertekstur di `layouts/base` bukan hiasan melainkan syarat.
+Utility yang perlu diingat: `material` (+ atribut `data-mat`) · `vibrant` `vibrant-secondary` · `scroll-edge` `scroll-edge-x` · `page` `measure` · `bg-shell` `bg-glow` · `num` · `eyebrow` · `form-check` `form-select` · `skeleton-line`.
+
+**Aturan material.** Lima tingkat — `ultrathin`, `thin`, `regular`, `thick`, `chrome` — dipilih lewat atribut `data-mat` pada elemen ber-`.material`. Bobotnya menyampaikan hierarki: makin struktural sebuah wilayah, makin tebal materialnya, dan permukaan yang lebih besar memang terbaca lebih tebal. Satu aturan CSS menegakkan sisanya — material di dalam material otomatis jadi padat, karena menumpuk lapisan translusen terang di atas lapisan translusen terang membuat teks di atasnya berhenti terbaca. Tabel, form, dan teks panjang selalu di permukaan padat.
 
 Latarnya dipilih lewat prop `backdrop` di `<x-layouts.base>`:
 
 | Nilai | Dipakai | Isi |
 |---|---|---|
-| `page` (bawaan) | landing, auth, dokumentasi | `bg-surface` + grid 32px + noise |
-| `shell` | seluruh halaman aplikasi | `bg-shell` (bidang `mat-base` + semburat aksen) + grid 24px + noise |
+| `page` (bawaan) | landing, auth, dokumentasi | `bg-surface` rata |
+| `shell` | seluruh halaman aplikasi | `bg-shell` — dua semburat sangat lembut, supaya material punya sesuatu untuk dibiaskan |
 
-**Aturan material.** Yang menonjol bisa ditekan (`mat-raised`, bayangan `bevel` + `lift`), yang cekung bisa diisi (`mat-well`), dan konten selalu datar. Satu sumber cahaya, selalu dari atas. Bidang yang menaungi sekelompok kontrol memakai `mat-panel` — bayangannya `lift-lg`, satu tingkat di atas tombol yang ada di dalamnya. Tidak ada kedalaman di baris tabel dan tidak ada emboss di teks; keduanya menggagalkan kontras AA.
+**Aturan gerak.** Semua gerak digerakkan spring di JavaScript (`resources/js/motion/`), bukan transisi CSS berdurasi tetap. Enam token — `snap`, `move`, `sheet`, `throw`, `pop`, `overlay` — masing-masing sepasang angka: seberapa jauh ia melewati target, dan seberapa cepat ia sampai. Yang penting bukan daftarnya, melainkan tiga sifatnya: animasi selalu berangkat dari nilai yang **sedang tampil** sehingga apa pun bisa ditangkap dan dibalik di tengah jalan; kecepatan jari saat dilepas diserahkan ke spring yang menyusul; dan masuk-keluar memakai satu pasang nilai, jadi mustahil mengirim transisi yang cuma punya arah masuk. Directive `x-spring` menggantikan `x-transition`.
 
-**Sidebar yang diciutkan.** Lebarnya dipegang `--shell-sidebar` di `<html>`, bukan Alpine, supaya sudah benar sebelum halaman digambar. Nilainya adalah ruang yang dipesan di tepi kiri: panel kaca mengambang dengan jarak 12px di kiri dan kanan, jadi rail 68px yang diminta design system tercatat sebagai `calc(var(--rail-w) + 1.5rem)`. Ubah `--rail-w` kalau ikonnya perlu ruang lebih.
+**Gesture.** Drawer, sidebar mobile, modal, toast, segmented, dan toggle semuanya bisa diseret: mengikuti jari 1:1, melawan makin kuat di luar batas, dan menentukan hasil dari ke mana gerakan itu *menuju* — bukan dari tempat jari kebetulan berhenti.
+
+**Sidebar yang diciutkan.** Lebarnya dipegang `--shell-sidebar` di `<html>`, bukan Alpine, supaya sudah benar sebelum halaman digambar. Ubah `--rail-w` kalau ikonnya perlu ruang lebih.
+
+**Preferensi sistem.** Tiga sinyal ditangani terpisah. `prefers-reduced-motion` menghilangkan *perpindahan posisi*, bukan umpan baliknya — tombol tetap bereaksi saat ditekan, tuas tetap bisa diseret, spinner tetap berputar. `prefers-reduced-transparency` memadatkan seluruh material. `prefers-contrast: more` menggelapkan separator dan memberi garis luar ke tiap kontrol.
 
 ### Komponen
 
@@ -260,7 +266,7 @@ Komponen form membaca `$errors` sendiri — cukup sebut `name`, pesan validasiny
 <x-ui.input name="judul" label="Judul" required />
 ```
 
-Layout: `<x-layouts.admin>` (sidebar kaca + topbar + breadcrumb), `<x-layouts.guest>` (kartu terpusat untuk flow auth pendek/sensitif — 2FA, reset kata sandi), `<x-layouts.guest-split>` (form + panel kepercayaan kaca, dipakai Masuk/Daftar), `<x-layouts.docs>` (halaman dokumentasi).
+Layout: `<x-layouts.admin>` (shell tiga kolom — sidebar, toolbar tunggal dengan judul yang menciut saat digulir, dan panel detail yang jadi kolom di layar lebar), `<x-layouts.guest>` dan `<x-layouts.guest-split>` (kolom sempit terpusat untuk seluruh flow auth), `<x-layouts.docs>` (halaman dokumentasi).
 
 **Perilaku dinamis memakai Alpine, bukan pustaka UI.** Tidak ada langkah re-init setelah DOM berubah. Modal dan drawer dibuka dengan event:
 
@@ -328,7 +334,7 @@ config/
   resources.php                         ← role super admin, cache, log
   navigation.php                        ← menu sidebar
 resources/views/
-  components/ui/                        ← pustaka komponen RizzxxUI
+  components/ui/                        ← pustaka komponen
   components/docs/                      ← komponen halaman dokumentasi
   design-system/                        ← dokumentasi + lima layar contoh
   components/layouts/                   ← layout admin & tamu

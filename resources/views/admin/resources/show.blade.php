@@ -68,7 +68,7 @@
             <div>
                 <p class="mb-1 font-medium text-ink">Menjaga route</p>
 <pre class="overflow-x-auto rounded-md border border-line bg-code p-4 font-mono text-xs text-code-ink"><code>Route::get('/{{ $resource->key }}', ...)
-    -&gt;middleware('resource:{{ $resource->key }}.{{ ResourceAction::View->value }}');</code></pre>
+ -&gt;middleware('resource:{{ $resource->key }}.{{ ResourceAction::View->value }}');</code></pre>
             </div>
 
             <div>

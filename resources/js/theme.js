@@ -19,7 +19,21 @@ export function currentTheme() {
 }
 
 export function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
+    const root = document.documentElement;
+
+    // Perpindahan terang-gelap di-ease, bukan melompat: lompatan kecerahan
+    // sebesar ini menyakitkan mata di ruangan gelap. Kelasnya dilepas lagi
+    // setelah transisinya selesai supaya tidak ikut memperlambat perubahan
+    // warna lain sepanjang sisa sesi.
+    const ease = ! window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (ease) {
+        root.classList.add('theme-x');
+        clearTimeout(applyTheme.timer);
+        applyTheme.timer = setTimeout(() => root.classList.remove('theme-x'), 280);
+    }
+
+    root.setAttribute('data-theme', theme);
     localStorage.setItem(STORAGE_KEY, theme);
     document.dispatchEvent(new CustomEvent('theme:changed', { detail: { theme } }));
 }

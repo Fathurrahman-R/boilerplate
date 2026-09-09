@@ -2,7 +2,7 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "boilerplate/laravel-admin",
     "type": "project",
-    "description": "Boilerplate Laravel: auth, RBAC berbasis resource key, dan design system RizzxxUI.",
+    "description": "Boilerplate Laravel: auth, RBAC berbasis resource key, dan design system bawaan.",
     "keywords": [
         "laravel",
         "boilerplate",
